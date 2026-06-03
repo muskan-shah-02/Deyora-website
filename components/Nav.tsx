@@ -26,6 +26,16 @@ export default function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
+  // Escape key closes the mobile menu — a11y basic
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <>
       <nav
@@ -47,32 +57,42 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <a
-            href="https://dokydoc.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/book-a-demo"
             className="ml-3 inline-flex items-center bg-white text-black font-mono text-[11px] font-medium uppercase tracking-[0.12em] px-6 py-2.5 hover:bg-[#E8E8E8] transition-colors"
           >
-            See DokyDoc
-          </a>
+            Book a Demo
+          </Link>
         </div>
 
         <button
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
           onClick={() => setOpen((s) => !s)}
           className="lg:hidden flex flex-col justify-center gap-[5px] w-7 h-7 z-[1100]"
         >
           <span
-            className={`block h-px w-full bg-white transition-transform ${open ? "translate-y-[6px] rotate-45" : ""}`}
+            className={`block h-px w-full bg-white transition-transform ${
+              open ? "translate-y-[6px] rotate-45" : ""
+            }`}
           />
-          <span className={`block h-px w-full bg-white transition-opacity ${open ? "opacity-0" : ""}`} />
           <span
-            className={`block h-px w-full bg-white transition-transform ${open ? "-translate-y-[6px] -rotate-45" : ""}`}
+            className={`block h-px w-full bg-white transition-opacity ${open ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-px w-full bg-white transition-transform ${
+              open ? "-translate-y-[6px] -rotate-45" : ""
+            }`}
           />
         </button>
       </nav>
 
       <div
+        id="mobile-nav"
+        role="dialog"
+        aria-modal={open}
+        aria-label="Site navigation"
         className={`fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 bg-black/98 backdrop-blur-2xl transition-opacity ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
@@ -87,15 +107,13 @@ export default function Nav() {
             {l.label}
           </Link>
         ))}
-        <a
-          href="https://dokydoc.com/"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/book-a-demo"
           onClick={() => setOpen(false)}
           className="btn-primary mt-4"
         >
-          See DokyDoc
-        </a>
+          Book a Demo
+        </Link>
       </div>
     </>
   );

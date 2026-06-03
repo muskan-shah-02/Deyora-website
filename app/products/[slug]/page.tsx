@@ -41,7 +41,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </Reveal>
           <Reveal delay={200}>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Link href="/contact" className="btn-primary">Join the Waitlist</Link>
+              <Link href="/book-a-demo" className="btn-primary">Join the Waitlist</Link>
               <Link href="/products" className="btn-secondary">All Products →</Link>
             </div>
           </Reveal>
@@ -115,12 +115,19 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
           <Reveal delay={300}>
             <div className="flex flex-wrap gap-4">
+              <Link href="/book-a-demo" className="btn-primary">
+                Book a Demo
+              </Link>
               {product.externalUrl && (
-                <a href={product.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  See {product.name} in Action
+                <a
+                  href={product.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  Visit {product.name} →
                 </a>
               )}
-              <a href="#metrics" className="btn-secondary">Calculate Wasted Hours →</a>
             </div>
           </Reveal>
         </div>
@@ -310,12 +317,12 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </Reveal>
           <Reveal delay={200}>
             <div className="flex justify-center gap-4 flex-wrap">
-              {product.externalUrl && (
-                <a href={product.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  Request a Demo
-                </a>
-              )}
-              <Link href="/contact" className="btn-secondary">Drop a PRD — Try It Free →</Link>
+              <Link href="/book-a-demo" className="btn-primary">
+                Book a Demo
+              </Link>
+              <Link href="/contact" className="btn-secondary">
+                Drop a PRD — Try It Free →
+              </Link>
             </div>
           </Reveal>
         </div>

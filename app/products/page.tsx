@@ -33,7 +33,7 @@ export default function ProductsPage() {
         <div className="container-deyora grid lg:grid-cols-2 gap-6">
           {products.map((p, i) => (
             <Reveal key={p.slug} delay={i * 100}>
-              <ProductCard product={p} index={i} />
+              <ProductCard product={p} index={i} total={products.length} />
             </Reveal>
           ))}
         </div>
