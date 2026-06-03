@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Product } from "@/lib/products";
 
 const statusStyles: Record<Product["status"], string> = {
-  live: "border-white text-white",
+  live: "border-accent-success/60 text-accent-success",
   beta: "border-accent-blue-soft text-accent-blue-soft",
-  upcoming: "border-ink-tertiary text-ink-tertiary",
+  upcoming: "border-strong text-ink-secondary",
 };
 const statusLabel: Record<Product["status"], string> = {
   live: "Live",
@@ -56,11 +56,11 @@ export default function ProductCard({
           </span>
         </div>
 
-        <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-secondary mb-3">
+        <div className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-secondary mb-3">
           {product.category}
         </div>
         <h3 className="display text-3xl md:text-4xl text-white mb-4">{product.name}</h3>
-        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent-blue-soft mb-6">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent-blue-soft mb-6">
           {product.tagline}
         </p>
         <p className="font-sans font-light text-[15px] leading-relaxed text-ink-secondary mb-8 max-w-[440px]">
@@ -68,13 +68,13 @@ export default function ProductCard({
         </p>
 
         {!disabled && (
-          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-white">
+          <span className="inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-white">
             Explore Product
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </span>
         )}
         {disabled && (
-          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-tertiary">
+          <span className="inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-secondary">
             Join the Waitlist —
           </span>
         )}

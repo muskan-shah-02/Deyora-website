@@ -2,20 +2,21 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
 import Marquee from "@/components/Marquee";
-import ProductCard from "@/components/ProductCard";
 import ProblemBlock from "@/components/ProblemBlock";
 import HowItWorks from "@/components/HowItWorks";
+import ProofBlock from "@/components/ProofBlock";
+import IntegrationGrid from "@/components/IntegrationGrid";
 import PersonaRow from "@/components/PersonaRow";
 import CostCalculator from "@/components/CostCalculator";
 import AlphaBanner from "@/components/AlphaBanner";
 import TrustStrip from "@/components/TrustStrip";
-import { products } from "@/lib/products";
-import { company } from "@/lib/company";
+
+const DOKYDOC_URL = "https://dokydoc.com/";
 
 export default function Home() {
   return (
     <>
-      {/* HERO — problem-led, not vibes-led */}
+      {/* HERO */}
       <section className="relative min-h-screen w-full overflow-hidden flex items-center pt-[68px] pb-20">
         <video
           autoPlay
@@ -32,7 +33,7 @@ export default function Home() {
           className="absolute inset-0 z-[1]"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.78) 100%)",
+              "linear-gradient(135deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.62) 50%, rgba(0,0,0,0.82) 100%)",
           }}
         />
         <div className="absolute inset-y-0 right-0 w-1/2 z-[1] grid-texture pointer-events-none">
@@ -43,7 +44,7 @@ export default function Home() {
           <Reveal>
             <div className="inline-flex items-center gap-3 border border-strong px-5 py-2 mb-10">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-dot" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-secondary">
+              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-secondary">
                 DokyDoc by Deyora Intelligence — Private Alpha
               </span>
             </div>
@@ -59,11 +60,10 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary max-w-[620px] mb-12">
+            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary max-w-[640px] mb-12">
               <strong className="text-white font-medium">DokyDoc</strong> reads your PRDs and your
               codebase, maps every requirement to the functions that implement it, and shows you —
-              in real time — exactly where they disagree. Built by{" "}
-              <strong className="text-white font-medium">Deyora Intelligence</strong>.
+              in real time — exactly where they disagree.
             </p>
           </Reveal>
 
@@ -72,20 +72,37 @@ export default function Home() {
               <Link href="/book-a-demo" className="btn-primary">
                 Book a Demo
               </Link>
-              <Link href="#how-it-works" className="btn-secondary">
-                See How It Works →
-              </Link>
+              <a
+                href={DOKYDOC_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary inline-flex items-center gap-2"
+              >
+                Open DokyDoc Live
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-3.5 h-3.5 fill-none stroke-current"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M7 17L17 7M17 7H8M17 7V16"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             </div>
           </Reveal>
 
           <Reveal delay={400}>
-            <div className="mt-14 flex flex-wrap items-center gap-6 max-w-xl">
+            <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-6 max-w-2xl">
               {[
-                { k: "Specs analyzed", v: "PRDs, BRDs, Confluence, Notion" },
-                { k: "Repos supported", v: "GitHub, GitLab" },
+                { k: "Specs analyzed", v: "PRDs · Confluence · Notion" },
+                { k: "Repos supported", v: "GitHub · GitLab" },
                 { k: "Response time", v: "≤ 1 business day" },
               ].map((m) => (
-                <div key={m.k} className="flex-1 min-w-[160px]">
+                <div key={m.k}>
                   <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-tertiary mb-2">
                     {m.k}
                   </div>
@@ -95,16 +112,9 @@ export default function Home() {
             </div>
           </Reveal>
         </div>
-
-        <div className="hidden md:flex absolute bottom-10 left-16 z-[2] items-center gap-3">
-          <span className="w-10 h-px bg-ink-tertiary" />
-          <span className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-tertiary">
-            Scroll to Explore
-          </span>
-        </div>
       </section>
 
-      {/* MARQUEE — removed misleading "97% AI cost reduction" claim */}
+      {/* MARQUEE */}
       <Marquee
         items={[
           "TRACEABILITY →",
@@ -116,23 +126,36 @@ export default function Home() {
         ]}
       />
 
-      {/* PROBLEM */}
+      {/* 1. THE PROBLEM */}
       <ProblemBlock />
 
-      {/* HOW IT WORKS */}
+      {/* 2. THE PROOF — visual break, blue-tinted background, mock dashboard */}
+      <ProofBlock />
+
+      {/* 3. HOW IT WORKS — 3 steps */}
       <HowItWorks />
 
-      {/* WHO IT'S FOR — personas */}
+      {/* 4. INTEGRATIONS — plugs into your existing stack */}
+      <IntegrationGrid />
+
+      {/* 5. WHO IT'S FOR — personas */}
       <PersonaRow />
 
-      {/* ROI CALCULATOR */}
-      <section className="bg-bg-secondary py-32 md:py-36 border-t border-subtle" id="roi">
+      {/* 6. THE MATH — ROI calculator */}
+      <section
+        className="py-24 md:py-28 border-t border-subtle"
+        style={{
+          background:
+            "linear-gradient(180deg, #000 0%, #06080F 50%, #000 100%)",
+        }}
+        id="roi"
+      >
         <div className="container-deyora">
           <Reveal>
             <SectionLabel>The Math</SectionLabel>
           </Reveal>
           <Reveal>
-            <h2 className="display text-4xl md:text-6xl text-white mb-6 max-w-3xl">
+            <h2 className="display text-4xl md:text-5xl lg:text-6xl text-white mb-6 max-w-3xl">
               See the cost of staying<br />
               with the status quo.
             </h2>
@@ -149,82 +172,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRIVATE ALPHA — turns "no customers yet" into urgency */}
+      {/* 7. WHY NOW — Private Alpha framing */}
       <AlphaBanner />
 
-      {/* SECURITY & TRUST */}
+      {/* 8. SECURITY & TRUST */}
       <TrustStrip />
 
-      {/* OPERATING PRINCIPLES — short, lower in the page */}
-      <section className="bg-bg-secondary py-32 md:py-36 border-t border-subtle">
-        <div className="container-deyora">
-          <Reveal>
-            <SectionLabel>Who's Building This</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-4xl md:text-6xl text-white mb-6 max-w-3xl">
-              The non-negotiables<br />
-              of every Deyora product.
-            </h2>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="font-sans font-light text-[16px] text-ink-secondary max-w-2xl mb-16">
-              Deyora Intelligence is the company building DokyDoc. These four commitments hold
-              across every product we ship.
-            </p>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 -mt-px -ml-px">
-            {company.principles.map((p, i) => (
-              <Reveal key={p.number} delay={i * 80}>
-                <div className="border-l border-t border-subtle p-8 md:p-10 h-full">
-                  <div className="font-mono text-[11px] tracking-[0.14em] text-ink-tertiary mb-5">
-                    {p.number}
-                  </div>
-                  <h3 className="display text-xl md:text-2xl text-white mb-3 leading-tight">
-                    {p.title}
-                  </h3>
-                  <p className="font-sans font-light text-[14px] leading-relaxed text-ink-secondary">
-                    {p.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS */}
-      <section className="bg-bg-primary py-32 md:py-36 border-t border-subtle" id="products">
-        <div className="container-deyora">
-          <Reveal>
-            <SectionLabel>The Product Portfolio</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-4xl md:text-6xl text-white mb-6">
-              One mission. A growing<br />
-              portfolio of products.
-            </h2>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="font-sans font-light text-[16px] text-ink-secondary max-w-2xl mb-16">
-              Each Deyora product attacks a specific failure in the software delivery lifecycle.
-              DokyDoc is the first. The next is in build.
-            </p>
-          </Reveal>
-
-          <div className="grid lg:grid-cols-2 gap-6">
-            {products.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 100}>
-                <ProductCard product={p} index={i} total={products.length} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FINAL CTA */}
-      <section className="bg-bg-primary py-40 text-center border-t border-subtle">
+      <section className="bg-bg-primary py-32 md:py-36 text-center border-t border-subtle">
         <div className="container-deyora">
           <Reveal>
             <SectionLabel className="justify-center">Stop guessing. Start proving.</SectionLabel>
@@ -246,9 +201,14 @@ export default function Home() {
               <Link href="/book-a-demo" className="btn-primary">
                 Book a Demo
               </Link>
-              <Link href="/products/dokydoc" className="btn-secondary">
-                Explore DokyDoc →
-              </Link>
+              <a
+                href={DOKYDOC_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary inline-flex items-center gap-2"
+              >
+                Open DokyDoc Live ↗
+              </a>
             </div>
           </Reveal>
         </div>
