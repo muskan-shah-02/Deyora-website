@@ -1,16 +1,21 @@
 <!--
   Netlify Forms detection file.
   Netlify scans static HTML at build time to register forms.
-  Because the real form is rendered by React/JS, we duplicate its field
+  Because the real form is rendered by React/JS, we mirror its field
   definitions here so Netlify can detect them. Do not link to this file.
+
+  After first deploy, configure email notification:
+    Netlify dashboard → Site → Forms → Notifications → Add notification
+    Type: Email notification → muskan@deyoraintelligence.com
 -->
 <!doctype html>
 <html>
   <body>
     <form name="demo-request" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
-      <input type="email" name="email" />
       <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
       <input type="text" name="role" />
       <input type="text" name="teamSize" />
       <input type="text" name="stack" />
