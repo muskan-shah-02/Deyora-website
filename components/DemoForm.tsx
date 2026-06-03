@@ -26,7 +26,7 @@
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -37,6 +37,20 @@ export default function DemoForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [contactErr, setContactErr] = useState("");
+  // Warn if user is testing locally — Netlify Forms only work on the deployed site.
+  const [isLocal, setIsLocal] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const host = window.location.hostname;
+    setIsLocal(
+      host === "localhost" ||
+        host === "127.0.0.1" ||
+        host === "0.0.0.0" ||
+        host.startsWith("192.168.") ||
+        host.endsWith(".local")
+    );
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -112,6 +126,24 @@ export default function DemoForm() {
       onSubmit={handleSubmit}
       className="border border-subtle p-8 md:p-12 bg-bg-card grid gap-6"
     >
+      {isLocal && (
+        <div
+          role="status"
+          className="border border-accent-warn/40 bg-accent-warn/5 text-accent-warn p-4 grid gap-1"
+        >
+          <div className="font-mono text-[11px] font-bold uppercase tracking-[0.14em]">
+            ⚠ Local Preview — Submissions Won't Be Captured
+          </div>
+          <p className="font-sans font-light text-[13px] text-accent-warn/90 leading-relaxed">
+            You're viewing this form on <code className="font-mono">localhost</code>. Netlify Forms
+            only capture submissions on the deployed site (your{" "}
+            <code className="font-mono">*.netlify.app</code> URL or{" "}
+            <code className="font-mono">deyora.ai</code> once the domain is connected). Form data
+            submitted here will <strong>not</strong> reach{" "}
+            <code className="font-mono">muskan@deyoraintelligence.com</code>.
+          </p>
+        </div>
+      )}
       {/* Netlify form-name field (required for Netlify Forms detection) */}
       <input type="hidden" name="form-name" value="demo-request" />
       {/* Honeypot for bots */}
