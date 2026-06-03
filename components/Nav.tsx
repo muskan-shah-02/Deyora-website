@@ -2,13 +2,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import DokyDocMark from "./DokyDocMark";
 
 const DOKYDOC_URL = "https://dokydoc.com/";
 
+// Nav order = buyer funnel: Product → Pricing → Company → Contact → Live Product → CTA
 const internalLinks = [
   { href: "/", label: "Home" },
+  { href: "/products", label: "Product" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
-  { href: "/products", label: "Products" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -27,7 +30,6 @@ export default function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  // Escape key closes the mobile menu — a11y basic
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -48,7 +50,7 @@ export default function Nav() {
           <Logo />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-9">
+        <div className="hidden lg:flex items-center gap-7">
           {internalLinks.slice(1).map((l) => (
             <Link
               key={l.href}
@@ -58,25 +60,33 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+          <span className="w-px h-4 bg-strong" aria-hidden="true" />
           <a
             href={DOKYDOC_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-body text-[13px] text-ink-secondary hover:text-white transition-colors inline-flex items-center gap-1.5"
+            className="inline-flex items-center gap-2 text-ink-secondary hover:text-white transition-colors group"
           >
-            DokyDoc
+            <DokyDocMark className="w-4 h-4 transition-colors" />
+            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em]">
+              DokyDoc
+            </span>
             <svg
               viewBox="0 0 24 24"
               className="w-3 h-3 fill-none stroke-current"
               strokeWidth="2"
               aria-hidden="true"
             >
-              <path d="M7 17L17 7M17 7H8M17 7V16" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M7 17L17 7M17 7H8M17 7V16"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </a>
           <Link
             href="/book-a-demo"
-            className="ml-3 inline-flex items-center bg-white text-black font-mono text-[11px] font-medium uppercase tracking-[0.12em] px-6 py-2.5 hover:bg-[#E8E8E8] transition-colors"
+            className="ml-2 inline-flex items-center bg-white text-black font-mono text-[11px] font-medium uppercase tracking-[0.12em] px-6 py-2.5 hover:bg-[#E8E8E8] transition-colors"
           >
             Book a Demo
           </Link>
@@ -110,7 +120,7 @@ export default function Nav() {
         role="dialog"
         aria-modal={open}
         aria-label="Site navigation"
-        className={`fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 bg-black/98 backdrop-blur-2xl transition-opacity ${
+        className={`fixed inset-0 z-[999] flex flex-col items-center justify-center gap-7 bg-black/98 backdrop-blur-2xl transition-opacity ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -129,8 +139,9 @@ export default function Nav() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setOpen(false)}
-          className="display text-3xl text-ink-secondary hover:text-white inline-flex items-center gap-2"
+          className="display text-3xl text-ink-secondary hover:text-white inline-flex items-center gap-3"
         >
+          <DokyDocMark className="w-7 h-7" />
           DokyDoc ↗
         </a>
         <Link

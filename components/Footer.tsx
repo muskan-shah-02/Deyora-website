@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import DokyDocMark from "./DokyDocMark";
 import { company } from "@/lib/company";
+
+const DOKYDOC_URL = "https://dokydoc.com/";
 
 const cols = [
   {
@@ -13,18 +16,19 @@ const cols = [
     ],
   },
   {
-    title: "Products",
+    title: "Product",
     links: [
       { label: "All Products", href: "/products" },
-      { label: "DokyDoc", href: "/products/dokydoc" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Book a Demo", href: "/book-a-demo" },
+      { label: "Open DokyDoc ↗", href: DOKYDOC_URL, external: true },
     ],
   },
   {
     title: "Learn",
     links: [
       { label: "How DokyDoc Works", href: "/#how-it-works" },
-      { label: "Who It's For", href: "/#who" },
+      { label: "What You Get", href: "/#proof" },
       { label: "Security & Trust", href: "/#trust" },
       { label: "ROI Estimator", href: "/#roi" },
     ],
@@ -60,15 +64,28 @@ export default function Footer() {
                 <div className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary mb-5">
                   {col.title}
                 </div>
-                {col.links.map((l) => (
-                  <Link
-                    key={l.label}
-                    href={l.href}
-                    className="block font-sans font-light text-[13px] text-ink-secondary mb-3 hover:text-white transition-colors"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
+                {col.links.map((l) => {
+                  const isExternal = "external" in l && l.external;
+                  return isExternal ? (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block font-sans font-light text-[13px] text-ink-secondary mb-3 hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={l.label}
+                      href={l.href}
+                      className="block font-sans font-light text-[13px] text-ink-secondary mb-3 hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  );
+                })}
               </div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
 import ProductCard from "@/components/ProductCard";
+import Breadcrumb from "@/components/Breadcrumb";
 import { products } from "@/lib/products";
 
 export const metadata = {
@@ -11,8 +12,9 @@ export const metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <section className="pt-40 pb-20 md:pt-48 md:pb-28 border-b border-subtle">
+      <section className="pt-32 pb-20 md:pt-40 md:pb-28 border-b border-subtle">
         <div className="container-deyora">
+          <Breadcrumb items={[{ label: "Products" }]} />
           <Reveal><SectionLabel>Product Portfolio</SectionLabel></Reveal>
           <Reveal>
             <h1 className="display text-5xl md:text-7xl lg:text-[96px] text-white mb-10 max-w-5xl">

@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
+import Breadcrumb from "@/components/Breadcrumb";
+import DokyDocMark from "@/components/DokyDocMark";
 import { getProduct, products } from "@/lib/products";
 
 const DOKYDOC_URL = "https://dokydoc.com/";
@@ -65,14 +67,12 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       {/* HEADER STRIP */}
       <section className="pt-32 pb-12 md:pt-36 md:pb-16 border-b border-subtle">
         <div className="container-deyora">
-          <Reveal>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-secondary hover:text-white transition-colors mb-8"
-            >
-              ← Product Portfolio
-            </Link>
-          </Reveal>
+          <Breadcrumb
+            items={[
+              { label: "Products", href: "/products" },
+              { label: product.name },
+            ]}
+          />
 
           <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12 items-end">
             <div>
@@ -89,8 +89,11 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               </Reveal>
 
               <Reveal>
-                <h1 className="display text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-                  {product.name}
+                <h1 className="display text-5xl md:text-6xl lg:text-7xl text-white mb-6 inline-flex items-center gap-5 flex-wrap">
+                  {product.slug === "dokydoc" && (
+                    <DokyDocMark className="w-12 h-12 md:w-14 md:h-14 text-white" />
+                  )}
+                  <span>{product.name}</span>
                 </h1>
               </Reveal>
               <Reveal delay={100}>

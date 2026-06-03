@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
 import DemoForm from "@/components/DemoForm";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "Book a Demo — DokyDoc by Deyora Intelligence",
@@ -38,9 +39,10 @@ const expect = [
 export default function BookDemoPage() {
   return (
     <>
-      <section className="pt-40 pb-16 md:pt-48 md:pb-20 border-b border-subtle">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-subtle">
         <div className="container-deyora grid lg:grid-cols-[1.1fr_1fr] gap-16 items-start">
           <div>
+            <Breadcrumb items={[{ label: "Book a Demo" }]} />
             <Reveal>
               <SectionLabel>Book a Demo</SectionLabel>
             </Reveal>

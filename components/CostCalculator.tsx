@@ -1,32 +1,39 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useCurrency } from "@/hooks/useCurrency";
+import { formatCurrency, formatNumber, REGIONS } from "@/lib/currency";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Methodology (kept honest, not theatrical):
+// Methodology (kept honest):
 //
 //   wastedHours = team × hoursPerWeekLost × 48 (working weeks/yr after PTO)
-//   wastedCost  = wastedHours × hourlyRate
+//   wastedCost  = wastedHours × hourlyRate (region-appropriate)
 //   recovered   = wastedCost × recoveryRate (user-adjustable, default 40%)
 //
-// Why a slider for recoveryRate?
-//   - Industry rework benchmarks (CHAOS reports, McKinsey "Developer Velocity"
-//     work) put rework + spec-misalignment at 25–50% of engineering time.
-//   - We don't know your org. Letting the buyer dial their own assumption is
-//     more credible than a hardcoded number. Default 40% reflects the median
-//     of those benchmarks for traceability-targeted interventions.
-//   - The previous version of this calculator hardcoded 97% — that number is
-//     DokyDoc's AI-inference cost reduction, NOT its engineering-rework
-//     reduction. Conflating the two destroyed credibility.
+// Currency: detected from the browser's locale + timezone. Indian users
+// see ₹ with lakh formatting; US users see $ with US formatting; etc.
+// Hourly-rate defaults are realistic per region — Indian dev rate isn't
+// $75/hr, US dev rate isn't ₹2000/hr.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function CostCalculator() {
+  const { region, ready } = useCurrency();
   const [team, setTeam] = useState(15);
-  const [rate, setRate] = useState(75);
+  const [rate, setRate] = useState(region.defaultHourlyRate);
   const [hours, setHours] = useState(6);
   const [recovery, setRecovery] = useState(40);
 
+  // When detection settles on the client, snap the default hourly rate
+  // to a region-appropriate value (unless the user has already nudged it).
+  const [userTouchedRate, setUserTouchedRate] = useState(false);
+  useEffect(() => {
+    if (ready && !userTouchedRate) {
+      setRate(region.defaultHourlyRate);
+    }
+  }, [ready, region.defaultHourlyRate, userTouchedRate]);
+
   const { hoursLost, costLost, recovered } = useMemo(() => {
-    const WORKING_WEEKS = 48; // 52 weeks minus typical PTO + holidays
+    const WORKING_WEEKS = 48;
     const hoursLost = hours * WORKING_WEEKS * team;
     const costLost = hoursLost * rate;
     const recovered = Math.round((costLost * recovery) / 100);
@@ -44,16 +51,20 @@ export default function CostCalculator() {
       />
 
       <div className="relative">
-        <span className="inline-block font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary border border-subtle px-3 py-1 mb-5">
-          Interactive ROI Estimator
-        </span>
+        <div className="flex flex-wrap items-center gap-3 mb-5">
+          <span className="inline-block font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary border border-subtle px-3 py-1">
+            Interactive ROI Estimator
+          </span>
+          <CurrencyChip region={region} ready={ready} />
+        </div>
+
         <h3 className="display text-3xl md:text-[40px] text-white mb-3">
           Estimate what spec drift costs you
         </h3>
         <p className="text-ink-secondary text-[15px] max-w-2xl mb-12">
-          Adjust the sliders to your team. The numbers are yours — the recovery
-          assumption is yours too, so you can sanity-check the upside before
-          you take a demo.
+          Numbers default to {region.countryName} — adjust to your team. The
+          recovery assumption is yours to set, so you can sanity-check the
+          upside before you take a demo.
         </p>
 
         <div className="grid gap-12 md:grid-cols-[1.2fr_1fr]">
@@ -67,12 +78,15 @@ export default function CostCalculator() {
               onChange={setTeam}
             />
             <Slider
-              label="Average Hourly Rate ($)"
-              valueLabel={`$${rate}/hr`}
-              min={40}
-              max={200}
+              label={`Average Hourly Rate (${region.symbol})`}
+              valueLabel={`${region.symbol}${formatNumber(rate, region)}/hr`}
+              min={region.hourlyRateMin}
+              max={region.hourlyRateMax}
               value={rate}
-              onChange={setRate}
+              onChange={(v) => {
+                setRate(v);
+                setUserTouchedRate(true);
+              }}
             />
             <Slider
               label="Weekly Hours Lost to Rework Per Dev"
@@ -81,7 +95,7 @@ export default function CostCalculator() {
               max={20}
               value={hours}
               onChange={setHours}
-              hint="Time spent re-clarifying tickets, rebuilding misunderstood features, and reconciling specs with what shipped."
+              hint="Time re-clarifying tickets, rebuilding misunderstood features, and reconciling specs with what shipped."
             />
             <Slider
               label="Target Recovery with DokyDoc (%)"
@@ -97,11 +111,11 @@ export default function CostCalculator() {
           <div className="bg-bg-card border border-subtle p-8 flex flex-col gap-7">
             <ResultBox
               label="Annual Engineering Hours Lost"
-              value={`${hoursLost.toLocaleString()} hrs`}
+              value={`${formatNumber(hoursLost, region)} hrs`}
             />
             <ResultBox
               label="Annual Misalignment & Rework Cost"
-              value={`$${costLost.toLocaleString()}`}
+              value={formatCurrency(costLost, region)}
               highlight
             />
 
@@ -113,12 +127,12 @@ export default function CostCalculator() {
                 className="display text-[40px] leading-none text-white mb-3"
                 style={{ textShadow: "0 0 20px rgba(168,197,255,0.35)" }}
               >
-                ${recovered.toLocaleString()}
+                {formatCurrency(recovered, region)}
               </div>
               <p className="text-[12px] text-ink-secondary leading-relaxed">
-                Recovery you could reasonably attribute to traceability-driven
-                reduction in spec-misalignment work. Methodology disclosed
-                below.
+                Recovery you could reasonably attribute to
+                traceability-driven reduction in spec-misalignment work.
+                Methodology below.
               </p>
             </div>
           </div>
@@ -134,6 +148,46 @@ export default function CostCalculator() {
         </p>
       </div>
     </div>
+  );
+}
+
+function CurrencyChip({
+  region,
+  ready,
+}: {
+  region: ReturnType<typeof useCurrency>["region"];
+  ready: boolean;
+}) {
+  return (
+    <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-secondary border border-subtle px-3 py-1">
+      <span className="w-1.5 h-1.5 rounded-full bg-accent-blue-soft" />
+      {ready
+        ? `${region.countryName} · ${region.code}`
+        : "Detecting region…"}
+      <span className="text-ink-tertiary ml-1">change:</span>
+      <select
+        aria-label="Select currency region"
+        value={region.code}
+        onChange={(e) => {
+          const entry = Object.values(REGIONS).find(
+            (r) => r.code === e.target.value
+          );
+          if (entry) {
+            // we can't call setRegion from here directly — emit on window
+            window.dispatchEvent(
+              new CustomEvent("deyora:region-change", { detail: entry })
+            );
+          }
+        }}
+        className="bg-transparent border-0 text-white focus:outline-none cursor-pointer"
+      >
+        {Object.values(REGIONS).map((r) => (
+          <option key={r.code} value={r.code} className="bg-black">
+            {r.countryName}
+          </option>
+        ))}
+      </select>
+    </span>
   );
 }
 

@@ -10,6 +10,7 @@ import PersonaRow from "@/components/PersonaRow";
 import CostCalculator from "@/components/CostCalculator";
 import AlphaBanner from "@/components/AlphaBanner";
 import TrustStrip from "@/components/TrustStrip";
+import DokyDocMark from "@/components/DokyDocMark";
 
 const DOKYDOC_URL = "https://dokydoc.com/";
 
@@ -78,6 +79,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn-secondary inline-flex items-center gap-2"
               >
+                <DokyDocMark className="w-4 h-4" />
                 Open DokyDoc Live
                 <svg
                   viewBox="0 0 24 24"

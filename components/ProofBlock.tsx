@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
+import DokyDocMark from "@/components/DokyDocMark";
 
 // A credible "what DokyDoc actually produces" visual, built from CSS only.
 // No design assets, no screenshots needed — but the buyer leaves the page
@@ -117,8 +118,9 @@ export default function ProofBlock() {
                   <span className="w-2.5 h-2.5 rounded-full bg-accent-warn/70" />
                   <span className="w-2.5 h-2.5 rounded-full bg-accent-success/70" />
                 </div>
-                <span className="text-ink-tertiary text-[10px] uppercase tracking-[0.16em]">
-                  DokyDoc — traceability matrix
+                <span className="inline-flex items-center gap-2 text-ink-secondary text-[10px] uppercase tracking-[0.16em]">
+                  <DokyDocMark className="w-3.5 h-3.5 text-accent-blue-soft" />
+                  Traceability matrix
                 </span>
                 <span className="text-ink-tertiary text-[10px]">v2.4.1</span>
               </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
 import DemoForm from "@/components/DemoForm";
+import Breadcrumb from "@/components/Breadcrumb";
 import { company } from "@/lib/company";
 
 export const metadata: Metadata = {
@@ -14,8 +15,9 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="pt-40 pb-20 md:pt-48 md:pb-24 border-b border-subtle">
+      <section className="pt-32 pb-20 md:pt-40 md:pb-24 border-b border-subtle">
         <div className="container-deyora">
+          <Breadcrumb items={[{ label: "Contact" }]} />
           <Reveal>
             <SectionLabel>Talk to Deyora</SectionLabel>
           </Reveal>
