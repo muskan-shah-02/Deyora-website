@@ -9,7 +9,7 @@ const DOKYDOC_URL = "https://dokydoc.com/";
 // Nav order = buyer funnel: Product → Pricing → Company → Contact → Live Product → CTA
 const internalLinks = [
   { href: "/", label: "Home" },
-  { href: "/products", label: "Product" },
+  { href: "/dokydoc", label: "DokyDoc" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
