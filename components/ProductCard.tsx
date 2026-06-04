@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/lib/products";
+import DokyDocMark from "./DokyDocMark";
 
 const statusStyles: Record<Product["status"], string> = {
   live: "border-accent-success/60 text-accent-success",
@@ -55,6 +56,12 @@ export default function ProductCard({
             {statusLabel[product.status]}
           </span>
         </div>
+
+        {product.slug === "dokydoc" && (
+          <div className="mb-8 pb-8 border-b border-subtle">
+            <DokyDocMark className="w-16 h-16 md:w-20 md:h-20" />
+          </div>
+        )}
 
         <div className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-secondary mb-3">
           {product.category}
