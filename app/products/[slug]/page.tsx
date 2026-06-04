@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
-import Marquee from "@/components/Marquee";
-import MetricCounter from "@/components/MetricCounter";
-import CostCalculator from "@/components/CostCalculator";
-import VideoPlayer from "@/components/VideoPlayer";
+import Breadcrumb from "@/components/Breadcrumb";
+import DokyDocMark from "@/components/DokyDocMark";
 import { getProduct, products } from "@/lib/products";
+
+const DOKYDOC_URL = "https://dokydoc.com/";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -16,7 +16,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const p = getProduct(params.slug);
   if (!p) return {};
   return {
-    title: `${p.name} — ${p.tagline} | Deyora Intelligence`,
+    title: `${p.name} — ${p.tagline}`,
     description: p.shortDescription,
   };
 }
@@ -25,24 +25,30 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProduct(params.slug);
   if (!product) notFound();
 
-  // Upcoming product → simpler teaser layout
+  // Upcoming product — simple teaser
   if (product.status === "upcoming") {
     return (
-      <section className="min-h-screen flex items-center justify-center pt-32 pb-32 border-b border-subtle">
-        <div className="container-deyora text-center max-w-3xl">
-          <Reveal><SectionLabel className="justify-center">{product.tagline}</SectionLabel></Reveal>
+      <section className="min-h-[80vh] flex items-center pt-32 pb-32 border-b border-subtle">
+        <div className="container-deyora max-w-4xl">
+          <Reveal>
+            <SectionLabel>{product.tagline}</SectionLabel>
+          </Reveal>
           <Reveal>
             <h1 className="display text-5xl md:text-7xl text-white mb-8">{product.name}</h1>
           </Reveal>
           <Reveal delay={120}>
-            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary mb-12">
+            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary mb-12 max-w-2xl">
               {product.longDescription}
             </p>
           </Reveal>
           <Reveal delay={200}>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <Link href="/contact" className="btn-primary">Join the Waitlist</Link>
-              <Link href="/products" className="btn-secondary">All Products →</Link>
+            <div className="flex gap-4 flex-wrap">
+              <Link href="/book-a-demo" className="btn-primary">
+                Join the Waitlist
+              </Link>
+              <Link href="/products" className="btn-secondary">
+                All Products →
+              </Link>
             </div>
           </Reveal>
         </div>
@@ -50,241 +56,134 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     );
   }
 
-  const isDoky = product.slug === "dokydoc";
-
+  // Live product (DokyDoc) — distinctly DIFFERENT from homepage:
+  //   - No giant marketing hero
+  //   - No video background
+  //   - Two-column asymmetric layout
+  //   - Primary CTA is the external dokydoc.com — this page is a launch pad,
+  //     not a homepage clone.
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-screen w-full overflow-hidden flex items-center pt-[68px] pb-20">
-        {product.videoSrc && (
-          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" aria-hidden>
-            <source src={product.videoSrc} type="video/mp4" />
-          </video>
-        )}
-        <div
-          className="absolute inset-0 z-[1]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.60) 50%, rgba(0,0,0,0.75) 100%)",
-          }}
-        />
-        <div className="absolute inset-y-0 right-0 w-1/2 z-[1] grid-texture pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-white/[0.04]" />
+      {/* HEADER STRIP */}
+      <section className="pt-32 pb-12 md:pt-36 md:pb-16 border-b border-subtle">
+        <div className="container-deyora">
+          <Breadcrumb
+            items={[
+              { label: "Products", href: "/products" },
+              { label: product.name },
+            ]}
+          />
+
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12 items-end">
+            <div>
+              <Reveal>
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="inline-flex items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-accent-success border border-accent-success/40 px-3 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-success animate-pulse-dot" />
+                    Live
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-secondary">
+                    {product.category}
+                  </span>
+                </div>
+              </Reveal>
+
+              <Reveal>
+                <h1 className="display text-5xl md:text-6xl lg:text-7xl text-white mb-6 inline-flex items-center gap-5 flex-wrap">
+                  {product.slug === "dokydoc" && (
+                    <DokyDocMark className="w-12 h-12 md:w-14 md:h-14 text-white" />
+                  )}
+                  <span>{product.name}</span>
+                </h1>
+              </Reveal>
+              <Reveal delay={100}>
+                <p className="font-sans text-[18px] md:text-[20px] text-ink-secondary leading-relaxed max-w-2xl mb-8">
+                  {product.tagline}.{" "}
+                  <span className="text-white">{product.shortDescription}</span>
+                </p>
+              </Reveal>
+            </div>
+
+            <Reveal delay={150}>
+              <div className="border border-strong p-7 bg-bg-card">
+                <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-secondary mb-3">
+                  Try the live product
+                </div>
+                <div className="display text-2xl text-white mb-5 leading-tight">
+                  DokyDoc is live<br />at dokydoc.com.
+                </div>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href={product.externalUrl || DOKYDOC_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary justify-center inline-flex items-center gap-2 w-full"
+                  >
+                    Open DokyDoc Live
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3.5 h-3.5 fill-none stroke-current"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7 17L17 7M17 7H8M17 7V16"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                  <Link href="/book-a-demo" className="btn-secondary justify-center w-full">
+                    Or Book a Guided Demo
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
+      </section>
 
-        <div className="relative z-[2] w-full max-w-[820px] px-6 md:px-16">
+      {/* BRIEF DESCRIPTION */}
+      <section className="py-20 md:py-24 bg-bg-secondary border-b border-subtle">
+        <div className="container-deyora grid md:grid-cols-[1fr_1.6fr] gap-10">
           <Reveal>
-            <div className="inline-flex items-center gap-3 border border-strong px-5 py-2 mb-10">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-dot" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-secondary">
-                {product.tagline} — by Deyora Intelligence
-              </span>
-            </div>
+            <SectionLabel>What it does</SectionLabel>
           </Reveal>
-
           <Reveal delay={100}>
-            <h1 className="display text-5xl sm:text-6xl md:text-7xl lg:text-[110px] text-white mb-8">
-              {product.heroHeadline.map((line, i) => (
-                <span key={i} className="block">
-                  {product.heroOutlineWord && line.includes(product.heroOutlineWord)
-                    ? line
-                        .split(product.heroOutlineWord)
-                        .reduce<React.ReactNode[]>(
-                          (acc, part, idx, arr) => [
-                            ...acc,
-                            part,
-                            idx < arr.length - 1 ? (
-                              <span key={idx} className="outline-text">
-                                {product.heroOutlineWord}
-                              </span>
-                            ) : null,
-                          ],
-                          [],
-                        )
-                    : line}
-                </span>
-              ))}
-            </h1>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary max-w-[560px] mb-12">
-              {product.heroSub}
+            <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary max-w-3xl">
+              {product.longDescription}
             </p>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <div className="flex flex-wrap gap-4">
-              {product.externalUrl && (
-                <a href={product.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  See {product.name} in Action
-                </a>
-              )}
-              <a href="#metrics" className="btn-secondary">Calculate Wasted Hours →</a>
-            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* MARQUEE */}
-      {isDoky && (
-        <Marquee
-          items={[
-            "REQUIREMENTS →",
-            "CODEBASE MAPPING →",
-            "ZERO REWORK →",
-            "TEAM ALIGNMENT →",
-            "SHIP WHAT WAS PLANNED →",
-            "97% AI COST REDUCTION →",
-          ]}
-        />
-      )}
-
-      {/* PROBLEM */}
-      {isDoky && (
-        <section className="bg-bg-secondary py-32 md:py-36">
-          <div className="container-deyora">
-            <Reveal><SectionLabel>The Universal Nightmare</SectionLabel></Reveal>
-            <Reveal>
-              <h2 className="display text-4xl md:text-6xl text-white mb-16">
-                Product asks for 'A.'<br />Engineering builds 'B.'
-              </h2>
-            </Reveal>
-
-            <div className="grid lg:grid-cols-2 gap-12 md:gap-20">
-              <div>
-                <Reveal>
-                  <p className="font-sans font-light text-[16px] leading-relaxed text-ink-secondary mb-6 max-w-xl">
-                    The biggest bottleneck in software isn't writing code — it's translation. Requirements get lost
-                    in Jira tickets, edge cases are missed, and undocumented features creep into production.
-                  </p>
-                </Reveal>
-                <Reveal>
-                  <p className="font-sans font-light text-[16px] leading-relaxed text-ink-secondary mb-6 max-w-xl">
-                    You don't find out until QA fails or a customer complains — after weeks of wasted engineering
-                    time and hundreds of thousands in rework costs.
-                  </p>
-                </Reveal>
-
-                <Reveal>
-                  <div className="border-l-2 border-white pl-8 mt-12">
-                    <div className="display text-[80px] leading-none text-white">97%</div>
-                    <div className="label-mono mt-3 leading-relaxed max-w-[360px]">
-                      Reduction in AI API costs via DokyDoc's 3-Tier Mapping Algorithm — continuous traceability
-                      affordable at any scale
-                    </div>
-                  </div>
-                </Reveal>
-              </div>
-
-              <Reveal>
-                <div className="border border-subtle p-8 md:p-10">
-                  <div className="flex items-stretch mb-8">
-                    <div className="flex-1 border border-subtle p-5">
-                      <div className="font-mono text-[10px] font-medium tracking-[0.14em] uppercase text-ink-tertiary mb-2">
-                        Product Team
-                      </div>
-                      <div className="font-sans text-sm text-white">PRD / Requirements Doc</div>
-                    </div>
-                    <div className="flex flex-col items-center justify-center px-5 min-w-[60px]">
-                      <div className="font-mono text-2xl font-bold text-accent-danger leading-none">✕</div>
-                      <div className="font-mono text-[9px] font-medium tracking-[0.16em] uppercase text-accent-danger mt-2 writing-mode-vertical">
-                        GAP
-                      </div>
-                    </div>
-                    <div className="flex-1 border border-subtle p-5">
-                      <div className="font-mono text-[10px] font-medium tracking-[0.14em] uppercase text-ink-tertiary mb-2">
-                        Engineering Team
-                      </div>
-                      <div className="font-sans text-sm text-accent-danger">Codebase / GitHub</div>
-                    </div>
-                  </div>
-
-                  <pre className="border border-subtle p-6 font-mono text-xs text-ink-tertiary leading-loose whitespace-pre-wrap m-0">
-{`// Requirements written → Requirements ignored
-// Features promised → Features missing
-// Sprints planned → Rework shipped
-// Budget allocated → Budget wasted`}
-                  </pre>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* METRICS + CALCULATOR */}
-      {product.metrics.length > 0 && (
-        <section id="metrics" className="border-y border-subtle">
-          <MetricCounter metrics={product.metrics} />
-          {isDoky && (
-            <div className="container-deyora py-20">
-              <Reveal>
-                <CostCalculator />
-              </Reveal>
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* ROLES */}
-      {product.roles.length > 0 && (
-        <section className="bg-bg-primary py-32 md:py-36">
-          <div className="container-deyora">
-            <Reveal><SectionLabel>Solutions by Role</SectionLabel></Reveal>
-            <Reveal>
-              <h2 className="display text-4xl md:text-6xl text-white mb-16">
-                How {product.name} aligns<br />your entire team.
-              </h2>
-            </Reveal>
-
-            <div className="grid md:grid-cols-2 -mt-px -ml-px">
-              {product.roles.map((r, i) => {
-                const idx = String(i + 1).padStart(2, "0");
-                const total = String(product.roles.length).padStart(2, "0");
-                return (
-                  <Reveal key={r.role} delay={i * 80}>
-                    <div className="group relative overflow-hidden border-l border-t border-subtle p-10 md:p-12 transition-colors hover:bg-bg-card h-full">
-                      <div className="absolute top-0 left-0 h-[2px] bg-white w-0 transition-all duration-500 group-hover:w-full" />
-                      <div className="font-mono text-[11px] tracking-[0.14em] text-ink-tertiary mb-5">{idx} / {total}</div>
-                      <span className="inline-block font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary border border-subtle px-3 py-1 mb-5">
-                        {r.role}
-                      </span>
-                      <h3 className="display text-[26px] text-white mb-4 leading-tight">{r.headline}</h3>
-                      <p className="font-sans font-light text-[15px] leading-relaxed text-ink-secondary">{r.body}</p>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* HOW IT WORKS */}
+      {/* FEATURE GRID — compact, no marketing fluff */}
       {product.features.length > 0 && (
-        <section className="bg-bg-secondary py-32 md:py-36">
+        <section className="py-20 md:py-24">
           <div className="container-deyora">
-            <Reveal><SectionLabel>How It Works</SectionLabel></Reveal>
             <Reveal>
-              <h2 className="display text-4xl md:text-6xl text-white mb-16">
-                {product.name}'s<br />Intelligence Engine
+              <SectionLabel>Capabilities</SectionLabel>
+            </Reveal>
+            <Reveal>
+              <h2 className="display text-3xl md:text-5xl text-white mb-12 max-w-2xl">
+                Six capabilities.<br />
+                One traceability layer.
               </h2>
             </Reveal>
 
-            {product.videoSrc && (
-              <Reveal>
-                <VideoPlayer src={product.videoSrc} watermark={product.name.toUpperCase()} title={`${product.name} — Product Demo`} />
-              </Reveal>
-            )}
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3">
-              {product.features.map((f, i) => (
-                <Reveal key={f.title} delay={i * 60}>
-                  <div className="border-t border-subtle p-10 md:border-r md:border-subtle md:[&:nth-child(3n)]:border-r-0 h-full">
-                    <div className="font-mono text-[11px] tracking-[0.14em] text-ink-tertiary mb-5">{f.counter}</div>
-                    <h4 className="display text-[22px] text-white mb-3 leading-tight">{f.title}</h4>
-                    <p className="font-sans font-light text-[15px] leading-relaxed text-ink-secondary">{f.body}</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 -mt-px -ml-px">
+              {product.features.map((f) => (
+                <Reveal key={f.title}>
+                  <div className="border-l border-t border-subtle p-7 h-full hover:bg-bg-card transition-colors">
+                    <div className="font-mono text-[10px] tracking-[0.14em] text-accent-blue-soft mb-4">
+                      {f.counter}
+                    </div>
+                    <h3 className="display text-[20px] text-white mb-3 leading-tight">
+                      {f.title}
+                    </h3>
+                    <p className="font-sans font-light text-[14px] leading-relaxed text-ink-secondary">
+                      {f.body}
+                    </p>
                   </div>
                 </Reveal>
               ))}
@@ -293,29 +192,43 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="bg-bg-primary py-40 text-center border-t border-subtle">
-        <div className="container-deyora">
-          <Reveal><SectionLabel className="justify-center">Get Started with {product.name}</SectionLabel></Reveal>
+      {/* BIG OUTBOUND CTA — entire point of this page */}
+      <section
+        className="py-28 md:py-32 border-t border-subtle text-center"
+        style={{
+          background:
+            "linear-gradient(180deg, #000 0%, #06080F 50%, #000 100%)",
+        }}
+      >
+        <div className="container-deyora max-w-3xl">
           <Reveal>
-            <h2 className="display text-5xl md:text-7xl text-white mb-6">
-              The right code.<br />Built the first time.
+            <SectionLabel className="justify-center">Ready to use</SectionLabel>
+          </Reveal>
+          <Reveal>
+            <h2 className="display text-4xl md:text-6xl text-white mb-6">
+              The fastest path<br />
+              is <span className="shimmer-text">opening the product.</span>
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <p className="font-sans font-light text-[17px] text-ink-secondary max-w-xl mx-auto mb-12">
-              Stop paying for rework. Start shipping exactly what your product team planned — with mathematical
-              proof it was built correctly.
+            <p className="font-sans font-light text-[17px] text-ink-secondary mb-10 max-w-xl mx-auto">
+              DokyDoc lives at dokydoc.com. Spin up an account, point it at a
+              repo, and you'll see your first traceability matrix in minutes.
             </p>
           </Reveal>
-          <Reveal delay={200}>
+          <Reveal delay={180}>
             <div className="flex justify-center gap-4 flex-wrap">
-              {product.externalUrl && (
-                <a href={product.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  Request a Demo
-                </a>
-              )}
-              <Link href="/contact" className="btn-secondary">Drop a PRD — Try It Free →</Link>
+              <a
+                href={product.externalUrl || DOKYDOC_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                Open DokyDoc Live ↗
+              </a>
+              <Link href="/book-a-demo" className="btn-secondary">
+                Talk to a Founder First
+              </Link>
             </div>
           </Reveal>
         </div>

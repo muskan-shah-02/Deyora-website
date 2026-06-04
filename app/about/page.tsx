@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
+import Breadcrumb from "@/components/Breadcrumb";
 import { company } from "@/lib/company";
 import Link from "next/link";
 
@@ -12,8 +13,9 @@ export default function AboutPage() {
   return (
     <>
       {/* HERO */}
-      <section className="pt-40 pb-24 md:pt-48 md:pb-32 bg-bg-primary border-b border-subtle">
+      <section className="pt-32 pb-24 md:pt-40 md:pb-32 bg-bg-primary border-b border-subtle">
         <div className="container-deyora">
+          <Breadcrumb items={[{ label: "About" }]} />
           <Reveal><SectionLabel>About Deyora Intelligence</SectionLabel></Reveal>
           <Reveal>
             <h1 className="display text-5xl md:text-7xl lg:text-[96px] text-white mb-10 max-w-5xl">
