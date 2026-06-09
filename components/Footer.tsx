@@ -33,6 +33,12 @@ const cols = [
       { label: "ROI Estimator", href: "/#roi" },
     ],
   },
+  {
+    title: "Legal",
+    links: [
+      { label: "Refund & Cancellation", href: "/refund-policy" },
+    ],
+  },
 ];
 
 export default function Footer() {
@@ -58,7 +64,7 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="grid gap-10 grid-cols-2 sm:grid-cols-3">
+          <div className="grid gap-10 grid-cols-2 sm:grid-cols-4">
             {cols.map((col) => (
               <div key={col.title}>
                 <div className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary mb-5">

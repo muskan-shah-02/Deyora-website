@@ -92,6 +92,37 @@ body {
     color: transparent;
     @apply animate-shimmer;
   }
+
+  /* Long-form legal/policy text — paragraph & list rhythm */
+  .prose-legal {
+    font-family: var(--font-plex-sans), "IBM Plex Sans", sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #B5B5B5;
+  }
+  .prose-legal p { margin-bottom: 1.1em; }
+  .prose-legal p:last-child { margin-bottom: 0; }
+  .prose-legal strong { color: #FFFFFF; font-weight: 500; }
+  .prose-legal ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 1.1em 0;
+  }
+  .prose-legal ul li {
+    position: relative;
+    padding-left: 1.4em;
+    margin-bottom: 0.6em;
+  }
+  .prose-legal ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 0.6em;
+    height: 1px;
+    background: rgba(168, 197, 255, 0.6);
+  }
 }
 
 /* Accessibility: visible focus for keyboard users without affecting mouse users */
