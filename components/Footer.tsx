@@ -36,6 +36,7 @@ const cols = [
   {
     title: "Legal",
     links: [
+      { label: "Terms of Service", href: "/terms-of-service" },
       { label: "Refund & Cancellation", href: "/refund-policy" },
     ],
   },
