@@ -5,10 +5,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { DOKYDOC } from "@/lib/site";
 import { DeyoraMark } from "@/components/ui";
+import DokyDocLink from "@/components/DokyDocLink";
 
 const links = [
   { href: "/dokydoc", label: "DokyDoc" },
-  { href: "/dokydoc#dokybrain", label: "DokyBrain" },
+  { href: "/about#vision", label: "Vision" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -58,10 +59,9 @@ export default function Nav() {
         </ul>
 
         <div className="hidden items-center gap-2 md:flex">
-          <a href={DOKYDOC.home} target="_blank" rel="noopener noreferrer" className="rounded-full px-3.5 py-2 text-[15px] text-ink-300 hover:text-white">
-            Open DokyDoc <span aria-hidden="true">↗</span>
-            <span className="sr-only">(opens in a new tab)</span>
-          </a>
+          <DokyDocLink href={DOKYDOC.app} className="rounded-full px-3.5 py-2 text-[15px] text-ink-300 hover:text-white">
+            Open DokyDoc
+          </DokyDocLink>
           <Link href="/contact" className="btn-primary !py-2.5">
             Talk to us
           </Link>
@@ -96,9 +96,9 @@ export default function Nav() {
             </li>
           ))}
           <li>
-            <a href={DOKYDOC.home} target="_blank" rel="noopener noreferrer" className="block py-3 text-[17px] text-ink-200 hover:text-white">
-              Open DokyDoc <span aria-hidden="true">↗</span>
-            </a>
+            <DokyDocLink href={DOKYDOC.app} className="block py-3 text-[17px] text-ink-200 hover:text-white">
+              Open DokyDoc
+            </DokyDocLink>
           </li>
           <li className="pb-3 pt-2">
             <Link href="/contact" className="btn-primary w-full">

@@ -1,17 +1,19 @@
-import type { Metadata } from "next";
-import { DOKYDOC, SITE_URL } from "@/lib/site";
+import { DOKYDOC, SITE_URL, dokydocStatement } from "@/lib/site";
+import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
 import { CoverageIllustration } from "@/components/Illustrations";
+import DokyDocLink from "@/components/DokyDocLink";
+import SnagListDemo from "@/components/SnagListDemo";
+import Conversation from "@/components/Conversation";
 
 const description =
   "DokyDoc reads your requirement documents and your code, links each requirement to the code that implements it, and shows what is built, what is missing and what it could not check. A named person on your side signs off.";
 
-export const metadata: Metadata = {
-  title: "DokyDoc · Check software against the documents that say what it should do",
+export const metadata = pageMeta({
+  title: "DokyDoc · Check the software you paid for against what was agreed",
   description,
-  alternates: { canonical: "/dokydoc" },
-  openGraph: { title: "DokyDoc by Deyora Intelligence", description, url: `${SITE_URL}/dokydoc` },
-};
+  path: "/dokydoc",
+});
 
 const productJsonLd = {
   "@context": "https://schema.org",
@@ -75,15 +77,17 @@ export default function DokyDocPage() {
             <h1 className="h-display mt-8 text-[44px] sm:text-[58px] lg:text-[66px]">
               Does your software do what the documents say?
             </h1>
-            <p className="lede mt-7 max-w-[36rem]">
-              DokyDoc reads your requirement documents and your code, links each requirement to the code that implements
-              it, and shows what is built, what is missing and what it could not check, with the evidence. A named person
-              on your side reviews the findings and signs off. DokyDoc never signs for you.
+            <p className="mt-7 max-w-[36rem] border-l-2 border-brand-600 pl-5 font-serif text-[21px] italic leading-snug text-text">
+              {dokydocStatement.analogy}
+            </p>
+            <p className="lede mt-6 max-w-[36rem]">
+              It reads your requirement documents and your code, and shows what is built, what is missing and what it could
+              not check, with the evidence. A named person on your side signs off. DokyDoc never signs for you.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
-              <ButtonLink href="/contact?topic=dokydoc" variant="ghost">
-                Talk to us
+              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
+              <ButtonLink href="#walkthrough" variant="ghost">
+                Try the walk-through
               </ButtonLink>
             </div>
             <p className="mt-5 text-[14px] text-text-mute">Prepaid and pay-as-you-go. The price is shown before anything runs.</p>
@@ -94,8 +98,26 @@ export default function DokyDocPage() {
         </div>
       </section>
 
+      {/* ── Walk-through ─────────────────────────────────────── */}
+      <Section id="walkthrough" className="bg-paper-deep" labelledBy="walk-title">
+        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+          <div data-reveal>
+            <Eyebrow>Walk through it</Eyebrow>
+            <h2 id="walk-title" className="h-section mt-5">
+              Pick a requirement. See what DokyDoc reports.
+            </h2>
+            <p className="lede mt-6">
+              Built, missing, or not checked, each with the evidence behind it. What it could not read, it says so.
+            </p>
+          </div>
+          <div data-reveal>
+            <SnagListDemo />
+          </div>
+        </div>
+      </Section>
+
       {/* ── Who it is for ────────────────────────────────────── */}
-      <Section className="bg-paper-deep" labelledBy="who-title">
+      <Section labelledBy="who-title">
         <div className="max-w-3xl" data-reveal>
           <Eyebrow>Who it is for</Eyebrow>
           <h2 id="who-title" className="h-section mt-5">
@@ -118,7 +140,7 @@ export default function DokyDocPage() {
       </Section>
 
       {/* ── How it works ─────────────────────────────────────── */}
-      <Section labelledBy="how-title">
+      <Section id="how" className="bg-paper-deep" labelledBy="how-title">
         <div className="max-w-3xl" data-reveal>
           <Eyebrow>How it works</Eyebrow>
           <h2 id="how-title" className="h-section mt-5">
@@ -139,7 +161,7 @@ export default function DokyDocPage() {
       </Section>
 
       {/* ── Capabilities ─────────────────────────────────────── */}
-      <Section className="bg-paper-deep" labelledBy="cap-title">
+      <Section id="capabilities" labelledBy="cap-title">
         <div className="flex flex-wrap items-end justify-between gap-6" data-reveal>
           <div className="max-w-3xl">
             <Eyebrow>What it does today</Eyebrow>
@@ -277,7 +299,7 @@ export default function DokyDocPage() {
               ))}
             </ul>
             <div className="mt-auto pt-9">
-              <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
+              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
             </div>
           </article>
           <article data-reveal className="on-dark flex flex-col rounded-2xl bg-ink-900 p-8 text-ink-200 shadow-lift sm:p-10">
@@ -332,9 +354,16 @@ export default function DokyDocPage() {
               <ArrowLink href={DOKYDOC.security}>dokydoc.com/security</ArrowLink>
             </div>
           </div>
-          <div data-reveal className="card p-8 sm:p-10">
-            <p className="font-serif text-[26px]">What it does not do yet</p>
-            <p className="mt-2 text-[15px] text-text-mute">We would rather you hear it from us.</p>
+          <details data-reveal className="card group self-start p-8 sm:p-10">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <span>
+                <span className="block font-serif text-[26px]">What it does not do yet</span>
+                <span className="mt-2 block text-[15px] text-text-mute">Five limits. We would rather you hear them from us.</span>
+              </span>
+              <span aria-hidden="true" className="mt-2 font-mono text-[20px] text-text-mute transition-transform group-open:rotate-45">
+                +
+              </span>
+            </summary>
             <ul className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-text-soft">
               {[
                 "Two-factor sign-in and company-wide login are not available yet.",
@@ -349,25 +378,28 @@ export default function DokyDocPage() {
                 </li>
               ))}
             </ul>
-          </div>
+          </details>
         </div>
       </Section>
 
-      {/* ── CTA ──────────────────────────────────────────────── */}
-      <Section dark labelledBy="cta-title">
-        <div className="mx-auto max-w-3xl text-center" data-reveal>
-          <h2 id="cta-title" className="h-section text-white">
-            See what your software really covers.
-          </h2>
-          <p className="lede mx-auto mt-6 max-w-xl">
-            Start with one requirements document and one repository. If you would like a walkthrough first, talk to us.
-            We sign an NDA before we look at anything of yours.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
-            <ButtonLink href="/contact?topic=dokydoc" variant="ghost">
-              Talk to us
-            </ButtonLink>
+      {/* ── Talk ─────────────────────────────────────────────── */}
+      <Section id="talk" className="bg-paper-deep" labelledBy="cta-title">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div data-reveal>
+            <Eyebrow>Start small</Eyebrow>
+            <h2 id="cta-title" className="h-section mt-5">
+              One document. One repository. See what it really covers.
+            </h2>
+            <p className="lede mt-6">
+              Start on your own, or tell us where you are and the founder will walk you through it. We sign an NDA before we
+              look at anything of yours.
+            </p>
+            <div className="mt-8">
+              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
+            </div>
+          </div>
+          <div data-reveal>
+            <Conversation initialTopic="dokydoc" />
           </div>
         </div>
       </Section>

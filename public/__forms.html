@@ -7,25 +7,24 @@
   </head>
   <body>
     <!--
-      Netlify detects forms from static HTML at deploy time. This file declares
-      the contact form; app/contact/ContactForm.tsx posts to this path. Keep the
-      field names identical in both files.
+      Netlify detects forms from static HTML at deploy time and stores only the
+      fields declared here. components/Conversation.tsx posts to this path.
+      Keep the field names identical in both files.
     -->
     <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="contact" />
       <input name="bot-field" />
-      <input name="name" />
+      <input name="topic" />
+      <input name="need" />
       <input name="email" type="email" />
+      <input name="name" />
       <input name="company" />
-      <input name="role" />
-      <select name="topic">
-        <option value="dokydoc">dokydoc</option>
-        <option value="manufacturing">manufacturing</option>
-        <option value="trust">trust</option>
-        <option value="partnership">partnership</option>
-        <option value="other">other</option>
-      </select>
       <textarea name="message"></textarea>
+      <input name="persona" />
+      <input name="journey" />
+      <input name="referrer" />
+      <input name="utm" />
+      <input name="landing" />
     </form>
   </body>
 </html>

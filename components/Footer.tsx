@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { company, DOKYDOC } from "@/lib/site";
+import { company, DOKYDOC, dokydocLink } from "@/lib/site";
 import { DeyoraMark } from "@/components/ui";
+import { ForgetMe } from "@/components/Visitor";
 
 export default function Footer() {
   return (
@@ -21,14 +22,15 @@ export default function Footer() {
           links={[
             { href: "/dokydoc", label: "DokyDoc" },
             { href: "/dokydoc#dokybrain", label: "DokyBrain (in development)" },
-            { href: DOKYDOC.home, label: "Open dokydoc.com", external: true },
+            { href: dokydocLink(DOKYDOC.app), label: "Open DokyDoc", external: true },
             { href: DOKYDOC.security, label: "DokyDoc security", external: true },
           ]}
         />
         <FooterCol
           title="Company"
           links={[
-            { href: "/about", label: "About and vision" },
+            { href: "/about#vision", label: "Vision and mission" },
+            { href: "/about", label: "About" },
             { href: "/contact", label: "Contact" },
             { href: "/contact?topic=trust", label: "Security documents (NDA)" },
           ]}
@@ -64,7 +66,10 @@ export default function Footer() {
             ) : null}
             <Sep />Queries and grievances: {company.grievanceOfficer}
           </p>
-          <p className="mt-4 text-ink-400">© {new Date().getFullYear()} {company.legalName}. DokyDoc is a product of {company.legalName}.</p>
+          <p className="mt-4 text-ink-400">
+            © {new Date().getFullYear()} {company.legalName}. DokyDoc is a product of {company.legalName}.
+            <ForgetMe className="ml-3 text-ink-300" />
+          </p>
         </div>
       </div>
     </footer>

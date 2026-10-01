@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { company, DOKYDOC } from "@/lib/site";
+import { pageMeta } from "@/lib/meta";
 import { Eyebrow } from "@/components/ui";
+import { ForgetMe } from "@/components/Visitor";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Website privacy notice",
-  description: "How Deyora Intelligence handles the personal data you send through this website.",
-  alternates: { canonical: "/privacy" },
-};
+  description: "How Deyora Intelligence handles the personal data you send through this website, and what it remembers in your browser.",
+  path: "/privacy",
+});
 
 const EFFECTIVE = "1 October 2026";
 
@@ -42,14 +43,48 @@ export default function Privacy() {
           <section>
             <h2>What we collect, and why</h2>
             <p className="mt-3">
-              When you send the contact form, we receive your name, work email, and, if you give them, your company, your
-              role, the topic you choose and your message. Our form provider also records technical details of the
-              submission, such as your IP address and browser, to stop spam.
+              When you send the contact form, we receive your email address, the two answers you tap, and, if you give
+              them, your name, your company and a note. The form suggests a name and a company from your email address
+              (for example, priya.sharma@acme.in suggests Priya Sharma from Acme). The suggestion is made in your browser,
+              nothing is looked up anywhere, and you see and can change it before you send.
+            </p>
+            <p className="mt-3">
+              So that we can reply in context, the form also sends: which kind of visitor you said you are, if you chose
+              one; the pages of this website you opened during this visit; the name of the website that sent you here (for
+              example, google.com, never the page you were on); and any campaign tags in the link you arrived by (such as
+              utm_source). The form shows you this before you send. Our form provider also records technical details of
+              the submission, such as your IP address and browser, to stop spam.
             </p>
             <p className="mt-3">
               We use these details only to reply to your request and, if you ask, to arrange a walkthrough. We do not add
               you to a mailing list, sell your details, or use them for advertising. You give them by choosing to send the
               form, and you can withdraw that consent at any time.
+            </p>
+          </section>
+
+          <section>
+            <h2>What this website remembers in your browser</h2>
+            <p className="mt-3">
+              The website keeps a few things in your own browser&rsquo;s storage, not in cookies, and none of it reaches us
+              unless you send the contact form:
+            </p>
+            <ul className="mt-3 list-disc space-y-2 pl-6">
+              <li>
+                <strong>Who you said you are</strong>, if you tap a choice such as &ldquo;I run a company&rdquo; or open a
+                link such as /?for=investor, so the pages speak to you. Kept until you clear it.
+              </li>
+              <li>
+                <strong>Your first name and company</strong>, only after you send the contact form, so the site can greet
+                you next time. Kept until you clear it.
+              </li>
+              <li>
+                <strong>This visit</strong>: the pages you open, the name of the website that sent you and any campaign
+                tags. Kept for the visit only, and gone when you close the tab.
+              </li>
+            </ul>
+            <p className="mt-3">
+              To clear it, use &ldquo;Forget me in this browser&rdquo; at the foot of any page once something is stored,
+              or clear this site&rsquo;s data in your browser. <ForgetMe className="text-text underline" />
             </p>
           </section>
 
@@ -65,8 +100,8 @@ export default function Privacy() {
           <section>
             <h2>Cookies and analytics</h2>
             <p className="mt-3">
-              This website sets no cookies and runs no analytics or advertising scripts. Its fonts are served from our own
-              site.
+              This website sets no cookies and runs no analytics or advertising scripts. It does not try to identify you
+              from your IP address or share anything about your visit with anyone. Its fonts are served from our own site.
             </p>
           </section>
 

@@ -4,6 +4,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import RevealObserver from "@/components/RevealObserver";
+import { ForParam, VisitorProvider } from "@/components/Visitor";
+import { Suspense } from "react";
 import { SITE_URL, company } from "@/lib/site";
 
 const serif = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], variable: "--font-serif", display: "swap" });
@@ -11,7 +13,7 @@ const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 
 const description =
-  "Deyora Intelligence builds intelligence for the people who run companies. DokyDoc, our first product, checks software against the documents that say what it should do. A person always decides.";
+  "Intelligence for the people who run companies. DokyDoc, live today, checks the software you paid for against what was agreed. It prepares. You decide.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,6 +60,13 @@ const organizationJsonLd = {
     addressCountry: "IN",
   },
   brand: [{ "@type": "Brand", name: "DokyDoc", url: "https://dokydoc.com" }],
+  founder: {
+    "@type": "Person",
+    name: company.founder,
+    jobTitle: company.founderTitle,
+    ...(company.founderLinkedIn ? { sameAs: [company.founderLinkedIn] } : {}),
+  },
+  ...(company.companyLinkedIn ? { sameAs: [company.companyLinkedIn] } : {}),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -70,10 +79,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
-        <RevealObserver />
+        <VisitorProvider>
+          <Suspense fallback={null}>
+            <ForParam />
+          </Suspense>
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+          <RevealObserver />
+        </VisitorProvider>
         <script
           type="application/ld+json"
           // Organization facts only; every value comes from lib/site.ts.

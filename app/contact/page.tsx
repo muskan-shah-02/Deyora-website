@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
 import { company } from "@/lib/site";
+import { pageMeta } from "@/lib/meta";
 import { Eyebrow } from "@/components/ui";
-import ContactForm from "./ContactForm";
+import Conversation from "@/components/Conversation";
+import { FounderAvatar, FounderLinks } from "@/components/Founder";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Contact",
-  description: "Talk to the founder of Deyora Intelligence about DokyDoc, DokyBrain or our security documents.",
-  alternates: { canonical: "/contact" },
-};
+  description: "Talk to the founder of Deyora Intelligence about DokyDoc, DokyBrain or our security documents. Two taps and an email.",
+  path: "/contact",
+});
 
 export default function Contact() {
   return (
@@ -18,17 +18,24 @@ export default function Contact() {
           <Eyebrow>Contact</Eyebrow>
           <h1 className="h-display mt-6 text-[44px] sm:text-[58px]">Talk to the founder.</h1>
           <p className="lede mt-6 max-w-md">
-            Tell us what you are trying to fix. Every message is read by {company.founder}, the founder, and we reply
-            within one business day (Monday to Friday, India time).
+            No long form. Two taps and an email. Every message is read by {company.founder}, and we reply within one
+            business day (Monday to Friday, India time).
           </p>
 
-          <div className="mt-10 space-y-6 text-[15.5px]">
+          <div className="mt-10 flex items-center gap-4">
+            <FounderAvatar size={56} />
             <div>
-              <p className="eyebrow">Email</p>
-              <a href={`mailto:${company.email}`} className="mt-2 inline-block text-text underline underline-offset-4">
-                {company.email}
-              </a>
+              <p className="text-[16px] font-medium text-text">{company.founder}</p>
+              <p className="text-[14px] text-text-mute">
+                {company.founderTitle}, {company.brand}
+              </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <FounderLinks />
+          </div>
+
+          <div className="mt-10 space-y-6 text-[15.5px]">
             <div>
               <p className="eyebrow">Registered office</p>
               <p className="mt-2 max-w-xs text-text-soft">
@@ -48,9 +55,7 @@ export default function Contact() {
         </div>
 
         <div className="animate-rise [animation-delay:120ms]">
-          <Suspense fallback={<div className="card h-[640px]" />}>
-            <ContactForm />
-          </Suspense>
+          <Conversation />
         </div>
       </div>
     </section>

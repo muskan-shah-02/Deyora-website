@@ -21,6 +21,16 @@ never as available, and gives it no sign-up, date or price.
 | Grievance and query contact: Muskan Shah | TP-00-01 W-77, W-79 |
 | "We reply within one business day (Monday to Friday, India time)" | TP-00-01 W-76: a sales-response promise the founder holds |
 | "A young company"; "you talk to the founder" | CO-01 §3–4: pre-revenue, one person does the work |
+| Vision, mission and promise of Deyora and of DokyDoc (`lib/site.ts`: `deyora`, `dokydocStatement`) | Statements of intent, not facts. Proposed 1 Oct 2026 for the founder's approval; once approved they are recorded in `deyora-hq/team/DECISIONS.md` |
+| The founder's photo and LinkedIn are shown only once set in `lib/site.ts` | Nothing is shown until the founder supplies them |
+
+## Proof points on the home page
+
+| Claim | Source |
+|---|---|
+| "About 5,000 automated tests run before every DokyDoc release. If one fails, the release stops." | `dokydoc` at `dc479e6`: 5,058 `def test_` functions under `backend/tests`, 2 of them marked slow and excluded; `.github/workflows/deploy.yml` runs `pytest tests/ -m "not slow"` with no `|| echo` (OPS-8) and the deploy job `needs: [test-backend, test-frontend, build, preflight-env]` |
+| "An automated check stops this website from publishing the kinds of claims we cannot back." | `scripts/check-claims.mjs`, run as `prebuild`; a failing check fails the Netlify build. It blocks known kinds of false claim; it does not check every sentence, which is why the copy says "the kinds of claims" |
+| "1 business day to hear back" | TP-00-01 W-76 (above) |
 
 ## DokyDoc (Live)
 
@@ -73,11 +83,26 @@ never as available, and gives it no sign-up, date or price.
 | Stands on what DokyDoc already runs: Boardroom, AskyDoc, sealed sign-off, verified-versus-inferred evidence | §15.1 |
 | "The machine may be wrong. It must never be unknowably wrong." | §3 ("The brain may be wrong; it must never be unknowably wrong") |
 
+## Personas (`lib/personas.ts`)
+
+The home page speaks to whoever the visitor says they are. Every line in the
+five personas uses only claims already in this register: DokyDoc's checks,
+the reverse check, code hosts and pay-as-you-go wallet (Live), and DokyBrain's
+design (In development, labelled as such in the "maker" persona's eyebrow and
+copy). The investor persona repeats the test-count claim above.
+
 ## Illustrations
 
-The "Needs your decision" card (home) and the coverage report (DokyDoc) are
-drawn in code. Their names and numbers are invented, and each is captioned
-"Illustration · invented example".
+The "Needs your decision" card (home), the coverage report (DokyDoc), the
+commitments card (home, "I run a manufacturing business") and the snag-list
+walk-through (DokyDoc) are drawn in code. Their names and numbers are
+invented, and each is captioned as an illustration. The commitments card is
+also labelled "DokyBrain · in development", follows Rule 6 ("6 of 47 open
+commitments", never "at risk" as a status; `DOKYBRAIN_DESIGN.md` §6.5) and
+uses the `core.commitment_slippage` idea (§2.2). The walk-through uses the
+product's own decision words (Agreed / Not a problem / Document should
+change: `frontend/app/dashboard/decisions/page.tsx` `ACTION_FILTERS`) and the
+report of what was not examined (`services/exposure_report.py`).
 
 ## Website privacy
 
@@ -85,3 +110,7 @@ drawn in code. Their names and numbers are invented, and each is captioned
 |---|---|
 | Notice at collection and the privacy notice: purpose, Netlify (United States), deletion after 365 days and two years, rights, grievance officer, 30 days | TP-00-01 W-77; IT (SPDI) Rules 2011 rules 4 and 5(9); DPDP Act s.5 and Rules rule 3 when in force |
 | The site sets no cookies and runs no analytics | This repository: no analytics, no third-party scripts; fonts self-hosted by `next/font` |
+| What the site keeps in the browser (persona and, after sending, first name and company in localStorage; this visit's pages, referring host and UTM tags in sessionStorage) and that none of it leaves the browser unless the form is sent | `components/Visitor.tsx`; the form payload is built in `components/Conversation.tsx` `onSubmit` |
+| Name and company are suggested from the email address in the browser, nothing is looked up | `lib/identity.ts` (no network call) |
+| The form sends the two answers, the persona, this visit's pages, the referring host and UTM tags, and says so before sending | `components/Conversation.tsx`; `public/__forms.html` declares the same fields |
+| Links into DokyDoc carry `utm_source`, `utm_medium` and the persona as `utm_content`, never an email or a name | `lib/site.ts` `dokydocLink` |

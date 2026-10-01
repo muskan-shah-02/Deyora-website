@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
-import { company, mission } from "@/lib/site";
-import { ArrowLink, ButtonLink, Eyebrow, Section } from "@/components/ui";
+import { company, deyora, dokydocStatement } from "@/lib/site";
+import { pageMeta } from "@/lib/meta";
+import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section } from "@/components/ui";
+import { FounderAvatar, FounderLinks } from "@/components/Founder";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata = pageMeta({
+  title: "About, vision and mission",
   description:
-    "Deyora Intelligence is an Indian company building intelligence for the people who run companies. Our mission, how we build, and the company behind DokyDoc.",
-  alternates: { canonical: "/about" },
-};
+    "Deyora Intelligence is an Indian company building intelligence for the people who run companies. Our vision, our mission, the founder, and the company behind DokyDoc.",
+  path: "/about",
+});
 
 export default function About() {
   return (
@@ -19,21 +20,71 @@ export default function About() {
             <h1 className="h-display mt-6 text-[44px] sm:text-[60px] lg:text-[70px]">
               We are building intelligence for the people who run companies.
             </h1>
-            <p className="lede mt-8 max-w-2xl">
-              Our mission is to {mission.charAt(0).toLowerCase() + mission.slice(1)}
-            </p>
+            <p className="lede mt-8 max-w-2xl">{deyora.vision}</p>
           </div>
         </div>
       </section>
 
+      {/* ── Vision and mission ───────────────────────────────── */}
+      <Section id="vision" labelledBy="vision-title">
+        <div className="max-w-3xl" data-reveal>
+          <Eyebrow>Vision and mission</Eyebrow>
+          <h2 id="vision-title" className="h-section mt-5">
+            What we are building towards, in one line each.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <article data-reveal className="on-dark flex flex-col rounded-2xl bg-ink-950 p-8 text-ink-200 shadow-lift sm:p-10">
+            <p className="eyebrow">Deyora Intelligence</p>
+            <dl className="mt-6 space-y-7">
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-300">Vision</dt>
+                <dd className="mt-2 font-serif text-[26px] leading-snug text-white">{deyora.vision}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-300">Mission</dt>
+                <dd className="mt-2 text-[17px] leading-relaxed text-ink-300">{deyora.mission}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-300">Promise</dt>
+                <dd className="mt-2 font-serif text-[22px] text-white">{deyora.promise}</dd>
+              </div>
+            </dl>
+          </article>
+          <article data-reveal className="card flex flex-col p-8 sm:p-10">
+            <p className="eyebrow flex items-center gap-3">
+              <DokyDocMark size={28} /> DokyDoc, our first product
+            </p>
+            <dl className="mt-6 space-y-7">
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-700">Vision</dt>
+                <dd className="mt-2 font-serif text-[26px] leading-snug">{dokydocStatement.vision}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-700">Mission</dt>
+                <dd className="mt-2 text-[17px] leading-relaxed text-text-soft">{dokydocStatement.mission}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[12px] uppercase tracking-label text-brand-700">In one picture</dt>
+                <dd className="mt-2 font-serif text-[20px] italic leading-snug">{dokydocStatement.analogy}</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </Section>
+
       {/* ── Founder's note ───────────────────────────────────── */}
-      <Section labelledBy="note-title">
+      <Section className="bg-paper-deep" labelledBy="note-title">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div data-reveal>
-            <Eyebrow>A note from the founder</Eyebrow>
+            <FounderAvatar size={96} />
+            <Eyebrow className="mt-8">A note from the founder</Eyebrow>
             <h2 id="note-title" className="h-section mt-5">
               Why I started Deyora.
             </h2>
+            <div className="mt-6">
+              <FounderLinks />
+            </div>
           </div>
           <div data-reveal className="space-y-6 text-[19px] leading-[1.75] text-text-soft">
             <p>
@@ -66,7 +117,7 @@ export default function About() {
       </Section>
 
       {/* ── How we build ─────────────────────────────────────── */}
-      <Section className="bg-paper-deep" labelledBy="build-title">
+      <Section labelledBy="build-title">
         <div className="max-w-3xl" data-reveal>
           <Eyebrow>How we build</Eyebrow>
           <h2 id="build-title" className="h-section mt-5">
@@ -91,7 +142,7 @@ export default function About() {
       </Section>
 
       {/* ── The company ──────────────────────────────────────── */}
-      <Section labelledBy="company-title">
+      <Section className="bg-paper-deep" labelledBy="company-title">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div data-reveal>
             <Eyebrow>The company</Eyebrow>
@@ -132,7 +183,7 @@ export default function About() {
           </h2>
           <p className="lede mx-auto mt-6 max-w-xl">Tell us what slows your company down. You will hear back from the founder.</p>
           <div className="mt-10 flex justify-center">
-            <ButtonLink href="/contact">Talk to the founder</ButtonLink>
+            <ButtonLink href="/contact?topic=owner">Talk to the founder</ButtonLink>
           </div>
         </div>
       </Section>
