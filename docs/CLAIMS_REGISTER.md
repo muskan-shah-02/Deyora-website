@@ -21,8 +21,8 @@ never as available, and gives it no sign-up, date or price.
 | Grievance and query contact: Muskan Shah | TP-00-01 W-77, W-79 |
 | "We reply within one business day (Monday to Friday, India time)" | TP-00-01 W-76: a sales-response promise the founder holds |
 | "A young company"; "you talk to the founder" | CO-01 §3–4: pre-revenue, one person does the work |
-| Vision, mission and promise of Deyora and of DokyDoc (`lib/site.ts`: `deyora`, `dokydocStatement`) | Statements of intent, not facts. Proposed 1 Oct 2026 for the founder's approval; once approved they are recorded in `deyora-hq/team/DECISIONS.md` |
-| The founder's photo and LinkedIn are shown only once set in `lib/site.ts` | Nothing is shown until the founder supplies them |
+| Vision, mission and promise of Deyora and of DokyDoc (`lib/site.ts`: `deyora`, `dokydocStatement`) | Statements of intent, not facts. Approved by the founder on 1 Oct 2026 "as of now" and recorded in `deyora-hq/team/DECISIONS.md` |
+| The founder's photo is shown only once set in `lib/site.ts`; until then, initials. No LinkedIn links and no telephone number (founder's decisions of 1 Oct 2026, `deyora-hq/team/DECISIONS.md`) | `lib/site.ts` (`founderPhoto`, `founderLinkedIn`, `companyLinkedIn`, `phone` all null) |
 
 ## Proof points on the home page
 
