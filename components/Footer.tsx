@@ -1,117 +1,99 @@
 import Link from "next/link";
-import Logo from "./Logo";
-import DokyDocMark from "./DokyDocMark";
-import { company } from "@/lib/company";
-
-const DOKYDOC_URL = "https://dokydoc.com/";
-
-const cols = [
-  {
-    title: "Company",
-    links: [
-      { label: "About Deyora", href: "/about" },
-      { label: "Vision & Mission", href: "/about#vision" },
-      { label: "Story", href: "/about#story" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Product",
-    links: [
-      { label: "All Products", href: "/products" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Book a Demo", href: "/book-a-demo" },
-      { label: "Open DokyDoc ↗", href: DOKYDOC_URL, external: true },
-    ],
-  },
-  {
-    title: "Learn",
-    links: [
-      { label: "How DokyDoc Works", href: "/#how-it-works" },
-      { label: "What You Get", href: "/#proof" },
-      { label: "Security & Trust", href: "/#trust" },
-      { label: "ROI Estimator", href: "/#roi" },
-    ],
-  },
-];
+import { company, DOKYDOC } from "@/lib/site";
+import { DeyoraMark } from "@/components/ui";
 
 export default function Footer() {
   return (
-    <footer className="bg-bg-primary border-t border-subtle px-6 md:px-16 pt-16 md:pt-20 pb-12">
-      <div className="mx-auto max-w-container">
-        <div className="grid gap-12 md:gap-20 lg:grid-cols-[1fr_2fr] mb-16">
-          <div>
-            <Link href="/" className="inline-block mb-4">
-              <Logo withWordmark={false} className="h-8 w-auto" />
-            </Link>
-            <div className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-secondary mb-3">
-              {company.name}
-            </div>
-            <p className="font-sans font-light text-[13px] leading-relaxed text-ink-secondary max-w-[300px]">
-              {company.tagline} Building the right code, the first time.
-            </p>
-            <a
-              href="mailto:muskan@deyoraintelligence.com"
-              className="inline-block mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-white hover:text-accent-blue-soft transition-colors"
-            >
-              muskan@deyoraintelligence.com →
-            </a>
-          </div>
-
-          <div className="grid gap-10 grid-cols-2 sm:grid-cols-3">
-            {cols.map((col) => (
-              <div key={col.title}>
-                <div className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink-secondary mb-5">
-                  {col.title}
-                </div>
-                {col.links.map((l) => {
-                  const isExternal = "external" in l && l.external;
-                  return isExternal ? (
-                    <a
-                      key={l.label}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block font-sans font-light text-[13px] text-ink-secondary mb-3 hover:text-white transition-colors"
-                    >
-                      {l.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={l.label}
-                      href={l.href}
-                      className="block font-sans font-light text-[13px] text-ink-secondary mb-3 hover:text-white transition-colors"
-                    >
-                      {l.label}
-                    </Link>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
+    <footer className="on-dark bg-ink-950 text-ink-300">
+      <div className="container-page grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div>
+          <Link href="/" className="inline-flex items-center gap-3 text-white">
+            <DeyoraMark size={36} />
+            <span className="font-serif text-[22px]">Deyora Intelligence</span>
+          </Link>
+          <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-ink-400">
+            Intelligence for the people who run companies. It prepares. You decide.
+          </p>
         </div>
 
-        <div className="border-t border-subtle pt-8 flex flex-wrap items-center justify-between gap-4">
-          <div className="font-mono text-[11px] text-ink-secondary">
-            © {new Date().getFullYear()} {company.name}. All rights reserved.
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="mailto:muskan@deyoraintelligence.com"
-              className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-secondary hover:text-white transition-colors"
-            >
-              Email
+        <FooterCol
+          title="Products"
+          links={[
+            { href: "/dokydoc", label: "DokyDoc" },
+            { href: "/dokydoc#dokybrain", label: "DokyBrain (in development)" },
+            { href: DOKYDOC.home, label: "Open dokydoc.com", external: true },
+            { href: DOKYDOC.security, label: "DokyDoc security", external: true },
+          ]}
+        />
+        <FooterCol
+          title="Company"
+          links={[
+            { href: "/about", label: "About and vision" },
+            { href: "/contact", label: "Contact" },
+            { href: "/contact?topic=trust", label: "Security documents (NDA)" },
+          ]}
+        />
+        <FooterCol
+          title="Legal"
+          links={[
+            { href: "/privacy", label: "Website privacy notice" },
+            { href: DOKYDOC.terms, label: "DokyDoc terms", external: true },
+            { href: DOKYDOC.privacy, label: "DokyDoc privacy policy", external: true },
+          ]}
+        />
+      </div>
+
+      {/* Company identity: Companies Act, 2013 s.12(3)(c) and rule 26 of the
+          Companies (Incorporation) Rules, 2014. */}
+      <div className="border-t border-white/[0.07]">
+        <div className="container-page py-8 text-[13px] leading-relaxed text-ink-400">
+          <p>
+            <span className="text-ink-200">{company.legalName}</span>
+            <Sep />CIN {company.cin}
+            <Sep />Registered office: {company.registeredOffice}
+          </p>
+          <p className="mt-1">
+            Email:{" "}
+            <a href={`mailto:${company.email}`} className="text-ink-200 underline-offset-4 hover:underline">
+              {company.email}
             </a>
-            <span className="text-ink-tertiary" aria-hidden>·</span>
-            <Link
-              href="/book-a-demo"
-              className="font-mono text-[10px] uppercase tracking-[0.14em] text-white hover:text-accent-blue-soft transition-colors"
-            >
-              Book a Demo
-            </Link>
-          </div>
+            {company.phone ? (
+              <>
+                <Sep />Telephone: <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-ink-200">{company.phone}</a>
+              </>
+            ) : null}
+            <Sep />Queries and grievances: {company.grievanceOfficer}
+          </p>
+          <p className="mt-4 text-ink-400">© {new Date().getFullYear()} {company.legalName}. DokyDoc is a product of {company.legalName}.</p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function Sep() {
+  return <span aria-hidden="true" className="mx-2 text-ink-700">·</span>;
+}
+
+function FooterCol({ title, links }: { title: string; links: { href: string; label: string; external?: boolean }[] }) {
+  return (
+    <div>
+      <h2 className="eyebrow !text-ink-400">{title}</h2>
+      <ul className="mt-4 space-y-2.5 text-[15px]">
+        {links.map((l) => (
+          <li key={l.href + l.label}>
+            {l.external ? (
+              <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-ink-300 hover:text-white">
+                {l.label} <span aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <Link href={l.href} className="text-ink-300 hover:text-white">
+                {l.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

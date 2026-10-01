@@ -1,126 +1,84 @@
-import type { Metadata } from "next";
-import { Barlow_Condensed, IBM_Plex_Mono, IBM_Plex_Sans, Outfit } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import RevealObserver from "@/components/RevealObserver";
+import { SITE_URL, company } from "@/lib/site";
 
-const SITE_URL = "https://deyora.ai";
+const serif = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], variable: "--font-serif", display: "swap" });
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 
-const barlow = Barlow_Condensed({
-  weight: ["700", "900"],
-  subsets: ["latin"],
-  variable: "--font-barlow",
-  display: "swap",
-});
-const outfit = Outfit({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-const mono = IBM_Plex_Mono({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-const plexSans = IBM_Plex_Sans({
-  weight: ["300", "400", "500"],
-  subsets: ["latin"],
-  variable: "--font-plex-sans",
-  display: "swap",
-});
+const description =
+  "Deyora Intelligence builds intelligence for the people who run companies. DokyDoc, our first product, checks software against the documents that say what it should do. A person always decides.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Deyora Intelligence — DokyDoc: AI Traceability for Software Delivery",
-    template: "%s | Deyora Intelligence",
+    default: "Deyora Intelligence · Intelligence for the people who run companies",
+    template: "%s · Deyora Intelligence",
   },
-  description:
-    "DokyDoc by Deyora Intelligence reads your PRDs and codebase, maps every requirement to live code, and shows you exactly where they disagree. In private alpha — book a founder-led demo.",
-  keywords: [
-    "AI traceability",
-    "requirement traceability matrix",
-    "spec to code",
-    "PRD analysis",
-    "software delivery intelligence",
-    "audit traceability",
-    "DokyDoc",
-    "Deyora Intelligence",
-  ],
-  alternates: { canonical: SITE_URL },
+  description,
+  applicationName: "Deyora Intelligence",
   openGraph: {
     type: "website",
-    url: SITE_URL,
     siteName: "Deyora Intelligence",
-    title: "DokyDoc — AI Traceability from PRD to Production",
-    description:
-      "Your specs and your code disagree. DokyDoc finds every gap and keeps them in sync. Private alpha — book a demo.",
-    images: [
-      {
-        url: "/images/logo.svg",
-        width: 1200,
-        height: 630,
-        alt: "Deyora Intelligence — DokyDoc",
-      },
-    ],
+    locale: "en_IN",
+    url: SITE_URL,
+    title: "Deyora Intelligence",
+    description,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "DokyDoc — AI Traceability from PRD to Production",
-    description:
-      "Your specs and your code disagree. DokyDoc finds every gap. Private alpha — book a demo.",
-    images: ["/images/logo.svg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  twitter: { card: "summary_large_image", title: "Deyora Intelligence", description },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#090B10",
+  width: "device-width",
+  initialScale: 1,
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Deyora Intelligence",
+  name: company.brand,
+  legalName: company.legalName,
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logo.svg`,
-  description:
-    "Deyora Intelligence builds AI products that make software delivery measurable, mathematical, and trustworthy. Creator of DokyDoc.",
-  email: "muskan@deyoraintelligence.com",
-  sameAs: [],
-};
-
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "DokyDoc",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  description:
-    "AI traceability platform that maps product requirements to live code, generates UAT checklists, and produces audit-ready evidence trails.",
-  brand: { "@type": "Brand", name: "Deyora Intelligence" },
-  offers: { "@type": "Offer", availability: "https://schema.org/PreOrder" },
+  logo: `${SITE_URL}/brand/deyora-mark-512.png`,
+  foundingDate: "2026-05-08",
+  email: company.email,
+  identifier: { "@type": "PropertyValue", propertyID: "CIN", value: company.cin },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "B-195, Shastri Nagar",
+    addressLocality: "Bhilwara",
+    addressRegion: "Rajasthan",
+    postalCode: "311001",
+    addressCountry: "IN",
+  },
+  brand: [{ "@type": "Brand", name: "DokyDoc", url: "https://dokydoc.com" }],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${barlow.variable} ${outfit.variable} ${mono.variable} ${plexSans.variable}`}>
-      <head>
+    <html lang="en-IN" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-ink-950"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <main id="main">{children}</main>
+        <Footer />
+        <RevealObserver />
         <script
           type="application/ld+json"
+          // Organization facts only; every value comes from lib/site.ts.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-        />
-      </head>
-      <body>
-        <Nav />
-        {children}
-        <Footer />
       </body>
     </html>
   );

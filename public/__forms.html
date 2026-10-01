@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <!--
+      Netlify detects forms from static HTML at deploy time. This file declares
+      the contact form; app/contact/ContactForm.tsx posts to this path. Keep the
+      field names identical in both files.
+    -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" type="email" />
+      <input name="company" />
+      <input name="role" />
+      <select name="topic">
+        <option value="dokydoc">dokydoc</option>
+        <option value="manufacturing">manufacturing</option>
+        <option value="trust">trust</option>
+        <option value="partnership">partnership</option>
+        <option value="other">other</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>

@@ -1,33 +1,24 @@
 import Link from "next/link";
-
-export const metadata = {
-  title: "Page Not Found",
-  description: "This page doesn't exist on deyora.ai.",
-};
+import { Eyebrow } from "@/components/ui";
 
 export default function NotFound() {
   return (
-    <section className="min-h-screen flex items-center justify-center pt-32 pb-32 border-b border-subtle">
-      <div className="container-deyora text-center max-w-2xl">
-        <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-blue-soft mb-6">
-          404 — Page Not Found
-        </div>
-        <h1 className="display text-5xl md:text-7xl text-white mb-8">
-          This page doesn't<br />
-          map to anything.
-        </h1>
-        <p className="font-sans font-light text-[16px] leading-relaxed text-ink-secondary mb-10 max-w-lg mx-auto">
-          The URL you tried doesn't exist on deyora.ai. Head back to the homepage or jump
-          straight to DokyDoc.
-        </p>
-        <div className="flex justify-center gap-4 flex-wrap">
-          <Link href="/" className="btn-primary">
-            Back Home
-          </Link>
-          <Link href="/products/dokydoc" className="btn-secondary">
-            See DokyDoc →
-          </Link>
-        </div>
+    <section className="py-24 sm:py-32">
+      <div className="container-page max-w-2xl">
+        <Eyebrow>404</Eyebrow>
+        <h1 className="h-display mt-6 text-[44px] sm:text-[56px]">This page is not here.</h1>
+        <p className="lede mt-6">It may have moved when we rebuilt the site. These are good places to start:</p>
+        <ul className="mt-8 flex flex-wrap gap-3">
+          <li>
+            <Link href="/" className="btn-primary">Home</Link>
+          </li>
+          <li>
+            <Link href="/dokydoc" className="btn-ghost">DokyDoc</Link>
+          </li>
+          <li>
+            <Link href="/contact" className="btn-ghost">Contact</Link>
+          </li>
+        </ul>
       </div>
     </section>
   );

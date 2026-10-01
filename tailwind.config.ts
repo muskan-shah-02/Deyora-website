@@ -5,65 +5,65 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          primary: "#000000",
-          secondary: "#0A0A0A",
-          card: "#111111",
-          elevated: "#1A1A1A",
-          tinted: "#06080F",
-        },
         ink: {
-          primary: "#FFFFFF",
-          secondary: "#B5B5B5",
-          tertiary: "#707070",
-          muted: "#4D4D4D",
+          950: "#090B10",
+          900: "#10131A",
+          850: "#151923",
+          800: "#1C212D",
+          700: "#2A3140",
+          500: "#5C6475",
+          400: "#8A91A1",
+          300: "#B4BAC6",
+          200: "#D7DBE3",
+          100: "#ECEEF2",
         },
-        accent: {
-          blue: "#2B6BFF",
-          "blue-soft": "#A8C5FF",
-          danger: "#FF5555",
-          success: "#4ADE80",
-          warn: "#FACC15",
+        paper: {
+          DEFAULT: "#F6F5F1",
+          deep: "#EEECE6",
+          card: "#FFFFFF",
+          line: "#E2DFD7",
         },
-      },
-      borderColor: {
-        subtle: "rgba(255,255,255,0.10)",
-        medium: "rgba(255,255,255,0.18)",
-        strong: "rgba(255,255,255,0.28)",
+        text: {
+          DEFAULT: "#15171C",
+          soft: "#454A56",
+          mute: "#5E6371",
+        },
+        brand: {
+          700: "#1F43D6",
+          600: "#2F5BFF",
+          500: "#5577FF",
+          300: "#A9BCFF",
+          100: "#E8EDFF",
+          50: "#F3F6FF",
+        },
+        live: { DEFAULT: "#0F7A55", bg: "#E1F3EA" },
+        dev: { DEFAULT: "#8A5A00", bg: "#FBF0D9" },
+        warn: { DEFAULT: "#A3361F", bg: "#FBE7E1" },
       },
       fontFamily: {
-        display: ["var(--font-barlow)", "Barlow Condensed", "sans-serif"],
-        body: ["var(--font-outfit)", "Outfit", "sans-serif"],
-        mono: ["var(--font-mono)", "IBM Plex Mono", "monospace"],
-        sans: ["var(--font-plex-sans)", "IBM Plex Sans", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
-      maxWidth: { container: "1320px" },
+      maxWidth: { page: "1200px", prose: "68ch" },
+      letterSpacing: { label: "0.12em" },
+      boxShadow: {
+        card: "0 1px 2px rgba(16,19,26,0.04), 0 8px 24px -12px rgba(16,19,26,0.12)",
+        lift: "0 2px 4px rgba(16,19,26,0.05), 0 24px 48px -24px rgba(16,19,26,0.25)",
+        glow: "0 0 0 1px rgba(255,255,255,0.06), 0 30px 80px -30px rgba(47,91,255,0.45)",
+      },
       keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        pulseDot: {
-          "0%, 100%": { opacity: "1", transform: "scale(1)" },
-          "50%": { opacity: "0.4", transform: "scale(0.7)" },
-        },
-        floatSlow: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-12px)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
+        rise: { "0%": { opacity: "0", transform: "translateY(14px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        pulse2: { "0%,100%": { opacity: "0.35" }, "50%": { opacity: "1" } },
+        dash: { to: { strokeDashoffset: "0" } },
       },
       animation: {
-        marquee: "marquee 24s linear infinite",
-        "pulse-dot": "pulseDot 2s ease-in-out infinite",
-        "float-slow": "floatSlow 6s ease-in-out infinite",
-        shimmer: "shimmer 3s linear infinite",
+        rise: "rise .7s cubic-bezier(.2,.7,.2,1) both",
+        pulse2: "pulse2 2.4s ease-in-out infinite",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

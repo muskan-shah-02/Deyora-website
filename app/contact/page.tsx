@@ -1,100 +1,58 @@
 import type { Metadata } from "next";
-import Reveal from "@/components/Reveal";
-import SectionLabel from "@/components/SectionLabel";
-import DemoForm from "@/components/DemoForm";
-import Breadcrumb from "@/components/Breadcrumb";
-import { company } from "@/lib/company";
+import { Suspense } from "react";
+import { company } from "@/lib/site";
+import { Eyebrow } from "@/components/ui";
+import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Deyora Intelligence — Talk to a Founder",
-  description:
-    "Talk to Deyora Intelligence about DokyDoc demos, design-partner slots, partnerships, and careers. Direct line: muskan@deyoraintelligence.com.",
-  alternates: { canonical: "https://deyora.ai/contact" },
+  title: "Contact",
+  description: "Talk to the founder of Deyora Intelligence about DokyDoc, DokyBrain or our security documents.",
+  alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default function Contact() {
   return (
-    <>
-      <section className="pt-32 pb-20 md:pt-40 md:pb-24 border-b border-subtle">
-        <div className="container-deyora">
-          <Breadcrumb items={[{ label: "Contact" }]} />
-          <Reveal>
-            <SectionLabel>Talk to Deyora</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h1 className="display text-5xl md:text-7xl lg:text-[96px] text-white mb-10 max-w-4xl">
-              Let's make your<br />
-              delivery <span className="shimmer-text">measurable.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="font-sans font-light text-[18px] leading-relaxed text-ink-secondary max-w-2xl">
-              Whether you're shipping a product, running an engineering org, or building a dev
-              shop — we'd love to hear what you're working on. A founder reads every message.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+    <section className="py-16 sm:py-24">
+      <div className="container-page grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <div className="animate-rise">
+          <Eyebrow>Contact</Eyebrow>
+          <h1 className="h-display mt-6 text-[44px] sm:text-[58px]">Talk to the founder.</h1>
+          <p className="lede mt-6 max-w-md">
+            Tell us what you are trying to fix. Every message is read by {company.founder}, the founder, and we reply
+            within one business day (Monday to Friday, India time).
+          </p>
 
-      <section className="bg-bg-secondary py-24 md:py-32">
-        <div className="container-deyora grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
-          <div>
-            <Reveal>
-              <SectionLabel>Direct Lines</SectionLabel>
-            </Reveal>
-
-            <div className="grid gap-6 mt-2">
-              {[
-                {
-                  k: "Demos & design partners",
-                  v: "muskan@deyoraintelligence.com",
-                  href: "mailto:muskan@deyoraintelligence.com",
-                },
-                {
-                  k: "General",
-                  v: "hello@deyora.ai",
-                  href: "mailto:hello@deyora.ai",
-                },
-                {
-                  k: "Careers",
-                  v: "careers@deyora.ai",
-                  href: "mailto:careers@deyora.ai",
-                },
-              ].map((c) => (
-                <Reveal key={c.k}>
-                  <a
-                    href={c.href}
-                    className="block border border-subtle p-7 hover:border-strong hover:bg-bg-card transition-colors"
-                  >
-                    <div className="label-mono mb-3">{c.k}</div>
-                    <div className="display text-xl md:text-2xl text-white break-all">
-                      {c.v}
-                    </div>
-                  </a>
-                </Reveal>
-              ))}
-
-              <Reveal>
-                <div className="border-t border-subtle pt-7 mt-2">
-                  <div className="label-mono mb-2">Location</div>
-                  <div className="display text-xl text-white">{company.contact.location}</div>
-                </div>
-              </Reveal>
+          <div className="mt-10 space-y-6 text-[15.5px]">
+            <div>
+              <p className="eyebrow">Email</p>
+              <a href={`mailto:${company.email}`} className="mt-2 inline-block text-text underline underline-offset-4">
+                {company.email}
+              </a>
+            </div>
+            <div>
+              <p className="eyebrow">Registered office</p>
+              <p className="mt-2 max-w-xs text-text-soft">
+                {company.legalName}
+                <br />
+                {company.registeredOffice}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-paper-line bg-paper-card p-5 text-[14.5px] leading-relaxed text-text-soft">
+              <p className="font-medium text-text">Please do not send confidential documents here.</p>
+              <p className="mt-1">
+                If it would help to look at your documents or code, we sign a mutual NDA first, and you upload them to a
+                trial account of your own.
+              </p>
             </div>
           </div>
-
-          <Reveal delay={120}>
-            <div>
-              <SectionLabel>Or send us the details</SectionLabel>
-              <p className="font-sans font-light text-[15px] text-ink-secondary mb-8 max-w-xl">
-                Tell us a bit about your team and the problem you're trying to solve. We'll get
-                back within one business day.
-              </p>
-              <DemoForm />
-            </div>
-          </Reveal>
         </div>
-      </section>
-    </>
+
+        <div className="animate-rise [animation-delay:120ms]">
+          <Suspense fallback={<div className="card h-[640px]" />}>
+            <ContactForm />
+          </Suspense>
+        </div>
+      </div>
+    </section>
   );
 }

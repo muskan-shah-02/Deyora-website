@@ -1,385 +1,376 @@
-import Link from "next/link";
-import Reveal from "@/components/Reveal";
-import SectionLabel from "@/components/SectionLabel";
-import HowItWorks from "@/components/HowItWorks";
-import IntegrationGrid from "@/components/IntegrationGrid";
-import PersonaRow from "@/components/PersonaRow";
-import TrustStrip from "@/components/TrustStrip";
-import AlphaBanner from "@/components/AlphaBanner";
-import DokyDocMark from "@/components/DokyDocMark";
+import type { Metadata } from "next";
+import { DOKYDOC, SITE_URL } from "@/lib/site";
+import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
+import { CoverageIllustration } from "@/components/Illustrations";
 
-export const metadata = {
-  title: "DokyDoc — Doc-to-Code Governance | Deyora Intelligence",
-  description:
-    "The system of truth between what your business asked for and what your engineers actually shipped. For every BRD, every repo, every release.",
+const description =
+  "DokyDoc reads your requirement documents and your code, links each requirement to the code that implements it, and shows what is built, what is missing and what it could not check. A named person on your side signs off.";
+
+export const metadata: Metadata = {
+  title: "DokyDoc · Check software against the documents that say what it should do",
+  description,
+  alternates: { canonical: "/dokydoc" },
+  openGraph: { title: "DokyDoc by Deyora Intelligence", description, url: `${SITE_URL}/dokydoc` },
 };
 
-const DOKYDOC_URL = "https://dokydoc.com/";
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "DokyDoc",
+  url: DOKYDOC.home,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description,
+  publisher: { "@type": "Organization", name: "Deyora Intelligence Private Limited", url: SITE_URL },
+};
 
-const PAIN_CARDS = [
+const steps = [
   {
-    id: "problem-drift",
-    pre: "You've been here:",
-    body: "A PRD was signed off six months ago. A feature shipped last week. They don't match. You find out at the demo.",
+    t: "Bring the documents",
+    d: "Upload requirement documents as PDF, Word, text or Markdown. DokyDoc pulls out each requirement, and reports any part it could not read instead of hiding it.",
   },
   {
-    id: "problem-docs",
-    pre: "You've been here:",
-    body: "Two hundred BRDs in Confluence. Nobody has read them end-to-end. Nobody knows which ones are still true.",
+    t: "Connect the code",
+    d: "GitHub, GitLab (cloud or your own server), Bitbucket Cloud, a public repository link, or a ZIP upload.",
   },
   {
-    id: "problem-code",
-    pre: "You've been here:",
-    body: "A senior engineer leaves. Three months of tribal knowledge walks out the door. Onboarding the replacement takes six weeks.",
+    t: "DokyDoc links them",
+    d: "Exact names first, close matches next, and AI only for the pairs those cannot settle. Each link is marked verified, by a person, or inferred, by DokyDoc. A requirement nobody checked stays unverified, never covered.",
   },
   {
-    id: "problem-stale",
-    pre: "You've been here:",
-    body: "Your README lies. Your API docs lie. They describe a system you deprecated 18 months ago. You don't know which docs are still true.",
+    t: "You decide, and sign off",
+    d: "Findings arrive as one ordered list, and your decisions survive every re-scan. A CXO signs off, and the sealed record states the signer, the time, the coverage, the open findings and when it stops holding.",
   },
 ];
 
-const PERSONAS = [
-  {
-    id: "for-cto",
-    role: "CTO",
-    pain: "Your codebase doesn't explain itself. Onboarding is slow. You don't know what scope drift cost you last quarter until the retro.",
-    bundle: [
-      "Code Analysis — repo-wide structural understanding",
-      "Reverse Validation — surfaces every place the docs lie about the code",
-      "AskyDoc — chatbot over your private codebase",
-      "Data Flow Visualisation — the architecture diagram that updates itself",
-      "Auto-Docs — first-draft documentation from your actual code",
-    ],
-  },
-  {
-    id: "for-cxo",
-    role: "CXO",
-    pain: "You have a quality, productivity, and audit-readiness problem masquerading as a documentation problem.",
-    bundle: [
-      "Project Brain — one private knowledge graph across every doc and every repo",
-      "Coverage Matrix — green/red/amber map of intent vs. shipped",
-      "Sign-off & UAT — tamper-evident approval flow with a real audit trail",
-      "Wallet billing — every call costed in real time, no surprise invoices",
-      "Per-action audit log — answer 'who did what' without calling support",
-    ],
-  },
-  {
-    id: "for-pm",
-    role: "Product / BA",
-    pain: "You sign off on a BRD. Six months later you find out what actually shipped — at the demo.",
-    bundle: [
-      "Document Insight — every BRD/PRD summarised for the reader you need",
-      "Coverage Matrix — see drift the moment a PR merges, not at the demo",
-      "AskyDoc — ask plain-English questions across every doc and repo",
-      "Sign-off & UAT — auto-generated UAT scripts from extracted acceptance criteria",
-    ],
-  },
-  {
-    id: "for-dev",
-    role: "Developer",
-    pain: "Your README lies. Your colleagues interrupt you with questions a chatbot could answer.",
-    bundle: [
-      "Code Analysis — per-file understanding, ignores noise (binaries, lockfiles)",
-      "Reverse Validation — what your README claims that the code doesn't do",
-      "AskyDoc — your team stops asking you the same question fifteen times",
-      "Auto-Docs — drafts you edit, instead of blank pages you avoid",
-    ],
-  },
+const capabilities = [
+  ["Coverage matrix", "Requirement by requirement: linked, missing or not examined, with a separate report of what was never looked at."],
+  ["Reverse check", "Code, and claims in documents, that no requirement explains."],
+  ["Needs your decision", "One ordered list of findings to decide, and a record of every decision already made."],
+  ["Sealed sign-off", "A signed record that states the condition it depends on, and shows the day it stops holding."],
+  ["UAT checklists and test cases", "Generated from the extracted requirements, for your team to review before use."],
+  ["AskyDoc", "Ask questions about your own documents and code, in plain language."],
+  ["Auto Docs", "Draft requirement documents, architecture diagrams and API summaries from your sources, as a starting point to edit."],
+  ["Maps of your system", "A knowledge graph, a business map and architecture views of what was analysed."],
+  ["Jira and Slack", "Check Jira tickets against the code, and create a Jira issue only when a person asks. Bring in messages from the Slack channels you choose."],
+  ["Code from anywhere", "GitHub, GitLab, Bitbucket Cloud, a public repository link, or a ZIP upload. Nothing to install."],
+  ["Spend controls", "Limits per person and per month, and the price of every paid run shown before it starts."],
+  ["Audit trail", "Changes to documents, repositories, users, integrations and keys are recorded in a chain that shows tampering. Viewing and export are limited to the CXO, Admin and Auditor roles."],
 ];
 
 export default function DokyDocPage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative w-full overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24 border-b border-subtle">
-        <div className="absolute inset-y-0 right-0 w-1/2 z-[1] grid-texture pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-white/[0.04]" />
-        </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
 
-        <div className="relative z-[2] container-deyora">
-          <Reveal>
-            <div className="inline-flex items-center gap-3 border border-strong px-5 py-2 mb-10">
-              <DokyDocMark className="w-4 h-4" />
-              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-secondary">
-                Doc-to-Code Governance · by Deyora Intelligence
-              </span>
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        <div className="container-page grid items-center gap-14 pb-20 pt-16 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-28">
+          <div className="animate-rise">
+            <div className="flex flex-wrap items-center gap-4">
+              <DokyDocMark size={44} />
+              <span className="font-serif text-[26px]">DokyDoc</span>
+              <Status tone="live">Live at dokydoc.com</Status>
             </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <h1 className="display text-[44px] sm:text-6xl md:text-7xl lg:text-[92px] text-white mb-8 leading-[0.98] max-w-[1000px]">
-              The system of truth<br />
-              between what your business<br />
-              asked for and what your<br />
-              engineers <span className="shimmer-text">actually shipped.</span>
+            <h1 className="h-display mt-8 text-[44px] sm:text-[58px] lg:text-[66px]">
+              Does your software do what the documents say?
             </h1>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <p className="font-sans font-light text-[18px] leading-relaxed text-ink-secondary max-w-[640px] mb-10">
-              For every BRD. Every repo. Every release.
+            <p className="lede mt-7 max-w-[36rem]">
+              DokyDoc reads your requirement documents and your code, links each requirement to the code that implements
+              it, and shows what is built, what is missing and what it could not check, with the evidence. A named person
+              on your side reviews the findings and signs off. DokyDoc never signs for you.
             </p>
-          </Reveal>
-
-          {/* Pull quote — the demo-walkaway sentence */}
-          <Reveal delay={250}>
-            <blockquote className="border-l-2 border-white pl-6 my-12 max-w-2xl">
-              <p className="font-sans italic text-[17px] leading-relaxed text-white">
-                "This is what I've been doing manually in Excel before every quarterly
-                review. DokyDoc just runs it all the time — with an audit trail."
-              </p>
-              <footer className="font-mono text-[10px] tracking-[0.14em] text-ink-tertiary uppercase mt-3">
-                — what every buyer says after the demo
-              </footer>
-            </blockquote>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/book-a-demo" className="btn-primary">
-                Book a 20-min Walkthrough
-              </Link>
-              <a
-                href={DOKYDOC_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary inline-flex items-center gap-2"
-              >
-                Open DokyDoc Live ↗
-              </a>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
+              <ButtonLink href="/contact?topic=dokydoc" variant="ghost">
+                Talk to us
+              </ButtonLink>
             </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* THE PAIN — relatability band */}
-      <section className="py-24 md:py-28 border-t border-subtle">
-        <div className="container-deyora">
-          <Reveal>
-            <SectionLabel>The pain</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-4xl md:text-5xl lg:text-6xl text-white mb-4 max-w-3xl leading-[1.02]">
-              Four moments<br />
-              <span className="text-ink-secondary">every team has lived.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="font-sans font-light text-[16px] text-ink-secondary max-w-2xl mb-12">
-              If two of these feel like your Tuesday, the rest of this page is for you.
-            </p>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 -mt-px -ml-px">
-            {PAIN_CARDS.map((card, i) => (
-              <Reveal key={card.id} delay={i * 80}>
-                <div
-                  id={card.id}
-                  className="border-l border-t border-subtle p-8 md:p-10 h-full scroll-mt-32"
-                >
-                  <div className="font-mono text-[10px] tracking-[0.14em] text-accent-blue-soft mb-4">
-                    0{i + 1} / 04
-                  </div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-tertiary mb-4">
-                    {card.pre}
-                  </p>
-                  <p className="font-sans text-[18px] md:text-[20px] leading-relaxed text-white">
-                    {card.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+            <p className="mt-5 text-[14px] text-text-mute">Prepaid and pay-as-you-go. The price is shown before anything runs.</p>
+          </div>
+          <div className="animate-rise [animation-delay:150ms]">
+            <CoverageIllustration />
           </div>
         </div>
       </section>
 
-      {/* THE FIX — one sentence */}
-      <section
-        className="py-24 md:py-28 border-t border-subtle"
-        style={{
-          background:
-            "linear-gradient(180deg, #000 0%, #06080F 50%, #000 100%)",
-        }}
-      >
-        <div className="container-deyora max-w-4xl text-center">
-          <Reveal>
-            <SectionLabel className="justify-center">The fix</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-3xl md:text-5xl lg:text-6xl text-white leading-[1.08]">
-              DokyDoc reads your documents, reads your code, and tells you
-              exactly where they{" "}
-              <span className="shimmer-text">agree</span>, where they{" "}
-              <span className="shimmer-text">don't</span>, and where you're
-              shipping something{" "}
-              <span className="shimmer-text">nobody asked for.</span>
-            </h2>
-          </Reveal>
+      {/* ── Who it is for ────────────────────────────────────── */}
+      <Section className="bg-paper-deep" labelledBy="who-title">
+        <div className="max-w-3xl" data-reveal>
+          <Eyebrow>Who it is for</Eyebrow>
+          <h2 id="who-title" className="h-section mt-5">
+            For the people who pay for software, and the people who build it.
+          </h2>
         </div>
-      </section>
+        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Founders and CXOs", "You pay a team or an agency. See what you are getting against what you agreed, before you sign off."],
+            ["Product managers and analysts", "Turn a requirements document into testable requirements, and see which ones the code really covers."],
+            ["Engineering leads", "Find code nobody asked for, and documents that promise what the code does not do."],
+            ["Auditors", "A record of every decision and sign-off, and an audit log of changes that shows tampering."],
+          ].map(([t, d]) => (
+            <li key={t} data-reveal className="card p-7">
+              <p className="font-serif text-[22px] leading-snug">{t}</p>
+              <p className="mt-3 text-[15.5px] leading-relaxed text-text-soft">{d}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-      {/* WHO IT'S FOR — persona bands (deep-link targets from self-select grid) */}
-      <section className="py-24 md:py-28 border-t border-subtle">
-        <div className="container-deyora">
-          <Reveal>
-            <SectionLabel>Who it's for</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-4xl md:text-5xl lg:text-6xl text-white mb-4 max-w-3xl leading-[1.02]">
-              Your seat at the table,<br />
-              <span className="text-ink-secondary">your view of the product.</span>
+      {/* ── How it works ─────────────────────────────────────── */}
+      <Section labelledBy="how-title">
+        <div className="max-w-3xl" data-reveal>
+          <Eyebrow>How it works</Eyebrow>
+          <h2 id="how-title" className="h-section mt-5">
+            Four steps, and a person decides at the end.
+          </h2>
+        </div>
+        <ol className="mt-14 grid gap-6 md:grid-cols-2">
+          {steps.map((s, i) => (
+            <li key={s.t} data-reveal className="flex gap-6 border-t border-text/15 pt-7">
+              <span className="font-mono text-[13px] text-brand-700">0{i + 1}</span>
+              <div>
+                <p className="font-serif text-[26px] leading-snug">{s.t}</p>
+                <p className="mt-3 text-[16px] leading-relaxed text-text-soft">{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      {/* ── Capabilities ─────────────────────────────────────── */}
+      <Section className="bg-paper-deep" labelledBy="cap-title">
+        <div className="flex flex-wrap items-end justify-between gap-6" data-reveal>
+          <div className="max-w-3xl">
+            <Eyebrow>What it does today</Eyebrow>
+            <h2 id="cap-title" className="h-section mt-5">
+              Everything here is live on dokydoc.com.
             </h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="font-sans font-light text-[16px] text-ink-secondary max-w-2xl mb-16">
-              Every role has a different pain. Here's what DokyDoc does for yours.
-            </p>
-          </Reveal>
-
-          <div className="space-y-4">
-            {PERSONAS.map((p, i) => (
-              <Reveal key={p.id} delay={i * 60}>
-                <div
-                  id={p.id}
-                  className="border border-subtle hover:border-strong transition-colors scroll-mt-32"
-                >
-                  <div className="grid lg:grid-cols-[1fr_1.6fr]">
-                    <div className="p-8 md:p-10 border-b lg:border-b-0 lg:border-r border-subtle">
-                      <div className="font-mono text-[10px] tracking-[0.14em] text-ink-tertiary mb-4">
-                        FOR THE
-                      </div>
-                      <div className="display text-3xl md:text-4xl text-white mb-6">
-                        {p.role}
-                      </div>
-                      <p className="font-sans text-[16px] leading-relaxed text-ink-secondary">
-                        {p.pain}
-                      </p>
-                    </div>
-                    <div className="p-8 md:p-10">
-                      <div className="font-mono text-[10px] tracking-[0.14em] text-accent-blue-soft mb-4">
-                        YOUR BUNDLE
-                      </div>
-                      <ul className="space-y-3">
-                        {p.bundle.map((b) => {
-                          const [name, ...rest] = b.split(" — ");
-                          return (
-                            <li
-                              key={b}
-                              className="font-sans text-[15px] leading-relaxed text-white"
-                            >
-                              <span className="text-accent-blue-soft mr-2">→</span>
-                              <span className="font-medium">{name}</span>
-                              {rest.length > 0 && (
-                                <span className="text-ink-secondary">
-                                  {" "}
-                                  — {rest.join(" — ")}
-                                </span>
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
           </div>
+          <Status tone="live">Live</Status>
         </div>
-      </section>
+        <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-paper-line bg-paper-line sm:grid-cols-2 lg:grid-cols-3">
+          {capabilities.map(([t, d]) => (
+            <li key={t} className="bg-paper-card p-7">
+              <p className="text-[17px] font-semibold">{t}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-text-soft">{d}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-      {/* HOW IT WORKS — reuse existing component */}
-      <HowItWorks />
-
-      {/* INTEGRATIONS */}
-      <IntegrationGrid />
-
-      {/* PRICING TEASER */}
-      <section
-        className="py-24 md:py-28 border-t border-subtle"
-        style={{
-          background:
-            "linear-gradient(180deg, #000 0%, #06080F 50%, #000 100%)",
-        }}
-      >
-        <div className="container-deyora grid lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-20">
-          <Reveal>
-            <SectionLabel>Pricing</SectionLabel>
-          </Reveal>
-          <div>
-            <Reveal>
-              <h2 className="display text-4xl md:text-5xl lg:text-6xl text-white mb-10 leading-[1.05]">
-                A wallet.<br />
-                Not a <span className="text-ink-secondary">surprise invoice.</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={100}>
-              <p className="font-sans font-light text-[17px] leading-relaxed text-ink-secondary max-w-2xl mb-6">
-                Pre-paid wallet. Real-time cost per call. Every document analysed, every
-                file scanned — visible cost, visible value. Refunds when we don't deliver.
+      {/* ── Boardroom ────────────────────────────────────────── */}
+      <Section dark labelledBy="boardroom-title">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+          <div data-reveal>
+            <Eyebrow>Inside DokyDoc · The Boardroom</Eyebrow>
+            <h2 id="boardroom-title" className="h-section mt-5 text-white">
+              A boardroom that argues in front of you.
+            </h2>
+            <p className="lede mt-6">
+              Out-of-the-box thinking, on demand. Bring a question to eight AI advisers: strategy, product, technology,
+              security, infrastructure, sales, marketing and finance. Each can look things up in your company&rsquo;s
+              documents and code before answering. They rebut each other once, and the minutes record where the room
+              disagreed.
+            </p>
+          </div>
+          <div data-reveal className="space-y-5 text-[16px] leading-relaxed text-ink-300">
+            <div className="rounded-2xl border border-white/10 p-7">
+              <p className="font-serif text-[22px] text-white">An agenda built without AI</p>
+              <p className="mt-2">
+                The agenda is drawn up at no charge through six lenses: delivery truth, hidden assets, synthesis, risk,
+                market posture and delivery cost.
               </p>
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="font-sans text-[16px] leading-relaxed text-white max-w-2xl mb-10">
-                Finance asks where the money went. We hand them a per-user, per-feature
-                breakdown without a ticket.
-              </p>
-            </Reveal>
-            <Reveal delay={300}>
-              <Link
-                href="/pricing"
-                className="inline-flex items-center gap-2 font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-white hover:gap-3 transition-all"
-              >
-                See pricing detail
-                <span>→</span>
-              </Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST STRIP — reuse */}
-      <TrustStrip />
-
-      {/* ALPHA BANNER */}
-      <AlphaBanner />
-
-      {/* FINAL CTA */}
-      <section className="bg-bg-primary py-32 md:py-36 text-center border-t border-subtle">
-        <div className="container-deyora max-w-3xl">
-          <Reveal>
-            <SectionLabel className="justify-center">See it on your own work</SectionLabel>
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-5xl md:text-7xl text-white mb-6 leading-[1.02]">
-              See your own gap<br />
-              in 20 minutes.
-            </h2>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="font-sans font-light text-[17px] text-ink-secondary max-w-xl mx-auto mb-12">
-              Bring one BRD and one repo. We'll run them through DokyDoc and walk you through
-              the coverage matrix — live, on a call, with a founder.
-            </p>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <Link href="/book-a-demo" className="btn-primary">
-                Book a Walkthrough
-              </Link>
-              <a
-                href={DOKYDOC_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary inline-flex items-center gap-2"
-              >
-                Open DokyDoc Live ↗
-              </a>
             </div>
-          </Reveal>
+            <div className="rounded-2xl border border-white/10 p-7">
+              <p className="font-serif text-[22px] text-white">You build, park or kill</p>
+              <p className="mt-2">
+                Each idea ends in a decision and a reason, written into the minutes. Choosing to build can open Jira tickets,
+                and nothing is sent without you.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 p-7">
+              <p className="font-serif text-[22px] text-white">Priced before it runs</p>
+              <p className="mt-2">Every turn of a sitting is priced against a budget before it runs.</p>
+            </div>
+          </div>
         </div>
-      </section>
+      </Section>
+
+      {/* ── DokyBrain ────────────────────────────────────────── */}
+      <Section id="dokybrain" labelledBy="brain-title">
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+          <div data-reveal>
+            <div className="flex flex-wrap items-center gap-3">
+              <Eyebrow>Next, inside DokyDoc</Eyebrow>
+              <Status tone="dev">In development</Status>
+            </div>
+            <h2 id="brain-title" className="h-section mt-5">
+              DokyBrain: a brain for the whole company.
+            </h2>
+            <p className="lede mt-6">
+              We are building DokyBrain into DokyDoc as one evidence-backed foundation that connects what a company
+              intended, promised, built, delivered and earned, and surfaces the gaps, patterns and opportunities that
+              deserve human attention.
+            </p>
+            <p className="mt-6 text-[16px] leading-relaxed text-text-soft">
+              It stands on what DokyDoc already runs: the Boardroom, AskyDoc, sealed sign-off, and evidence marked verified
+              or inferred. What comes next is designed, not shipped, and we will not put a date on this page until we can
+              keep it.
+            </p>
+            <div className="mt-8">
+              <ButtonLink href="/contact?topic=manufacturing">Run a manufacturing company? Talk to us</ButtonLink>
+            </div>
+          </div>
+          <ul className="grid gap-5">
+            {[
+              [
+                "It observes, reasons, recommends and prepares",
+                "A person approves and acts. By design, it never sends, approves or changes anything in your systems on its own.",
+              ],
+              [
+                "Evidence behind every line",
+                "No count without what it is counted against: “6 of 47 open commitments”, never just “delivery is at risk”.",
+              ],
+              [
+                "Starting with manufacturing",
+                "Orders, plants, suppliers, distributors and finances come first. It is designed so a company in any industry can start, and go deeper over time.",
+              ],
+              [
+                "A report a person stands behind",
+                "Its sealed output will be a Verification Report, signed by a named person at your company, not by us.",
+              ],
+            ].map(([t, d]) => (
+              <li key={t} data-reveal className="card p-7">
+                <p className="font-serif text-[22px] leading-snug">{t}</p>
+                <p className="mt-2 text-[15.5px] leading-relaxed text-text-soft">{d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      {/* ── Pricing ──────────────────────────────────────────── */}
+      <Section id="pricing" className="bg-paper-deep" labelledBy="pricing-title">
+        <div className="max-w-3xl" data-reveal>
+          <Eyebrow>Pricing</Eyebrow>
+          <h2 id="pricing-title" className="h-section mt-5">
+            Pay for what you use. See the price first.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <article data-reveal className="card flex flex-col p-8 sm:p-10">
+            <p className="font-serif text-[30px]">Pay as you go</p>
+            <p className="mt-2 text-[16px] text-text-soft">A prepaid wallet in rupees, topped up through Razorpay.</p>
+            <ul className="mt-7 space-y-3 text-[15.5px] leading-relaxed">
+              {[
+                "Every feature included. No seats, no tiers.",
+                "The price of each paid operation is shown before it runs, and anything your balance cannot cover is refused up front.",
+                "Spend limits per person and per month.",
+                "A GST tax invoice for every top-up.",
+                "Unused balance never expires. Top-ups are not refundable.",
+              ].map((x) => (
+                <li key={x} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto pt-9">
+              <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
+            </div>
+          </article>
+          <article data-reveal className="on-dark flex flex-col rounded-2xl bg-ink-900 p-8 text-ink-200 shadow-lift sm:p-10">
+            <p className="font-serif text-[30px] text-white">Enterprise</p>
+            <p className="mt-2 text-[16px] text-ink-300">For companies that buy through a contract.</p>
+            <ul className="mt-7 space-y-3 text-[15.5px] leading-relaxed">
+              {[
+                "An annual agreement, invoiced against your purchase order.",
+                "Analysis on your own Google AI key, set up with you.",
+                "Custom work, by agreement.",
+              ].map((x) => (
+                <li key={x} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-300" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto flex flex-wrap gap-3 pt-9">
+              <ButtonLink href="/contact?topic=dokydoc">Talk to us</ButtonLink>
+              <ButtonLink href={DOKYDOC.enterprise} variant="ghost">
+                Enterprise details
+              </ButtonLink>
+            </div>
+          </article>
+        </div>
+      </Section>
+
+      {/* ── Security and your data ───────────────────────────── */}
+      <Section labelledBy="security-title">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+          <div data-reveal>
+            <Eyebrow>Security and your data</Eyebrow>
+            <h2 id="security-title" className="h-section mt-5">
+              What happens to your documents and code.
+            </h2>
+            <ul className="mt-8 space-y-4 text-[16px] leading-relaxed text-text-soft">
+              {[
+                "Hosted on a server in Germany. Connections to DokyDoc use TLS 1.2 or 1.3.",
+                "Document text and connector tokens are encrypted in the database.",
+                "Each organisation is kept separate, and automated tests check access across organisations before every release.",
+                "AI analysis uses Google’s Gemini API on the paid tier, under which Google does not use your content to train its models. DokyDoc trains no models of its own.",
+                "Changes to documents, repositories, users and integrations are recorded in an audit log that shows tampering.",
+              ].map((x) => (
+                <li key={x} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-live" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+              <ArrowLink href="/contact?topic=trust">Request our security documents (NDA)</ArrowLink>
+              <ArrowLink href={DOKYDOC.security}>dokydoc.com/security</ArrowLink>
+            </div>
+          </div>
+          <div data-reveal className="card p-8 sm:p-10">
+            <p className="font-serif text-[26px]">What it does not do yet</p>
+            <p className="mt-2 text-[15px] text-text-mute">We would rather you hear it from us.</p>
+            <ul className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-text-soft">
+              {[
+                "Two-factor sign-in and company-wide login are not available yet.",
+                "We have not yet had an independent penetration test, and we hold no ISO 27001 or SOC 2 certification.",
+                "Your data is hosted in Germany, and AI processing happens outside India. Hosting in India is not available yet.",
+                "Results are estimates for a person to review. We publish no accuracy figure, because we have not yet measured one on real customer projects.",
+                "Accounting and CRM connections are built but not yet switched on.",
+              ].map((x) => (
+                <li key={x} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dev" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <Section dark labelledBy="cta-title">
+        <div className="mx-auto max-w-3xl text-center" data-reveal>
+          <h2 id="cta-title" className="h-section text-white">
+            See what your software really covers.
+          </h2>
+          <p className="lede mx-auto mt-6 max-w-xl">
+            Start with one requirements document and one repository. If you would like a walkthrough first, talk to us.
+            We sign an NDA before we look at anything of yours.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <ButtonLink href={DOKYDOC.register}>Start on dokydoc.com</ButtonLink>
+            <ButtonLink href="/contact?topic=dokydoc" variant="ghost">
+              Talk to us
+            </ButtonLink>
+          </div>
+        </div>
+      </Section>
     </>
   );
 }

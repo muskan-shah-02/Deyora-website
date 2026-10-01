@@ -1,157 +1,112 @@
 "use client";
+
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import Logo from "./Logo";
-import DokyDocMark from "./DokyDocMark";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { DOKYDOC } from "@/lib/site";
+import { DeyoraMark } from "@/components/ui";
 
-const DOKYDOC_URL = "https://dokydoc.com/";
-
-// Nav order = buyer funnel: Product → Pricing → Company → Contact → Live Product → CTA
-const internalLinks = [
-  { href: "/", label: "Home" },
+const links = [
   { href: "/dokydoc", label: "DokyDoc" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/dokydoc#dokybrain", label: "DokyBrain" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-  }, [open]);
-
+  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const isActive = (href: string) => !href.includes("#") && (pathname === href || pathname.startsWith(href + "/"));
+
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 z-[1000] flex h-[68px] w-full items-center justify-between px-6 md:px-12 backdrop-blur-xl transition-colors ${
-          scrolled ? "bg-black/95" : "bg-transparent"
-        }`}
-      >
-        <Link href="/" className="flex items-center" aria-label="Deyora Intelligence home">
-          <Logo />
+    <header className="on-dark sticky top-0 z-50 border-b border-white/[0.06] bg-ink-950/90 backdrop-blur-md">
+      <nav aria-label="Main" className="container-page flex h-16 items-center justify-between gap-6">
+        <Link href="/" className="flex items-center gap-3 text-white" aria-label="Deyora Intelligence, home">
+          <DeyoraMark size={32} />
+          <span className="font-serif text-[21px] leading-none tracking-[-0.01em]">Deyora</span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-7">
-          {internalLinks.slice(1).map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="font-body text-[13px] text-ink-secondary hover:text-white transition-colors"
-            >
-              {l.label}
-            </Link>
+        <ul className="hidden items-center gap-1 md:flex">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className={`rounded-full px-3.5 py-2 text-[15px] transition-colors ${
+                  isActive(l.href) ? "text-white" : "text-ink-300 hover:text-white"
+                }`}
+              >
+                {l.label}
+              </Link>
+            </li>
           ))}
-          <span className="w-px h-4 bg-strong" aria-hidden="true" />
-          <a
-            href={DOKYDOC_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-ink-secondary hover:text-white transition-colors group"
-          >
-            <DokyDocMark className="w-4 h-4 transition-colors" />
-            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em]">
-              DokyDoc
-            </span>
-            <svg
-              viewBox="0 0 24 24"
-              className="w-3 h-3 fill-none stroke-current"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <path
-                d="M7 17L17 7M17 7H8M17 7V16"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+        </ul>
+
+        <div className="hidden items-center gap-2 md:flex">
+          <a href={DOKYDOC.home} target="_blank" rel="noopener noreferrer" className="rounded-full px-3.5 py-2 text-[15px] text-ink-300 hover:text-white">
+            Open DokyDoc <span aria-hidden="true">↗</span>
+            <span className="sr-only">(opens in a new tab)</span>
           </a>
-          <Link
-            href="/book-a-demo"
-            className="ml-2 inline-flex items-center bg-white text-black font-mono text-[11px] font-medium uppercase tracking-[0.12em] px-6 py-2.5 hover:bg-[#E8E8E8] transition-colors"
-          >
-            Book a Demo
+          <Link href="/contact" className="btn-primary !py-2.5">
+            Talk to us
           </Link>
         </div>
 
         <button
-          aria-label={open ? "Close menu" : "Open menu"}
+          ref={buttonRef}
+          type="button"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white md:hidden"
           aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((s) => !s)}
-          className="lg:hidden flex flex-col justify-center gap-[5px] w-7 h-7 z-[1100]"
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((o) => !o)}
         >
-          <span
-            className={`block h-px w-full bg-white transition-transform ${
-              open ? "translate-y-[6px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block h-px w-full bg-white transition-opacity ${open ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-px w-full bg-white transition-transform ${
-              open ? "-translate-y-[6px] -rotate-45" : ""
-            }`}
-          />
+          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            {open ? (
+              <path d="M5 5l12 12M17 5L5 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            ) : (
+              <path d="M3 7h16M3 15h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            )}
+          </svg>
         </button>
       </nav>
 
-      <div
-        id="mobile-nav"
-        role="dialog"
-        aria-modal={open}
-        aria-label="Site navigation"
-        className={`fixed inset-0 z-[999] flex flex-col items-center justify-center gap-7 bg-black/98 backdrop-blur-2xl transition-opacity ${
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        {internalLinks.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            onClick={() => setOpen(false)}
-            className="display text-3xl text-ink-secondary hover:text-white"
-          >
-            {l.label}
-          </Link>
-        ))}
-        <a
-          href={DOKYDOC_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setOpen(false)}
-          className="display text-3xl text-ink-secondary hover:text-white inline-flex items-center gap-3"
-        >
-          <DokyDocMark className="w-7 h-7" />
-          DokyDoc ↗
-        </a>
-        <Link
-          href="/book-a-demo"
-          onClick={() => setOpen(false)}
-          className="btn-primary mt-4"
-        >
-          Book a Demo
-        </Link>
+      <div id="mobile-menu" hidden={!open} className="border-t border-white/[0.06] md:hidden">
+        <ul className="container-page flex flex-col py-3">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="block py-3 text-[17px] text-ink-200 hover:text-white">
+                {l.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <a href={DOKYDOC.home} target="_blank" rel="noopener noreferrer" className="block py-3 text-[17px] text-ink-200 hover:text-white">
+              Open DokyDoc <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li className="pb-3 pt-2">
+            <Link href="/contact" className="btn-primary w-full">
+              Talk to us
+            </Link>
+          </li>
+        </ul>
       </div>
-    </>
+    </header>
   );
 }
