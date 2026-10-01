@@ -60,6 +60,27 @@ never as available, and gives it no sign-up, date or price.
 | Organisation isolation checked by automated tests before every release | SEC-02; `.github/workflows/deploy.yml` (tests gate the deploy) |
 | Google Gemini API, paid tier, does not use content to train; DokyDoc trains no models | AI-01 §2 |
 
+## Straight answers (`lib/dokydoc.ts` `FAQ`, on /dokydoc#faq and in /llms.txt)
+
+Each answer repeats claims already registered above, except these:
+
+| Claim | Source in `dokydoc` |
+|---|---|
+| "In three steps": exact names, close matches using shared words and spelling distance, then AI only for pairs those cannot settle | `services/mapping_service.py:1-12` (Tier 1 normalised name equality; Tier 2 token overlap and Levenshtein; Tier 3 AI for ambiguous pairs only) |
+| "Not live. It analyses when you start a run. With a GitHub or GitLab webhook, it also analyses the changed files each time code is pushed, paid from your wallet" | `api/endpoints/webhooks.py` (`_extract_github_push`, `_extract_gitlab_push`, `webhook_triggered_analysis`; line 75 notes a webhook run spends the tenant's wallet) |
+| Works on code written with AI tools, "whoever or whatever wrote it" | The code hosts and ZIP upload read the repository's files as they are; nothing in ingestion depends on who wrote the code |
+| Does not scan for vulnerabilities or run load tests | No such feature exists (CO-01 §2 feature list; capabilities above) |
+| "Nothing else is connected today" | The connector list above; accounting and CRM built but not switched on |
+| Does not settle disagreements with a vendor; a CXO signs off, DokyDoc never signs | Terms §2; sign-off row above |
+| "We have published no figures on rework cost, savings or speed" (llms.txt corrections) | This site carries none, and the claims check blocks unmeasured percentages and multipliers |
+
+## Code written with AI tools (DokyDoc page band, builder persona)
+
+| Claim | Source |
+|---|---|
+| DokyDoc reads the code whoever or whatever wrote it, and reports missing, not in any document and not examined | As above; the three finding kinds are the coverage matrix, the reverse check and the exposure report |
+| "Teams and agencies now write code with AI tools, fast and from short prompts" | A description of the market, not a claim about DokyDoc; no figure is attached |
+
 ## What the site says DokyDoc does not do yet
 
 | Statement | Source |

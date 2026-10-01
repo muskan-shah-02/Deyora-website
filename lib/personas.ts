@@ -67,7 +67,7 @@ export const PERSONAS: Persona[] = [
     sub: "DokyDoc links every requirement in your documents to the code that implements it, and flags what is missing, what nobody asked for and what it could not check. Hand your client the evidence, not a promise.",
     points: [
       ["Requirements to code", "Exact names first, close matches next, AI only where those cannot settle it."],
-      ["Docs that drift", "Find documents that promise what the code does not do, and code no document explains."],
+      ["Code written with AI tools", "Fast code still has to match the spec. DokyDoc checks it against your documents, whoever wrote it."],
       ["Bring code from anywhere", "GitHub, GitLab, Bitbucket Cloud, a public link or a ZIP. Nothing to install."],
     ],
     primary: { label: "Start on DokyDoc", href: "https://dokydoc.com/register", dokydoc: true },

@@ -1,4 +1,5 @@
 import { DOKYDOC, SITE_URL, dokydocStatement } from "@/lib/site";
+import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
 import { CoverageIllustration } from "@/components/Illustrations";
@@ -26,6 +27,12 @@ const productJsonLd = {
   publisher: { "@type": "Organization", name: "Deyora Intelligence Private Limited", url: SITE_URL },
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+
 const steps = [
   {
     t: "Bring the documents",
@@ -45,25 +52,12 @@ const steps = [
   },
 ];
 
-const capabilities = [
-  ["Coverage matrix", "Requirement by requirement: linked, missing or not examined, with a separate report of what was never looked at."],
-  ["Reverse check", "Code, and claims in documents, that no requirement explains."],
-  ["Needs your decision", "One ordered list of findings to decide, and a record of every decision already made."],
-  ["Sealed sign-off", "A signed record that states the condition it depends on, and shows the day it stops holding."],
-  ["UAT checklists and test cases", "Generated from the extracted requirements, for your team to review before use."],
-  ["AskyDoc", "Ask questions about your own documents and code, in plain language."],
-  ["Auto Docs", "Draft requirement documents, architecture diagrams and API summaries from your sources, as a starting point to edit."],
-  ["Maps of your system", "A knowledge graph, a business map and architecture views of what was analysed."],
-  ["Jira and Slack", "Check Jira tickets against the code, and create a Jira issue only when a person asks. Bring in messages from the Slack channels you choose."],
-  ["Code from anywhere", "GitHub, GitLab, Bitbucket Cloud, a public repository link, or a ZIP upload. Nothing to install."],
-  ["Spend controls", "Limits per person and per month, and the price of every paid run shown before it starts."],
-  ["Audit trail", "Changes to documents, repositories, users, integrations and keys are recorded in a chain that shows tampering. Viewing and export are limited to the CXO, Admin and Auditor roles."],
-];
 
 export default function DokyDocPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
@@ -116,6 +110,35 @@ export default function DokyDocPage() {
         </div>
       </Section>
 
+      {/* ── Code written with AI tools ──────────────────────── */}
+      <Section dark labelledBy="ai-code-title">
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+          <div data-reveal>
+            <Eyebrow>Code written with AI tools</Eyebrow>
+            <h2 id="ai-code-title" className="h-section mt-5 text-white">
+              AI writes the code in minutes. Someone still has to check it does what you asked.
+            </h2>
+            <p className="lede mt-6">
+              Teams and agencies now write code with AI tools, fast and from short prompts. Speed makes the old question
+              harder, not easier: does it do what was agreed? DokyDoc reads the code in your repository, whoever or whatever
+              wrote it, and checks it against your documents.
+            </p>
+          </div>
+          <ul className="grid gap-px self-start overflow-hidden rounded-2xl bg-white/[0.07]">
+            {[
+              ["Missing", "Requirements the prompts never covered."],
+              ["Not in any document", "Features nobody asked for, and code no requirement explains."],
+              ["Not examined", "Anything DokyDoc could not read, listed rather than passed as fine."],
+            ].map(([t, d]) => (
+              <li key={t} data-reveal className="bg-ink-950 p-6 sm:p-7">
+                <p className="font-mono text-[12px] uppercase tracking-label text-brand-300">{t}</p>
+                <p className="mt-2 text-[16px] leading-relaxed text-ink-300">{d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
       {/* ── Who it is for ────────────────────────────────────── */}
       <Section labelledBy="who-title">
         <div className="max-w-3xl" data-reveal>
@@ -128,7 +151,7 @@ export default function DokyDocPage() {
           {[
             ["Founders and CXOs", "You pay a team or an agency. See what you are getting against what you agreed, before you sign off."],
             ["Product managers and analysts", "Turn a requirements document into testable requirements, and see which ones the code really covers."],
-            ["Engineering leads", "Find code nobody asked for, and documents that promise what the code does not do."],
+            ["Engineering leads", "Find code nobody asked for, including code written with AI tools, and documents that promise what the code does not do."],
             ["Auditors", "A record of every decision and sign-off, and an audit log of changes that shows tampering."],
           ].map(([t, d]) => (
             <li key={t} data-reveal className="card p-7">
@@ -172,7 +195,7 @@ export default function DokyDocPage() {
           <Status tone="live">Live</Status>
         </div>
         <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-paper-line bg-paper-line sm:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map(([t, d]) => (
+          {CAPABILITIES.map(([t, d]) => (
             <li key={t} className="bg-paper-card p-7">
               <p className="text-[17px] font-semibold">{t}</p>
               <p className="mt-2 text-[15px] leading-relaxed text-text-soft">{d}</p>
@@ -336,13 +359,7 @@ export default function DokyDocPage() {
               What happens to your documents and code.
             </h2>
             <ul className="mt-8 space-y-4 text-[16px] leading-relaxed text-text-soft">
-              {[
-                "Hosted on a server in Germany. Connections to DokyDoc use TLS 1.2 or 1.3.",
-                "Document text and connector tokens are encrypted in the database.",
-                "Each organisation is kept separate, and automated tests check access across organisations before every release.",
-                "AI analysis uses Google’s Gemini API on the paid tier, under which Google does not use your content to train its models. DokyDoc trains no models of its own.",
-                "Changes to documents, repositories, users and integrations are recorded in an audit log that shows tampering.",
-              ].map((x) => (
+              {SECURITY.map((x) => (
                 <li key={x} className="flex gap-3">
                   <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-live" />
                   <span>{x}</span>
@@ -365,13 +382,7 @@ export default function DokyDocPage() {
               </span>
             </summary>
             <ul className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-text-soft">
-              {[
-                "Two-factor sign-in and company-wide login are not available yet.",
-                "We have not yet had an independent penetration test, and we hold no ISO 27001 or SOC 2 certification.",
-                "Your data is hosted in Germany, and AI processing happens outside India. Hosting in India is not available yet.",
-                "Results are estimates for a person to review. We publish no accuracy figure, because we have not yet measured one on real customer projects.",
-                "Accounting and CRM connections are built but not yet switched on.",
-              ].map((x) => (
+              {LIMITS.map((x) => (
                 <li key={x} className="flex gap-3">
                   <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dev" />
                   <span>{x}</span>
@@ -379,6 +390,34 @@ export default function DokyDocPage() {
               ))}
             </ul>
           </details>
+        </div>
+      </Section>
+
+      {/* ── Straight answers ─────────────────────────────────── */}
+      <Section id="faq" labelledBy="faq-title">
+        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div data-reveal>
+            <Eyebrow>Straight answers</Eyebrow>
+            <h2 id="faq-title" className="h-section mt-5">
+              What DokyDoc is, and what it is not.
+            </h2>
+            <p className="lede mt-6">
+              Including the questions people ask because they have read something about us that is no longer true.
+            </p>
+          </div>
+          <div data-reveal className="divide-y divide-paper-line border-y border-paper-line">
+            {FAQ.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 [&::-webkit-details-marker]:hidden">
+                  <h3 className="font-serif text-[21px] leading-snug">{f.q}</h3>
+                  <span aria-hidden="true" className="mt-1 font-mono text-[20px] text-text-mute transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 max-w-[42rem] text-[16px] leading-relaxed text-text-soft">{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </Section>
 

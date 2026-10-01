@@ -21,6 +21,7 @@ export default function Footer() {
           title="Products"
           links={[
             { href: "/dokydoc", label: "DokyDoc" },
+            { href: "/dokydoc#faq", label: "DokyDoc: straight answers" },
             { href: "/dokydoc#dokybrain", label: "DokyBrain (in development)" },
             { href: dokydocLink(DOKYDOC.app), label: "Open DokyDoc", external: true },
             { href: DOKYDOC.security, label: "DokyDoc security", external: true },
