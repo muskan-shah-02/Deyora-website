@@ -272,7 +272,8 @@ function ConversationInner({ initialTopic }: { initialTopic?: string }) {
           ) : null}
           {sentName ? (
             <p className="border-t border-paper-line pt-4 text-[13.5px] leading-relaxed text-text-mute">
-              This browser now remembers your first name and what you chose, so the site can say hello next time.{" "}
+              This browser now remembers the name and company you sent and what you chose, so the site can say hello next
+              time.{" "}
               <ForgetMe className="text-text underline" />
             </p>
           ) : null}
@@ -432,14 +433,16 @@ function ConversationInner({ initialTopic }: { initialTopic?: string }) {
 
               {/* Notice at collection: IT (SPDI) Rules 2011 rule 4 now; DPDP Act s.5 and DPDP Rules rule 3 when in force. */}
               <p className="border-t border-paper-line pt-4 text-[13px] leading-relaxed text-text-mute">
-                We use what you send only to reply and, if you ask, to arrange a walkthrough. With it we send your two answers
-                and, for context, the pages you opened here
-                {journey && journey.pages.length ? ` (${journey.pages.map(pageName).join(" → ")})` : ""}
-                {journey?.referrer ? ` and the site that sent you (${journey.referrer})` : ""}. It is stored by our form
-                provider, Netlify (United States), and deleted 365 days after you send it. To see, correct or delete it,
-                write to {company.email}; our grievance officer, {company.grievanceOfficer}, replies within 30 days.{" "}
+                We use what you send to reply and, if you ask, to arrange a call or a walkthrough. With your two answers we
+                send, for context, the kind of visitor you chose, the pages you opened here
+                {journey && journey.pages.length ? ` (${journey.pages.map(pageName).join(" → ")})` : ""}, the site that sent
+                you{journey?.referrer ? ` (${journey.referrer})` : ""} and any campaign tags in your link. Our form provider,
+                Netlify (United States), emails a copy to our mailbox at Zoho Mail (India). Netlify&rsquo;s copy is deleted
+                after 365 days, and emails two years after the last message. You can tell us at any time to stop using your
+                details, or ask to see, correct or delete them, at {company.email}; our grievance officer,{" "}
+                {company.grievanceOfficer}, replies within 30 days.{" "}
                 <Link href="/privacy" className="text-text underline underline-offset-4">
-                  Privacy notice
+                  Website privacy notice
                 </Link>
                 .
               </p>

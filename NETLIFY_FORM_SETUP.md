@@ -31,6 +31,9 @@ The privacy notice promises that form submissions are deleted **365 days** after
 they are sent, and email correspondence **two years** after the last message,
 unless the person becomes a customer. Netlify does not delete submissions on its
 own, so delete older submissions from the Forms dashboard once a quarter.
+The same review every three months (the first by 31 December 2026) also clears
+the messages Netlify marks as spam and the copies in the mailbox, as version 2.0
+of the privacy notice promises ("How long we keep data").
 
 ## Spam
 

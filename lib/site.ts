@@ -46,6 +46,8 @@ export const company = {
   founderFirstName: "Muskan",
   founderTitle: "Founder & Director",
   grievanceOfficer: "Muskan Shah",
+  /** The grievance officer's title in the privacy notice, as in the Trust Pack; the chat header keeps founderTitle. */
+  grievanceOfficerTitle: "Director",
   /** Set these when the founder sends them; the site shows them once set. */
   founderPhoto: null as string | null, // e.g. "/people/muskan-shah.jpg"
   founderLinkedIn: null as string | null, // e.g. "https://www.linkedin.com/in/…"

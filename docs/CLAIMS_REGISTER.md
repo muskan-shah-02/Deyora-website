@@ -130,6 +130,13 @@ report of what was not examined (`services/exposure_report.py`).
 | Claim | Source |
 |---|---|
 | Notice at collection and the privacy notice: purpose, Netlify (United States), deletion after 365 days and two years, rights, grievance officer, 30 days | TP-00-01 W-77; IT (SPDI) Rules 2011 rules 4 and 5(9); DPDP Act s.5 and Rules rule 3 when in force |
+| The privacy notice is version 2.0, the text of t157 section D6 as the founder approved it; it shows its version, its effective date and a change log | deyora-hq `handoffs/2026-10-09_t157_policies_v2/out/D6_website_privacy_notice.md`; founder's decisions of 11 Oct 2026 (board answer a41) |
+| The contact form rests on s.7(a) (details given for a purpose), not consent; people can still tell us to stop | Founder's decision of 11 Oct 2026 (a41, decision 5); Trust Pack PRV-03's DPDP mapping |
+| Form messages: Netlify keeps them and emails a copy to the company mailbox at Zoho Mail (India); the mailbox copy is deleted two years after the last message | `NETLIFY_FORM_SETUP.md`; deyora-hq t157 research note R4, row 5 (Zoho Mail in its India data centre) |
+| The website host receives every request and keeps records of them under its own terms | Every request reaches the host; t157 section D6, "Facts checked against the website code" |
+| No analytics, split testing or script injection is switched on at the host, and nothing sits in front of the site | Founder check (board t170, check 3), to be confirmed before version 2.0 goes live |
+| People Deyora contacts for business: what is held, where it comes from, the grounds (s.3(c)(ii), s.7(a), s.6), the do-not-contact entry, deletion from the list and its earlier versions, deletion after 12 months without contact | deyora-hq `team/DECISIONS.md` (6 Oct 2026 and 11 Oct 2026, a41) and `sales/calling/README.md`; the grounds wait for decision 2 (board t168) and check 1 (t169) |
+| A private code-hosting service and the AI tools Deyora uses hold the outreach list | Founder's decisions of 11 Oct 2026 (a41, 3a and 3b); the calling plan is in deyora-hq `sales/calling/` |
 | The site sets no cookies and runs no analytics | This repository: no analytics, no third-party scripts; fonts self-hosted by `next/font` |
 | What the site keeps in the browser (persona and, after sending, first name and company in localStorage; this visit's pages, referring host and UTM tags in sessionStorage) and that none of it leaves the browser unless the form is sent | `components/Visitor.tsx`; the form payload is built in `components/Conversation.tsx` `onSubmit` |
 | Name and company are suggested from the email address in the browser, nothing is looked up | `lib/identity.ts` (no network call) |
