@@ -129,10 +129,11 @@ export default function Privacy() {
           <section>
             <h2>Website visitors</h2>
             <p className="mt-3">
-              When you open a page, your browser sends our website host what every website receives: your IP address,
-              details of your browser and device, the address of the page and, often, the website that sent you. The host
-              uses this to deliver the page and keep the website secure, and keeps records of these requests under its own
-              terms. We do not use them to find out who you are, or to follow you across other websites. Our ground is
+              When you open a page, your browser sends what every website receives: your IP address, details of your
+              browser and device, the address of the page and, often, the website that sent you. It goes first to
+              Cloudflare, which sits in front of this website to carry and protect its traffic, and then to our website
+              host. Both use it to deliver the page and keep the website secure, and keep records of these requests under
+              their own terms. We do not use them to find out who you are, or to follow you across other websites. Our ground is
               legitimate use under s.7(a): your browser sends this information so that you can see the page.
             </p>
 
@@ -168,10 +169,22 @@ export default function Privacy() {
 
             <h3>Cookies and analytics</h3>
             <p className="mt-3">
-              Apart from what is listed above, this website stores nothing about you on your device. It sets no cookies
-              and runs no analytics or advertising scripts. It loads nothing from other websites: its fonts and images come
-              from this website itself. If we change this, we will update this notice first, and ask for your consent where
-              the law requires it.
+              Apart from what is listed above, this website stores nothing about you on your device, and it sets no
+              cookies of its own. Cloudflare may set a security cookie in your browser if it needs to check that a visitor
+              is a person and not an automated program; the cookie is used only to protect the website.
+            </p>
+            <p className="mt-3">
+              Cloudflare also adds two small scripts of its own to our pages. If your browser runs it, its Web Analytics
+              script reports how each page loads: the page&rsquo;s address, the website that sent you, your browser and
+              device type, and how long the page took to load. We see only totals, such as the number of visits to each
+              page. Cloudflare says Web Analytics uses no cookies or other storage in your browser, and does not use your
+              IP address or browser details to identify you. Its email protection script hides our email address from
+              automated programs that collect addresses, and shows it to you.
+            </p>
+            <p className="mt-3">
+              Apart from these, this website runs no analytics or advertising scripts and loads nothing from other
+              websites: its fonts and images come from this website itself. If we change this, we will update this notice
+              first, and ask for your consent where the law requires it.
             </p>
           </section>
 
@@ -291,10 +304,10 @@ export default function Privacy() {
               head={["Provider", "What it does for us", "What it receives", "Where it may handle the data"]}
               rows={[
                 [
-                  "Netlify, Inc.",
-                  "Hosts this website and receives the contact form",
-                  "Requests to the website; contact form messages, with the IP address, browser details and page recorded for each",
-                  "United States and other countries",
+                  "Netlify, Inc., and Cloudflare, Inc.",
+                  "Netlify hosts this website and receives the contact form. Cloudflare sits in front of the website: it carries and protects its traffic, hides our email address from automated programs and runs Web Analytics",
+                  "Both: requests to the website, including the contact form. Netlify: contact form messages, with the IP address, browser details and page recorded for each. Cloudflare: the reports of its Web Analytics script",
+                  "Netlify: the United States and other countries. Cloudflare: its global network, usually the data centre nearest you",
                 ],
                 [
                   "Zoho Corporation Private Limited (Zoho Mail)",
@@ -332,8 +345,8 @@ export default function Privacy() {
           <section>
             <h2>Where personal data is kept</h2>
             <p className="mt-3">
-              Our mailbox is in India. Our website host is based in the United States, and the code-hosting service and AI
-              tools we use are outside India, so personal data in this notice may be handled outside India. The DPDP Act
+              Our mailbox is in India. Our website host is based in the United States, Cloudflare handles traffic on its
+              global network, and the code-hosting service and AI tools we use are outside India, so personal data in this notice may be handled outside India. The DPDP Act
               allows this, except to a country or territory the Government of India restricts by notification (s.16). We
               will not transfer personal data to a restricted country or territory, and we make no promise that it stays
               in any one country.
@@ -349,7 +362,7 @@ export default function Privacy() {
                   "What this website keeps in your browser",
                   "The kind of visitor you chose, and the name and company sent with your message: until you clear them. This visit: until you close the tab",
                 ],
-                ["Requests to the website", "Kept by the website host under its own terms"],
+                ["Requests to the website", "Kept by Cloudflare and the website host under their own terms"],
                 ["Contact form messages at our form provider", "Deleted after 365 days"],
                 [
                   "Emails, including the copy of each contact form message in our mailbox",

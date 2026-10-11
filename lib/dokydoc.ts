@@ -28,7 +28,7 @@ export const CAPABILITIES: [string, string][] = [
 ];
 
 export const SECURITY: string[] = [
-  "Hosted on a server in Germany. Connections to DokyDoc use TLS 1.2 or 1.3.",
+  "Hosted on a server in Helsinki, Finland, in the EU. Connections to DokyDoc use TLS 1.2 or 1.3.",
   "Document text and connector tokens are encrypted in the database.",
   "Each organisation is kept separate, and automated tests check access across organisations before every release.",
   "AI analysis uses Google’s Gemini API on the paid tier, under which Google does not use your content to train its models. DokyDoc trains no models of its own.",
@@ -38,7 +38,7 @@ export const SECURITY: string[] = [
 export const LIMITS: string[] = [
   "Two-factor sign-in and company-wide login are not available yet.",
   "We have not yet had an independent penetration test, and we hold no ISO 27001 or SOC 2 certification.",
-  "Your data is hosted in Germany, and AI processing happens outside India. Hosting in India is not available yet.",
+  "Your data is hosted in Finland, in the EU, and AI processing happens outside India. Hosting in India is not available yet.",
   "Results are estimates for a person to review. We publish no accuracy figure, because we have not yet measured one on real customer projects.",
   "Accounting and CRM connections are built but not yet switched on.",
 ];
@@ -90,7 +90,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Where is my data, and does the AI learn from it?",
-    a: "DokyDoc runs on a server in Germany, and connections to it use TLS 1.2 or 1.3. Document text and connector tokens are encrypted in the database, and automated tests check before every release that one organisation cannot reach another's data. AI analysis uses Google's Gemini API on the paid tier, under which Google does not use your content to train its models, and DokyDoc trains no models of its own. Hosting in India is not available yet.",
+    a: "DokyDoc runs on a server in Helsinki, Finland, in the EU, and connections to it use TLS 1.2 or 1.3. Document text and connector tokens are encrypted in the database, and automated tests check before every release that one organisation cannot reach another's data. AI analysis uses Google's Gemini API on the paid tier, under which Google does not use your content to train its models, and DokyDoc trains no models of its own. Hosting in India is not available yet.",
   },
   {
     q: "What security reviews has it had?",

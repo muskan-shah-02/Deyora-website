@@ -15,8 +15,10 @@ import { PERSONA_ALIASES, personaById, type Persona, type PersonaId } from "@/li
  *   gone when the tab closes.
  *
  * None of it leaves the browser unless the visitor sends the contact form,
- * which says so before they press send. No cookies, no analytics, no third
- * parties. The website privacy notice describes exactly this.
+ * which says so before they press send. This code sets no cookies, runs no
+ * analytics and calls no third party. Cloudflare, in front of the site, adds
+ * its own Web Analytics and email-protection scripts at the edge; the website
+ * privacy notice describes both, and this.
  */
 
 const VISITOR_KEY = "deyora.visitor";

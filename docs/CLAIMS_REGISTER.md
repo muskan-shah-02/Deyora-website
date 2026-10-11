@@ -55,7 +55,7 @@ never as available, and gives it no sign-up, date or price.
 | No seats, no tiers | Decisions PRICING-1 and COMMERCE-1 |
 | Spend limits per person and per month | AI-01 §9; `services/free_tier_service.py` |
 | Enterprise: annual agreement, PO invoicing, own Google AI key set up with you, custom work | `frontend/app/enterprise/page.tsx`; COMMERCE-1; TR-17 deployed 29 Sep 2026 |
-| Hosted on a server in Germany; TLS 1.2 or 1.3 to DokyDoc | SEC-03C §1; SEC-02 CRY-02 |
+| Hosted on a server in Helsinki, Finland (EU); TLS 1.2 or 1.3 to DokyDoc | Hetzner console, read by the founder on 11 Oct 2026 (board answer a60: Hetzner's HEL1 location); SEC-02 CRY-02. SEC-03C §1 still says Germany until the Trust Pack changes of version 2.0 |
 | Document text and connector tokens encrypted | SEC-02 CRY-01 |
 | Organisation isolation checked by automated tests before every release | SEC-02; `.github/workflows/deploy.yml` (tests gate the deploy) |
 | Google Gemini API, paid tier, does not use content to train; DokyDoc trains no models | AI-01 §2 |
@@ -87,7 +87,7 @@ Each answer repeats claims already registered above, except these:
 |---|---|
 | No two-factor sign-in or company-wide login | SEC-02 IAM-02, IAM-04 |
 | No independent penetration test; no ISO 27001 or SOC 2 certification | SEC-02; SEC-03C §5 |
-| Hosted in Germany; AI outside India; no India hosting | SEC-03C §5; AI-01 §9 |
+| Hosted in Finland (EU); AI outside India; no India hosting | Board answer a60 (11 Oct 2026); SEC-03C §5; AI-01 §9 |
 | No published accuracy figure, because none has been measured on real customer projects | AI-03 "Gaps" |
 | Accounting and CRM connections built but not switched on | `api/endpoints/connectors.py:335-347`; CO-01 §9 |
 
@@ -134,10 +134,10 @@ report of what was not examined (`services/exposure_report.py`).
 | The contact form rests on s.7(a) (details given for a purpose), not consent; people can still tell us to stop | Founder's decision of 11 Oct 2026 (a41, decision 5); Trust Pack PRV-03's DPDP mapping |
 | Form messages: Netlify keeps them and emails a copy to the company mailbox at Zoho Mail (India); the mailbox copy is deleted two years after the last message | `NETLIFY_FORM_SETUP.md`; deyora-hq t157 research note R4, row 5 (Zoho Mail in its India data centre) |
 | The website host receives every request and keeps records of them under its own terms | Every request reaches the host; t157 section D6, "Facts checked against the website code" |
-| No analytics, split testing or script injection is switched on at the host, and nothing sits in front of the site | Founder check (board t170, check 3), to be confirmed before version 2.0 goes live |
+| Cloudflare sits in front of the site, carries its traffic and may set a security cookie; it adds its Web Analytics script (counts visits; Cloudflare says it uses no cookies or other browser storage and does not use the IP address or browser details to identify anyone) and its email-protection script; nothing else is added | Founder's Cloudflare screenshots and page source, 11 Oct 2026 (board answers a61, a62); kept and disclosed by the founder's choice (a64); Cloudflare's Web Analytics page ("does not use any client-side state, such as cookies or localStorage") and Cloudflare's cookie list, read 11 Oct 2026 |
 | People Deyora contacts for business: what is held, where it comes from (business directories and business-contact databases among the sources), the grounds (s.3(c)(ii), s.7(a), s.6), contact at work email and work phone until 31 March 2027 with the strict rule from then, the do-not-contact entry, deletion from the list and its earlier versions, deletion after 12 months without contact | deyora-hq `team/DECISIONS.md` (6 Oct 2026; 11 Oct 2026: a41, decision 2 B in a47, the list's source in a53) and `sales/calling/README.md`; the strict rule's date is board task t195 |
 | A private code-hosting service and the AI tools Deyora uses hold the outreach list | Founder's decisions of 11 Oct 2026 (a41, 3a and 3b); the calling plan is in deyora-hq `sales/calling/` |
-| The site sets no cookies and runs no analytics | This repository: no analytics, no third-party scripts; fonts self-hosted by `next/font` |
+| The site's own code sets no cookies and runs no analytics; apart from Cloudflare's two scripts, it loads nothing from other websites | This repository: no analytics, no third-party scripts; fonts self-hosted by `next/font`; the Content-Security-Policy in `netlify.toml` allows scripts only from the site itself, so browsers that enforce it refuse the Web Analytics script, and the notice says "if your browser runs it" |
 | What the site keeps in the browser (persona and, after sending, first name and company in localStorage; this visit's pages, referring host and UTM tags in sessionStorage) and that none of it leaves the browser unless the form is sent | `components/Visitor.tsx`; the form payload is built in `components/Conversation.tsx` `onSubmit` |
 | Name and company are suggested from the email address in the browser, nothing is looked up | `lib/identity.ts` (no network call) |
 | The form sends the two answers, the persona, this visit's pages, the referring host and UTM tags, and says so before sending | `components/Conversation.tsx`; `public/__forms.html` declares the same fields |

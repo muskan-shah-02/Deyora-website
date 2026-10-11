@@ -19,8 +19,10 @@ rule.
 ## Stack
 
 Next.js 14 (App Router) · TypeScript · Tailwind CSS · deployed on Netlify with
-`@netlify/plugin-nextjs`. No analytics, no cookies, no third-party scripts;
-fonts are self-hosted by `next/font`.
+`@netlify/plugin-nextjs`. The site's own code has no analytics, no cookies and
+no third-party scripts; fonts are self-hosted by `next/font`. Cloudflare sits
+in front of the site and adds its Web Analytics and email-protection scripts at
+the edge (disclosed in `/privacy`, board answers a61, a62 and a64).
 
 ```
 app/
