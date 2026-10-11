@@ -46,8 +46,9 @@ export default function Footer() {
         />
       </div>
 
-      {/* Company identity: Companies Act, 2013 s.12(3)(c) and rule 26 of the
-          Companies (Incorporation) Rules, 2014. */}
+      {/* Company identity on every page, the home page included: Companies Act,
+          2013 s.12(3)(c) and rule 26 of the Companies (Incorporation) Rules, 2014.
+          No telephone number, by the founder's decision of 11 Oct 2026 (a48). */}
       <div className="border-t border-white/[0.07]">
         <div className="container-page py-8 text-[13px] leading-relaxed text-ink-400">
           <p>
@@ -65,7 +66,7 @@ export default function Footer() {
                 <Sep />Telephone: <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-ink-200">{company.phone}</a>
               </>
             ) : null}
-            <Sep />Queries and grievances: {company.grievanceOfficer}
+            <Sep />Queries and grievances: {company.grievanceOfficer}, {company.grievanceOfficerTitle}
           </p>
           <p className="mt-4 text-ink-400">
             © {new Date().getFullYear()} {company.legalName}. DokyDoc is a product of {company.legalName}.

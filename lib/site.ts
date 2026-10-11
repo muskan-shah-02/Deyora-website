@@ -53,9 +53,11 @@ export const company = {
   founderLinkedIn: null as string | null, // e.g. "https://www.linkedin.com/in/…"
   companyLinkedIn: null as string | null,
   /**
-   * Rule 26 of the Companies (Incorporation) Rules, 2014 asks for a telephone
-   * number on the home page. Set it here once the founder decides which number
-   * to publish (open question Q8). The footer shows it as soon as it is set.
+   * Rule 26 of the Companies (Incorporation) Rules, 2014 lists a telephone
+   * number among the particulars a company's home page shows. The founder
+   * decided on 11 Oct 2026 (board answer a48) to publish no telephone number on
+   * the website: keep this null. The business number stays in the email
+   * signature. The footer shows a number only if one is ever set here.
    */
   phone: null as string | null,
 };

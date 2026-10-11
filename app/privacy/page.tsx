@@ -244,8 +244,9 @@ export default function Privacy() {
             <p className="mt-3">
               <strong>Where it comes from.</strong> Business details you made public yourself, or asked to be made public,
               such as on your company&rsquo;s website, your professional networking profile or a listing your business
-              published; details you gave us, for example on a business card, at a meeting or event, or in a reply; and
-              introductions from people who know you.
+              published; details you gave us, for example on a business card, at a meeting or event, or in a reply;
+              introductions from people who know you; and business directories and business-contact databases compiled
+              by other organisations.
             </p>
             <p className="mt-3">
               <strong>How we contact you.</strong> By email, by phone, or by message through a professional networking or
@@ -265,9 +266,11 @@ export default function Privacy() {
               </li>
               <li>Details you gave us: legitimate use under s.7(a), for the purpose you gave them for.</li>
               <li>
-                Details we have in any other way, such as through an introduction: we contact you only if you have agreed
-                to hear from us after being given this notice, for example through the person who introduced you. That
-                agreement is your consent (s.6), and you can withdraw it at any time.
+                Details we have in any other way, such as through an introduction or from a business directory or
+                database: until 31 March 2027, we may contact you at your work email address or work phone number, saying
+                first who we are and why we are contacting you, and we stop at once if you say no. From 31 March 2027, we
+                contact you only if you have agreed to hear from us after being given this notice, for example through the
+                person who introduced you. That agreement is your consent (s.6), and you can withdraw it at any time.
               </li>
             </ul>
             <p className="mt-3">
