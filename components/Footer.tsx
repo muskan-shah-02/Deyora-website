@@ -40,6 +40,7 @@ export default function Footer() {
           title="Legal"
           links={[
             { href: "/privacy", label: "Website privacy notice" },
+            { href: "/security/disclosure", label: "Vulnerability disclosure policy" },
             { href: DOKYDOC.terms, label: "DokyDoc terms", external: true },
             { href: DOKYDOC.privacy, label: "DokyDoc privacy policy", external: true },
           ]}

@@ -20,11 +20,26 @@ export const metadata = pageMeta({
 const VERSION = "2.0";
 const EFFECTIVE = "13 October 2026";
 
+/**
+ * A clarification under "Changes to this notice" (D6's change log; t157, 13 Oct 2026): a complaint to the Board is made
+ * in the way the Board sets out on its website. Set this to the day the founder writes "push main for the website"
+ * (India time), never earlier. Until it is set, the page keeps the wording of 13 October 2026 and shows no row for it.
+ */
+const BOARD_ROUTE_CLARIFIED: string = "";
+
 const CHANGE_LOG: [string, string][] = [
   [
     EFFECTIVE,
     "Version 2.0. Adds emails to us, the people we contact for business, who receives personal data and where, your rights in full, children, security and these change rules. The contact form rests on s.7(a) instead of consent. Replaces the notice effective 1 October 2026",
   ],
+  ...(BOARD_ROUTE_CLARIFIED
+    ? ([
+        [
+          BOARD_ROUTE_CLARIFIED,
+          "Says that a complaint to the Board is made in the way the Board sets out on its website. No kind of personal data or purpose is added",
+        ],
+      ] as [string, string][])
+    : []),
 ];
 
 const a = "text-text underline underline-offset-4";
@@ -416,7 +431,8 @@ export default function Privacy() {
               </li>
               <li>
                 have a grievance resolved by our grievance officer (s.13) and, if you are not satisfied, complain to the
-                Board once the relevant provisions of the DPDP Act are in force.
+                Board{BOARD_ROUTE_CLARIFIED ? ", in the way the Board sets out on its website," : ""} once the relevant
+                provisions of the DPDP Act are in force.
               </li>
             </ul>
             <p className="mt-3">

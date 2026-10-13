@@ -1,0 +1,5 @@
+Contact: mailto:muskan@deyoraintelligence.com
+Expires: 2027-09-29T18:29:59.000Z
+Preferred-Languages: en
+Policy: https://deyoraintelligence.com/security/disclosure
+Canonical: https://deyoraintelligence.com/.well-known/security.txt

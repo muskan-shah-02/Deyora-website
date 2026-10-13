@@ -131,6 +131,7 @@ report of what was not examined (`services/exposure_report.py`).
 |---|---|
 | Notice at collection and the privacy notice: purpose, Netlify (United States), deletion after 365 days and two years, rights, grievance officer, 30 days | The deletions are made at a review every three months, with a repeating reminder the founder set on 13 Oct 2026 (board answer a95); TP-00-01 W-77; IT (SPDI) Rules 2011 rules 4 and 5(9); DPDP Act s.5 and Rules rule 3 when in force |
 | The privacy notice is version 2.0, the text of t157 section D6 as the founder approved it; it shows its version, its effective date and a change log | deyora-hq `handoffs/2026-10-09_t157_policies_v2/out/D6_website_privacy_notice.md`; founder's decisions of 11 Oct 2026 (board answer a41) |
+| A complaint to the Board is made in the way the Board sets out on its website (the rights list), with a dated change-log row; both appear only once `BOARD_ROUTE_CLARIFIED` in `app/privacy/page.tsx` is set to the day the founder writes "push main for the website" | A clarification under the notice's "Changes to this notice", from the reviewer's verdict on version 2.0 and its approval on 13 Oct 2026 (board answer a97); the same words as the DokyDoc Privacy Policy 2.0; deyora-hq t157 section D6 |
 | The contact form rests on s.7(a) (details given for a purpose), not consent; people can still tell us to stop | Founder's decision of 11 Oct 2026 (a41, decision 5); Trust Pack PRV-03's DPDP mapping |
 | Form messages: Netlify keeps them and emails a copy to the company mailbox at Zoho Mail (India); the mailbox copy is deleted two years after the last message | `NETLIFY_FORM_SETUP.md`: set up and tested with the founder on 13 Oct 2026, one email notification to the company mailbox and no webhook (board answer a89); deyora-hq t157 research note R4, row 5 (Zoho Mail in its India data centre) |
 | The website host receives every request and keeps records of them under its own terms | Every request reaches the host; t157 section D6, "Facts checked against the website code" |
@@ -142,3 +143,11 @@ report of what was not examined (`services/exposure_report.py`).
 | Name and company are suggested from the email address in the browser, nothing is looked up | `lib/identity.ts` (no network call) |
 | The form sends the two answers, the persona, this visit's pages, the referring host and UTM tags, and says so before sending | `components/Conversation.tsx`; `public/__forms.html` declares the same fields |
 | Links into DokyDoc carry `utm_source`, `utm_medium` and the persona as `utm_content`, never an email or a name | `lib/site.ts` `dokydocLink` |
+
+## Security
+
+| Claim | Source |
+|---|---|
+| The vulnerability disclosure policy at /security/disclosure: how to report, the response times, the scope, the rules for testing, coordinated disclosure, the safe harbour, no bug bounty, internal handling, and the security.txt it describes | deyora-hq `trust-pack/02-security/POL-SEC-11_VULNERABILITY_DISCLOSURE_POLICY.md`, version 1.2 (13 Oct 2026): the page is its text without the header and internal notes; the founder's instruction of 13 Oct 2026 to make it ready to publish (t157) |
+| `/.well-known/security.txt`: contact muskan@deyoraintelligence.com, expiry 29 September 2027 (less than a year ahead, as RFC 9116 recommends), the policy page and its own canonical address | POL-SEC-11 §10; served as `text/plain; charset=utf-8` by the header in `netlify.toml`; the security contact and the domain are the founder's answers a71 and a94 |
+| "Acknowledgements. None yet." | The list starts empty: the policy is published for the first time with this page, and it promises the list (§8). A name is added only with the reporter's permission |

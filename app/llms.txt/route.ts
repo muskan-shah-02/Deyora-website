@@ -66,6 +66,7 @@ ${FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 - [About, vision and mission](${SITE_URL}/about): the company, the founder and how we build
 - [Contact](${SITE_URL}/contact): talk to the founder
 - [Website privacy notice](${SITE_URL}/privacy)
+- [Vulnerability disclosure policy](${SITE_URL}/security/disclosure): how to report a security weakness
 - [DokyDoc app](${DOKYDOC.home}): sign up and use the product
 - [DokyDoc security](${DOKYDOC.security})
 - [DokyDoc terms](${DOKYDOC.terms})

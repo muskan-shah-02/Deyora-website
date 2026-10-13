@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.7 },
     { path: "/contact", priority: 0.7 },
     { path: "/privacy", priority: 0.2 },
+    { path: "/security/disclosure", priority: 0.2 },
   ];
   return pages.map((p) => ({ url: `${SITE_URL}${p.path}`, changeFrequency: "monthly", priority: p.priority }));
 }
