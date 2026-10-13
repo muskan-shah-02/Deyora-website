@@ -25,7 +25,7 @@ const EFFECTIVE = "13 October 2026";
  * in the way the Board sets out on its website. Set this to the day the founder writes "push main for the website"
  * (India time), never earlier. Until it is set, the page keeps the wording of 13 October 2026 and shows no row for it.
  */
-const BOARD_ROUTE_CLARIFIED: string = "";
+const BOARD_ROUTE_CLARIFIED: string = "14 October 2026";
 
 const CHANGE_LOG: [string, string][] = [
   [
