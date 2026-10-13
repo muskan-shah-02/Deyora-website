@@ -55,12 +55,13 @@ sends nothing. See [`NETLIFY_FORM_SETUP.md`](NETLIFY_FORM_SETUP.md).
 
 ## Before this goes live
 
-1. **Telephone number.** Rule 26 of the Companies (Incorporation) Rules, 2014
-   asks for one on the home page. Set `company.phone` in `lib/site.ts` (open
-   question Q8); the footer shows it as soon as it is set.
-2. **Domain.** `NEXT_PUBLIC_SITE_URL` defaults to `https://deyora.ai`. Confirm
-   the domain (open question Q12) or set the variable in Netlify.
-3. **Netlify Forms.** Accept Netlify's data processing terms, set the
-   notification email, and send one test message (see NETLIFY_FORM_SETUP.md).
+1. **Telephone number.** None is published: rule 26 of the Companies
+   (Incorporation) Rules, 2014 lists one, but the founder decided on 11 Oct 2026
+   to publish none (`company.phone` stays `null` in `lib/site.ts`).
+2. **Domain.** `NEXT_PUBLIC_SITE_URL` defaults to `https://deyoraintelligence.com`,
+   the company's only official domain (the founder, 13 Oct 2026); deyora.ai is
+   not used.
+3. **Netlify Forms.** Set up and tested on 13 Oct 2026; NETLIFY_FORM_SETUP.md
+   says what is in place and the deletion every three months.
 4. **The founder's note** on the home and About pages is written from the
    founder's own words; the founder approves the final wording.
