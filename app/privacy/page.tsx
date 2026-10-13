@@ -18,7 +18,7 @@ export const metadata = pageMeta({
  * A later change follows "Changes to this notice" below and adds a row to CHANGE_LOG.
  */
 const VERSION = "2.0";
-const EFFECTIVE = "11 October 2026";
+const EFFECTIVE = "13 October 2026";
 
 const CHANGE_LOG: [string, string][] = [
   [
