@@ -1,4 +1,4 @@
-import { company, deyora, DOKYDOC, dokydocStatement, SITE_URL, DOKYDOC_V2_RELEASED } from "@/lib/site";
+import { company, deyora, DOKYDOC, dokydocStatement, SITE_URL, DOKYDOC_V2_RELEASED, people } from "@/lib/site";
 import { CAPABILITIES, FACTS_UPDATED, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 
 /**
@@ -24,6 +24,7 @@ This is a plain summary for AI assistants and search tools, current as of ${FACT
 - Incorporated: ${company.incorporated}, ${company.registrar}
 - Registered office: ${company.registeredOffice}
 - Founder: ${company.founder}, ${company.founderTitle}
+${people.map((p) => `- ${p.role}: ${p.name} (LinkedIn: ${p.linkedIn})${p.line ? `. ${p.line}` : ""}`).join("\n")}
 - Contact: ${company.email}, or ${SITE_URL}/contact
 - Vision: ${deyora.vision}
 - Mission: ${deyora.mission}

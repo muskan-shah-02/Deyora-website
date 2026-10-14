@@ -1,7 +1,8 @@
-import { company, deyora, dokydocStatement } from "@/lib/site";
+import { company, deyora, dokydocStatement, people } from "@/lib/site";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section } from "@/components/ui";
 import { FounderAvatar, FounderLinks } from "@/components/Founder";
+import { PersonAvatar } from "@/components/People";
 
 export const metadata = pageMeta({
   title: "About, vision and mission",
@@ -113,6 +114,36 @@ export default function About() {
               </span>
             </p>
           </div>
+        </div>
+      </Section>
+
+      {/* ── The people behind Deyora (board task t212) ───────── */}
+      <Section className="bg-paper-deep !pt-0" labelledBy="people-title">
+        <div className="border-t border-paper-line pt-14 sm:pt-16">
+          <h2 id="people-title" className="eyebrow" data-reveal>
+            The people behind Deyora
+          </h2>
+          <ul className="mt-8 grid gap-6 md:grid-cols-2">
+            {people.map((p) => (
+              <li key={p.name} data-reveal className="card flex items-start gap-5 p-7 sm:p-8">
+                <PersonAvatar person={p} size={64} />
+                <div className="min-w-0">
+                  <p className="font-serif text-[24px] leading-snug text-text">{p.name}</p>
+                  <p className="mt-1 text-[15px] text-text-mute">{p.role}</p>
+                  {p.line ? <p className="mt-3 text-[15.5px] leading-relaxed text-text-soft">{p.line}</p> : null}
+                  <a
+                    href={p.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-block text-[14.5px] text-brand-700 underline-offset-4 hover:underline"
+                  >
+                    {p.firstName} on LinkedIn <span aria-hidden="true">↗</span>
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 

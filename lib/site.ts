@@ -62,6 +62,44 @@ export const company = {
   phone: null as string | null,
 };
 
+export type Person = {
+  name: string;
+  firstName: string;
+  /** In the words of Trust Pack CO-01 section 4. */
+  role: string;
+  linkedIn: string;
+  /** The one-line bio the person approved, set only when the founder sends it; nothing is shown until then. */
+  line: string | null;
+  /** The photo the person approved, e.g. "/people/name.jpg", set only when the founder sends it; initials until then. */
+  photo: string | null;
+};
+
+/**
+ * The people behind Deyora on /about, in the Organization structured data and in /llms.txt (board task t212). The
+ * names, the roles and the LinkedIn addresses are the founder's, in the words of Trust Pack CO-01 section 4; nothing
+ * is copied from LinkedIn. Nothing else about these people goes on the site unless the founder sends it: no share
+ * percentages, DINs or continuity roles, which stay in the Trust Pack. The founder confirms on the board that each
+ * person agreed to be on the website before it goes live.
+ */
+export const people: Person[] = [
+  {
+    name: "Divyansh Shah",
+    firstName: "Divyansh",
+    role: "Director",
+    linkedIn: "https://www.linkedin.com/in/divyansh-shah-7a2a93370/",
+    line: null,
+    photo: null,
+  },
+  {
+    name: "Arpit Agarwal",
+    firstName: "Arpit",
+    role: "Shareholder",
+    linkedIn: "https://www.linkedin.com/in/arpitagarwal974/",
+    line: null,
+    photo: null,
+  },
+];
+
 /** Vision and mission. Approved wording lives in deyora-hq team/DECISIONS.md. */
 export const deyora = {
   vision: "Every company, in every industry, runs with the clarity that today only the biggest can afford.",

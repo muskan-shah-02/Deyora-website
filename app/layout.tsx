@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import RevealObserver from "@/components/RevealObserver";
 import { ForParam, VisitorProvider } from "@/components/Visitor";
 import { Suspense } from "react";
-import { SITE_URL, company } from "@/lib/site";
+import { SITE_URL, company, people } from "@/lib/site";
 
 const serif = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], variable: "--font-serif", display: "swap" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
@@ -66,6 +66,12 @@ const organizationJsonLd = {
     jobTitle: company.founderTitle,
     ...(company.founderLinkedIn ? { sameAs: [company.founderLinkedIn] } : {}),
   },
+  // The people on /about (board task t212), each with the role Trust Pack CO-01 section 4 gives them.
+  member: people.map((p) => ({
+    "@type": "OrganizationRole",
+    roleName: p.role,
+    member: { "@type": "Person", name: p.name, sameAs: [p.linkedIn] },
+  })),
   ...(company.companyLinkedIn ? { sameAs: [company.companyLinkedIn] } : {}),
 };
 

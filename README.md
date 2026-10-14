@@ -28,7 +28,7 @@ the edge (disclosed in `/privacy`, board answers a61, a62 and a64).
 app/
   page.tsx               Home: the vision, the problem, what we build, products, principles, industries, founder note
   dokydoc/page.tsx       DokyDoc: what it does today, the Boardroom, DokyBrain (in development), pricing, security
-  about/page.tsx         Founder's note, how we build, company facts
+  about/page.tsx         Founder's note, the people behind Deyora, how we build, company facts
   contact/               The contact form (Netlify Forms) with its notice at collection
   privacy/page.tsx       Website privacy notice
   opengraph-image.tsx    Social sharing image
