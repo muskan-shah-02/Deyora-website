@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { company, DOKYDOC } from "@/lib/site";
+import { company, DOKYDOC, DOKYDOC_V2_RELEASE_DAY, untilDokyDocV2 } from "@/lib/site";
 import { pageMeta } from "@/lib/meta";
 import { Eyebrow } from "@/components/ui";
 
@@ -14,9 +14,12 @@ export const metadata = pageMeta({
  * The text of POL-SEC-11 (deyora-hq trust-pack/02-security/POL-SEC-11_VULNERABILITY_DISCLOSURE_POLICY.md), version 1.2,
  * without its header table and internal notes. Change this page and that file in the same change, and raise the
  * version in both. public/.well-known/security.txt points here and must match §10.
+ * Version 1.3 shows from the release day of version 2.0 of the DokyDoc documents (DOKYDOC_V2_RELEASE_DAY in
+ * lib/site.ts), the day the Trust Pack's release-day patch raises the file to 1.3: it changes only two citations,
+ * §4's out-of-scope list and §7's point on the Terms of Service.
  */
-const VERSION = "1.2";
-const DATED = "13 October 2026";
+const VERSION = untilDokyDocV2("1.2", "1.3");
+const DATED = untilDokyDocV2("13 October 2026", DOKYDOC_V2_RELEASE_DAY);
 /** RFC 9116: less than a year after publication; renewed at each yearly review (POL-SEC-11 §10). */
 const EXPIRES = "2027-09-29T18:29:59.000Z";
 /** Literal, not the build's site URL: the static file says exactly this. */
@@ -190,8 +193,10 @@ export default function Disclosure() {
               <li>social engineering or phishing of our staff, customers or suppliers;</li>
               <li>physical attacks on offices, data centres or devices;</li>
               <li>
-                third-party services we use, such as Cloudflare, Hetzner, Google, Razorpay, GitHub, GitLab, Bitbucket,
-                Atlassian, Slack, Zoho, Sentry and the platform that hosts our website: please report to them directly;
+                {untilDokyDocV2(
+                  "third-party services we use, such as Cloudflare, Hetzner, Google, Razorpay, GitHub, GitLab, Bitbucket, Atlassian, Slack, Zoho, Sentry and the platform that hosts our website: please report to them directly;",
+                  "the services of the providers on our Sub-processor and Connector List, the services our customers connect, and the platform that hosts our website: please report to them directly;",
+                )}
               </li>
               <li>output from automated scanners without a demonstrated, exploitable impact;</li>
               <li>
@@ -262,8 +267,11 @@ export default function Disclosure() {
                 other complaint against you with any authority.
               </li>
               <li>
-                <strong>Terms of Service.</strong> Testing that follows this policy is not a breach of the rule in our
-                Terms of Service (§3) against probing the service.
+                <strong>Terms of Service.</strong>{" "}
+                {untilDokyDocV2(
+                  "Testing that follows this policy is not a breach of the rule in our Terms of Service (§3) against probing the service.",
+                  "Testing that follows this policy is not a breach of the Terms of Service (“Acceptable use”), which forbid probing, scanning or testing DokyDoc’s security “without Deyora’s written permission”: this policy is that written permission.",
+                )}
               </li>
               <li>
                 <strong>If someone else acts.</strong> If a third party makes a claim or complaint against you about

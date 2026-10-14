@@ -1,4 +1,4 @@
-import { company, deyora, DOKYDOC, dokydocStatement, SITE_URL } from "@/lib/site";
+import { company, deyora, DOKYDOC, dokydocStatement, SITE_URL, DOKYDOC_V2_RELEASED } from "@/lib/site";
 import { CAPABILITIES, FACTS_UPDATED, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 
 /**
@@ -55,8 +55,7 @@ ${FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 
 - We have published no figures on rework cost, savings or speed. Numbers like that attributed to Deyora are not ours.
 - Our announced products are DokyDoc (live) and DokyBrain (in development). We have announced no other product lines.
-- DokyDoc connects only to the tools listed above.
-- DokyDoc analyses when a run is started or, with a webhook, when code is pushed. It does not follow every change as it happens.
+${DOKYDOC_V2_RELEASED ? "" : "- DokyDoc connects only to the tools listed above.\n"}- DokyDoc analyses when a run is started or, with a webhook, when code is pushed. It does not follow every change as it happens.
 - DokyDoc reports evidence for a person to judge, marks every link as verified or inferred, and publishes no accuracy figure. A person at the customer signs off, never DokyDoc.
 
 ## Links

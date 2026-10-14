@@ -80,3 +80,22 @@ export const dokydocStatement = {
 
 /** Kept for older imports. */
 export const mission = deyora.mission;
+
+/**
+ * Version 2.0 of the DokyDoc documents (deyora-hq board task t157; handoffs/2026-10-09_t157_policies_v2/RESUME.md,
+ * "On the release day", item 2). A marker until the release day: fill it with that day, India time, in the form
+ * "13 October 2026", never earlier, in the commit the founder publishes with "push main for the website". Until it
+ * is filled, every page keeps its wording of 14 October 2026. From then, the privacy notice's two passages and its
+ * dated change-log row, POL-SEC-11 version 1.3, the wallet, Slack and AI lines, the two lines that would leave out
+ * Confluence, and /llms.txt's date change together, each in the words of the approved version 2.0 texts
+ * (docs/CLAIMS_REGISTER.md, "From the release day of version 2.0 of the DokyDoc documents").
+ */
+export const DOKYDOC_V2_RELEASE_DAY: string = "{{RELEASE_DAY}}";
+
+/** Whether the release day above is filled. */
+export const DOKYDOC_V2_RELEASED = !DOKYDOC_V2_RELEASE_DAY.includes("{{");
+
+/** The wording before the release day of version 2.0 of the DokyDoc documents, then the wording from that day. */
+export function untilDokyDocV2<T>(before: T, from: T): T {
+  return DOKYDOC_V2_RELEASED ? from : before;
+}

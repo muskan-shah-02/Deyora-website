@@ -1,4 +1,4 @@
-import { DOKYDOC, SITE_URL, dokydocStatement } from "@/lib/site";
+import { DOKYDOC, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
 import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
@@ -313,7 +313,15 @@ export default function DokyDocPage() {
                 "The price of each paid operation is shown before it runs, and anything your balance cannot cover is refused up front.",
                 "Spend limits per person and per month.",
                 "A GST tax invoice for every top-up.",
-                "Unused balance never expires. Top-ups are not refundable.",
+                // From the release day of version 2.0, the Terms of Service's rule ("Fees, wallet and invoices").
+                ...untilDokyDocV2(
+                  ["Unused balance never expires. Top-ups are not refundable."],
+                  [
+                    "No refunds. Top-ups are final.",
+                    "If your organisation is a company, its top-up balance does not expire and stays usable while its account is open.",
+                    "If your organisation is not a company registered under the Companies Act, 2013 or an earlier companies law (for example a partnership, a limited liability partnership, a trust, a society or a sole proprietor), each top-up it pays for can be used for 360 days from the day it is paid, and any part unused by then lapses.",
+                  ],
+                ),
               ].map((x) => (
                 <li key={x} className="flex gap-3">
                   <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />

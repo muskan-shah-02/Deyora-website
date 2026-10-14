@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { company, DOKYDOC } from "@/lib/site";
+import { company, DOKYDOC, DOKYDOC_V2_RELEASE_DAY, DOKYDOC_V2_RELEASED } from "@/lib/site";
 import { pageMeta } from "@/lib/meta";
 import { Eyebrow } from "@/components/ui";
 import { ForgetMe } from "@/components/Visitor";
@@ -27,6 +27,12 @@ const EFFECTIVE = "13 October 2026";
  */
 const BOARD_ROUTE_CLARIFIED: string = "14 October 2026";
 
+/**
+ * The release day of version 2.0 of the DokyDoc documents (DOKYDOC_V2_RELEASE_DAY in lib/site.ts): the two passages
+ * D6 worded for the DokyDoc Privacy Policy live before it ("Who we are and what this notice covers"; the second
+ * point under "Emails to us") take D6's wording under "Before version 2.0 of the DokyDoc documents", with the
+ * change-log row below. It is a clarification under "Changes to this notice", so the version stays 2.0.
+ */
 const CHANGE_LOG: [string, string][] = [
   [
     EFFECTIVE,
@@ -37,6 +43,14 @@ const CHANGE_LOG: [string, string][] = [
         [
           BOARD_ROUTE_CLARIFIED,
           "Says that a complaint to the Board is made in the way the Board sets out on its website. No kind of personal data or purpose is added",
+        ],
+      ] as [string, string][])
+    : []),
+  ...(DOKYDOC_V2_RELEASED
+    ? ([
+        [
+          DOKYDOC_V2_RELEASE_DAY,
+          "Points to the Personal Data We Handle list of the DokyDoc Privacy Policy, now published, and says that business records an organisation sends us for a review are handled as its Data Processor. No kind of personal data or purpose is added",
         ],
       ] as [string, string][])
     : []),
@@ -124,10 +138,22 @@ export default function Privacy() {
             <p className="mt-3">
               For this personal data, Deyora is the <strong>Data Fiduciary</strong>: we decide why and how it is used.
             </p>
-            <p className="mt-3">
-              The <strong>{policy}</strong> applies when you use DokyDoc. If it describes the data in this notice
-              differently, this notice applies and we correct the other.
-            </p>
+            {DOKYDOC_V2_RELEASED ? (
+              <p className="mt-3">
+                The <strong>{policy}</strong> applies when you use DokyDoc. It covers Account Data (data about DokyDoc
+                accounts, their Authorised Users, billing and the use of DokyDoc) and Customer Content (everything an
+                organisation or its Authorised Users upload, connect or create in DokyDoc, and the results DokyDoc
+                derives from it). Its Personal Data We Handle list sets out, item by item, the personal data DokyDoc
+                handles, including enquiries and the people we contact about DokyDoc. This notice also covers the other
+                people we contact for business and the emails people send us. If either describes the data in this
+                notice differently, this notice applies and we correct the other.
+              </p>
+            ) : (
+              <p className="mt-3">
+                The <strong>{policy}</strong> applies when you use DokyDoc. If it describes the data in this notice
+                differently, this notice applies and we correct the other.
+              </p>
+            )}
             <p className="mt-3">
               We follow India&rsquo;s Digital Personal Data Protection Act, 2023 (the &ldquo;DPDP Act&rdquo;) and the rules
               made under it as each provision comes into force, and the other Indian laws that apply to us, including the
@@ -250,10 +276,18 @@ export default function Privacy() {
               <li>
                 Emails about a DokyDoc account, including requests for support, are covered by the DokyDoc Privacy Policy.
               </li>
-              <li>
-                If your organisation sends us its business records, for example for a review under a signed
-                non-disclosure agreement, we handle them as that agreement says.
-              </li>
+              {DOKYDOC_V2_RELEASED ? (
+                <li>
+                  If your organisation sends us its business records, for example for a review under a signed
+                  non-disclosure agreement, we handle them as its Data Processor, under that agreement and the DokyDoc
+                  Privacy Policy.
+                </li>
+              ) : (
+                <li>
+                  If your organisation sends us its business records, for example for a review under a signed
+                  non-disclosure agreement, we handle them as that agreement says.
+                </li>
+              )}
             </ul>
           </section>
 
