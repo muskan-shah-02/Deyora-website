@@ -128,7 +128,7 @@ export const mission = deyora.mission;
  * Confluence, and /llms.txt's date change together, each in the words of the approved version 2.0 texts
  * (docs/CLAIMS_REGISTER.md, "From the release day of version 2.0 of the DokyDoc documents").
  */
-export const DOKYDOC_V2_RELEASE_DAY: string = "{{RELEASE_DAY}}";
+export const DOKYDOC_V2_RELEASE_DAY: string = "15 October 2026";
 
 /** Whether the release day above is filled. */
 export const DOKYDOC_V2_RELEASED = !DOKYDOC_V2_RELEASE_DAY.includes("{{");
