@@ -7,13 +7,11 @@ import { CommitmentsIllustration, DecisionIllustration } from "@/components/Illu
 import DokyDocLink from "@/components/DokyDocLink";
 import { Eyebrow } from "@/components/ui";
 import { useVisitor } from "@/components/Visitor";
+import { productPage } from "@/lib/site";
+import { CTA, STORY } from "@/lib/story";
 
-/** What everyone sees first, and what search engines see. */
-const DEFAULT_POINTS: [string, string][] = [
-  ["Read", "What your business already holds: documents, code and tickets today; orders and accounts as we grow."],
-  ["Compare", "What was promised against what happened, and it says plainly what it could not check."],
-  ["Prepare", "The few things that matter, with the evidence and a next step. A person decides."],
-];
+/** What everyone sees first, and what search engines see: the story's three steps (lib/story.ts). */
+const DEFAULT_POINTS: [string, string][] = STORY.steps.map((s, i) => [`${i + 1} · ${s.t}`, s.d]);
 
 export default function HomeHero() {
   const { ready, persona, name, choose } = useVisitor();
@@ -33,15 +31,47 @@ export default function HomeHero() {
           <div key={p?.id || "all"} className="animate-rise">
             <Eyebrow>{[hello, p ? p.eyebrow : "Deyora Intelligence"].filter(Boolean).join(" · ")}</Eyebrow>
             <h1 id="hero-title" className="h-display mt-6 text-[44px] sm:text-[60px] lg:text-[70px]">
-              {p ? p.headline : "Run your company on evidence,"} <em className="text-brand-300">{p ? p.accent : "not guesswork."}</em>
+              {p ? p.headline : STORY.headline} <em className="text-brand-300">{p ? p.accent : STORY.accent}</em>
             </h1>
             <p className="lede mt-6 max-w-[34rem]">
-              {p
-                ? p.sub
-                : "We build intelligence for the people who run companies. It reads what your business already knows, shows what needs your attention, and prepares the next step. It prepares. You decide."}
+              {p ? p.sub : STORY.line}
             </p>
           </div>
 
+          <div className="mt-9 flex flex-wrap gap-3">
+            {p ? (
+              <>
+                {p.primary.dokydoc ? (
+                  <DokyDocLink href={p.primary.href}>{p.primary.label}</DokyDocLink>
+                ) : (
+                  <Link href={p.primary.href} className="btn-primary">
+                    {p.primary.label} <span aria-hidden="true">→</span>
+                  </Link>
+                )}
+                <Link href={p.secondary.href} className="btn-ghost">
+                  {p.secondary.label} <span aria-hidden="true">→</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href={CTA.demo.href} className="btn-primary">
+                  {CTA.demo.label} <span aria-hidden="true">→</span>
+                </Link>
+                <DokyDocLink href={CTA.login.href} variant="ghost">
+                  {CTA.login.label}
+                </DokyDocLink>
+              </>
+            )}
+          </div>
+          {p ? null : (
+            <p className="mt-5 text-[14.5px] text-ink-400">
+              New to DokyDoc?{" "}
+              <Link href={productPage()} className="text-ink-200 underline underline-offset-4 hover:text-white">
+                See how it works
+              </Link>
+              . The login page has a link to register.
+            </p>
+          )}
           <div className="mt-9">
             <p id="who-label" className="font-mono text-[12px] uppercase tracking-label text-ink-400">
               {p ? "Showing this page for" : "Who's visiting? Pick one and this page speaks to you"}
@@ -68,35 +98,10 @@ export default function HomeHero() {
             </div>
           </div>
 
-          <div className="mt-9 flex flex-wrap gap-3">
-            {p ? (
-              <>
-                {p.primary.dokydoc ? (
-                  <DokyDocLink href={p.primary.href}>{p.primary.label}</DokyDocLink>
-                ) : (
-                  <Link href={p.primary.href} className="btn-primary">
-                    {p.primary.label} <span aria-hidden="true">→</span>
-                  </Link>
-                )}
-                <Link href={p.secondary.href} className="btn-ghost">
-                  {p.secondary.label} <span aria-hidden="true">→</span>
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="#talk" className="btn-primary">
-                  Talk to the founder <span aria-hidden="true">→</span>
-                </Link>
-                <Link href="/dokydoc" className="btn-ghost">
-                  See DokyDoc <span aria-hidden="true">→</span>
-                </Link>
-              </>
-            )}
-          </div>
         </div>
 
-        <div key={p?.illustration || "decision"} className="animate-rise [animation-delay:120ms]">
-          {p?.illustration === "commitments" ? <CommitmentsIllustration /> : <DecisionIllustration />}
+        <div key={p?.illustration || "commitments"} className="animate-rise [animation-delay:120ms]">
+          {(p?.illustration || "commitments") === "commitments" ? <CommitmentsIllustration /> : <DecisionIllustration />}
         </div>
       </div>
 

@@ -3,9 +3,25 @@
  * outside URL it links to. Each fact here is sourced in docs/CLAIMS_REGISTER.md.
  */
 
+import dokydocHome from "./dokydoc-home.json";
+
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://deyoraintelligence.com").replace(/\/$/, "");
 
 const DOKYDOC_ORIGIN = "https://dokydoc.com";
+
+/**
+ * dokydoc.com's own home page (deyora-hq board task t155, answer a147) goes live with DokyDoc's v1.8 final push.
+ * Until then the product page is /dokydoc on this site. In the website push after that release, set "live" to
+ * true in lib/dokydoc-home.json: next.config.js then redirects /dokydoc permanently (301) to dokydoc.com, the
+ * sitemap drops /dokydoc, and every link below points to dokydoc.com.
+ */
+export const DOKYDOC_HOME_LIVE: boolean = dokydocHome.live === true;
+
+/** Where this site sends people for the product: /dokydoc (with a section) until dokydoc.com's home page is live. */
+export function productPage(section?: string): string {
+  if (DOKYDOC_HOME_LIVE) return DOKYDOC_ORIGIN;
+  return section ? `/dokydoc#${section}` : "/dokydoc";
+}
 
 export const DOKYDOC = {
   home: DOKYDOC_ORIGIN,

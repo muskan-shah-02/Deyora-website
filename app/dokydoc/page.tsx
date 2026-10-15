@@ -1,17 +1,19 @@
 import { DOKYDOC, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
+import { CTA, STORY } from "@/lib/story";
 import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
-import { CoverageIllustration } from "@/components/Illustrations";
+import { CommitmentsIllustration, CoverageIllustration } from "@/components/Illustrations";
+import { StoryAudiences, StorySteps, StoryToday } from "@/components/Story";
 import DokyDocLink from "@/components/DokyDocLink";
 import SnagListDemo from "@/components/SnagListDemo";
 import Conversation from "@/components/Conversation";
 
 const description =
-  "DokyDoc reads your requirement documents and your code, links each requirement to the code that implements it, and shows what is built, what is missing and what it could not check. A named person on your side signs off.";
+  "DokyDoc checks every promise your company makes against what its records show: documents against code today, and, with DokyBrain inside it, orders, deliveries, invoices and payments. You decide.";
 
 export const metadata = pageMeta({
-  title: "DokyDoc · Check the software you paid for against what was agreed",
+  title: "DokyDoc · Every promise, checked against your records",
   description,
   path: "/dokydoc",
 });
@@ -69,8 +71,38 @@ export default function DokyDocPage() {
               <Status tone="live">Live at dokydoc.com</Status>
             </div>
             <h1 className="h-display mt-8 text-[44px] sm:text-[58px] lg:text-[66px]">
-              Does your software do what the documents say?
+              {STORY.headline} <em className="text-brand-600">{STORY.accent}</em>
             </h1>
+            <p className="lede mt-7 max-w-[36rem]">{STORY.line}</p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <ButtonLink href={CTA.demo.href} variant="ghost">
+                {CTA.demo.label}
+              </ButtonLink>
+            </div>
+            <p className="mt-5 text-[14px] text-text-mute">
+              New to DokyDoc? The login page has a link to register. Prepaid and pay-as-you-go; the price is shown before
+              anything runs.
+            </p>
+          </div>
+          <div className="animate-rise [animation-delay:150ms]">
+            <CommitmentsIllustration />
+          </div>
+        </div>
+      </section>
+
+      <StorySteps id="steps" />
+      <StoryAudiences id="who-for" />
+      <StoryToday id="today" />
+
+      {/* ── Software teams: the snag list ───────────────────── */}
+      <Section id="software" labelledBy="software-title">
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div data-reveal>
+            <Eyebrow>For software teams</Eyebrow>
+            <h2 id="software-title" className="h-section mt-5">
+              Does your software do what the documents say?
+            </h2>
             <p className="mt-7 max-w-[36rem] border-l-2 border-brand-600 pl-5 font-serif text-[21px] italic leading-snug text-text">
               {dokydocStatement.analogy}
             </p>
@@ -78,25 +110,24 @@ export default function DokyDocPage() {
               It reads your requirement documents and your code, and shows what is built, what is missing and what it could
               not check, with the evidence. A named person on your side signs off. DokyDoc never signs for you.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
               <ButtonLink href="#walkthrough" variant="ghost">
                 Try the walk-through
               </ButtonLink>
             </div>
-            <p className="mt-5 text-[14px] text-text-mute">Prepaid and pay-as-you-go. The price is shown before anything runs.</p>
           </div>
-          <div className="animate-rise [animation-delay:150ms]">
+          <div data-reveal>
             <CoverageIllustration />
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* ── Walk-through ─────────────────────────────────────── */}
       <Section id="walkthrough" className="bg-paper-deep" labelledBy="walk-title">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
           <div data-reveal>
-            <Eyebrow>Walk through it</Eyebrow>
+            <Eyebrow>Software teams · walk through it</Eyebrow>
             <h2 id="walk-title" className="h-section mt-5">
               Pick a requirement. See what DokyDoc reports.
             </h2>
@@ -142,7 +173,7 @@ export default function DokyDocPage() {
       {/* ── Who it is for ────────────────────────────────────── */}
       <Section labelledBy="who-title">
         <div className="max-w-3xl" data-reveal>
-          <Eyebrow>Who it is for</Eyebrow>
+          <Eyebrow>Software teams · who uses it</Eyebrow>
           <h2 id="who-title" className="h-section mt-5">
             For the people who pay for software, and the people who build it.
           </h2>
@@ -165,7 +196,7 @@ export default function DokyDocPage() {
       {/* ── How it works ─────────────────────────────────────── */}
       <Section id="how" className="bg-paper-deep" labelledBy="how-title">
         <div className="max-w-3xl" data-reveal>
-          <Eyebrow>How it works</Eyebrow>
+          <Eyebrow>Software teams · how it works</Eyebrow>
           <h2 id="how-title" className="h-section mt-5">
             Four steps, and a person decides at the end.
           </h2>
@@ -247,43 +278,44 @@ export default function DokyDocPage() {
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
           <div data-reveal>
             <div className="flex flex-wrap items-center gap-3">
-              <Eyebrow>Next, inside DokyDoc</Eyebrow>
-              <Status tone="dev">In development</Status>
+              <Eyebrow>Inside DokyDoc</Eyebrow>
+              <Status tone="live">Live inside DokyDoc</Status>
             </div>
             <h2 id="brain-title" className="h-section mt-5">
-              DokyBrain: a brain for the whole company.
+              DokyBrain: the brain inside DokyDoc.
             </h2>
             <p className="lede mt-6">
-              We are building DokyBrain into DokyDoc as one evidence-backed foundation that connects what a company
-              intended, promised, built, delivered and earned, and surfaces the gaps, patterns and opportunities that
-              deserve human attention.
+              DokyBrain connects what a company promised with what its records show, across orders, deliveries, invoices,
+              payments and suppliers, and raises the few things that deserve a person&rsquo;s attention, each with its
+              evidence and with what it could not see.
             </p>
             <p className="mt-6 text-[16px] leading-relaxed text-text-soft">
-              It stands on what DokyDoc already runs: the Boardroom, AskyDoc, sealed sign-off, and evidence marked verified
-              or inferred. What comes next is designed, not shipped, and we will not put a date on this page until we can
-              keep it.
+              It has been in production inside DokyDoc since 15 October 2026, and Deyora switches it on for each company.
+              Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on
+              request. Reading your own company&rsquo;s ERP exports and documents into it is coming, and we will not put a
+              date on this page until we can keep it.
             </p>
             <div className="mt-8">
-              <ButtonLink href="/contact?topic=manufacturing">Run a manufacturing company? Talk to us</ButtonLink>
+              <ButtonLink href={CTA.demo.href}>{CTA.demo.label}</ButtonLink>
             </div>
           </div>
           <ul className="grid gap-5">
             {[
               [
-                "It observes, reasons, recommends and prepares",
-                "A person approves and acts. By design, it never sends, approves or changes anything in your systems on its own.",
+                "It prepares; a person decides",
+                "It raises findings and prepares options. It changes nothing in your ERP, and a person at your company decides and acts.",
               ],
               [
                 "Evidence behind every line",
-                "No count without what it is counted against: “6 of 47 open commitments”, never just “delivery is at risk”.",
+                "Every figure is a count, with what it is counted out of: “6 of 47 open commitments”, never just “delivery is at risk”.",
               ],
               [
-                "Starting with manufacturing",
-                "Orders, plants, suppliers, distributors and finances come first. It is designed so a company in any industry can start, and go deeper over time.",
+                "Ten checks have passed their tests",
+                "Manufacturing's seven, among them orders due before their inputs are on record, customer POs that differ from the sales order, and payments at risk, and three for any company that takes orders. A check is switched on only once it passes.",
               ],
               [
-                "A report a person stands behind",
-                "Its sealed output will be a Verification Report, signed by a named person at your company, not by us.",
+                "Brain Health and the weekly brief",
+                "Brain Health shows whether you can trust what DokyBrain says today. The weekly brief shows on screen what changed, what crossed the line and what it could not see.",
               ],
             ].map(([t, d]) => (
               <li key={t} data-reveal className="card p-7">
@@ -330,7 +362,7 @@ export default function DokyDocPage() {
               ))}
             </ul>
             <div className="mt-auto pt-9">
-              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
+              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
             </div>
           </article>
           <article data-reveal className="on-dark flex flex-col rounded-2xl bg-ink-900 p-8 text-ink-200 shadow-lift sm:p-10">
@@ -441,8 +473,11 @@ export default function DokyDocPage() {
               Start on your own, or tell us where you are and the founder will walk you through it. We sign an NDA before we
               look at anything of yours.
             </p>
-            <div className="mt-8">
-              <DokyDocLink href={DOKYDOC.register}>Start on dokydoc.com</DokyDocLink>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <ButtonLink href={CTA.demo.href} variant="ghost">
+                {CTA.demo.label}
+              </ButtonLink>
             </div>
           </div>
           <div data-reveal>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { company, DOKYDOC, dokydocLink } from "@/lib/site";
+import { company, DOKYDOC, dokydocLink, productPage } from "@/lib/site";
+import { CTA } from "@/lib/story";
 import { DeyoraMark } from "@/components/ui";
 import { ForgetMe } from "@/components/Visitor";
 
@@ -20,10 +21,11 @@ export default function Footer() {
         <FooterCol
           title="Products"
           links={[
-            { href: "/dokydoc", label: "DokyDoc" },
-            { href: "/dokydoc#faq", label: "DokyDoc: straight answers" },
-            { href: "/dokydoc#dokybrain", label: "DokyBrain (in development)" },
-            { href: dokydocLink(DOKYDOC.app), label: "Open DokyDoc", external: true },
+            { href: productPage(), label: "DokyDoc" },
+            { href: productPage("faq"), label: "DokyDoc: straight answers" },
+            { href: productPage("dokybrain"), label: "DokyBrain, inside DokyDoc" },
+            { href: dokydocLink(DOKYDOC.login), label: "Log in to DokyDoc", external: true },
+            { href: CTA.demo.href, label: CTA.demo.label },
             { href: DOKYDOC.security, label: "DokyDoc security", external: true },
           ]}
         />

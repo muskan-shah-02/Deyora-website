@@ -145,7 +145,7 @@ const commitments: Commitment[] = [
   },
 ];
 
-/** DokyBrain is in development: this shows the shape it is designed to give, not a product. */
+/** The shape of DokyBrain's attention list, drawn in code: invented names and numbers, captioned as an illustration. */
 export function CommitmentsIllustration() {
   return (
     <figure className="relative">
@@ -166,7 +166,7 @@ export function CommitmentsIllustration() {
         </ul>
         <p className="mt-4 border-t border-paper-line pt-3 text-[13px] text-text-mute">Prepared, not sent. Your people decide each one.</p>
       </div>
-      <figcaption className="illustration-tag mt-3 !text-ink-400">DokyBrain · in development · illustration, invented example</figcaption>
+      <figcaption className="illustration-tag mt-3 !text-ink-400">DokyBrain · illustration, invented example</figcaption>
     </figure>
   );
 }

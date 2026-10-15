@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { DOKYDOC } from "@/lib/site";
+import { productPage } from "@/lib/site";
+import { CTA } from "@/lib/story";
 import { DeyoraMark } from "@/components/ui";
 import DokyDocLink from "@/components/DokyDocLink";
 
 const links = [
-  { href: "/dokydoc", label: "DokyDoc" },
+  { href: productPage(), label: "DokyDoc" },
   { href: "/about#vision", label: "Vision" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -59,11 +60,11 @@ export default function Nav() {
         </ul>
 
         <div className="hidden items-center gap-2 md:flex">
-          <DokyDocLink href={DOKYDOC.app} className="rounded-full px-3.5 py-2 text-[15px] text-ink-300 hover:text-white">
-            Open DokyDoc
+          <DokyDocLink href={CTA.login.href} className="rounded-full px-3.5 py-2 text-[15px] text-ink-300 hover:text-white">
+            Log in
           </DokyDocLink>
-          <Link href="/contact" className="btn-primary !py-2.5">
-            Talk to us
+          <Link href={CTA.demo.href} className="btn-primary !py-2.5">
+            {CTA.demo.label}
           </Link>
         </div>
 
@@ -96,13 +97,13 @@ export default function Nav() {
             </li>
           ))}
           <li>
-            <DokyDocLink href={DOKYDOC.app} className="block py-3 text-[17px] text-ink-200 hover:text-white">
-              Open DokyDoc
+            <DokyDocLink href={CTA.login.href} className="block py-3 text-[17px] text-ink-200 hover:text-white">
+              Log in to DokyDoc
             </DokyDocLink>
           </li>
           <li className="pb-3 pt-2">
-            <Link href="/contact" className="btn-primary w-full">
-              Talk to us
+            <Link href={CTA.demo.href} className="btn-primary w-full">
+              {CTA.demo.label}
             </Link>
           </li>
         </ul>

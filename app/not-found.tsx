@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { productPage } from "@/lib/site";
 import { Eyebrow } from "@/components/ui";
 
 export default function NotFound() {
@@ -13,7 +14,7 @@ export default function NotFound() {
             <Link href="/" className="btn-primary">Home</Link>
           </li>
           <li>
-            <Link href="/dokydoc" className="btn-ghost">DokyDoc</Link>
+            <Link href={productPage()} className="btn-ghost">DokyDoc</Link>
           </li>
           <li>
             <Link href="/contact" className="btn-ghost">Contact</Link>

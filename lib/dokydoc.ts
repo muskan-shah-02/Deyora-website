@@ -121,7 +121,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Is DokyBrain available?",
-    a: "No. DokyBrain is in development, being built inside DokyDoc, starting with manufacturing: orders, plants, suppliers and money. It has no sign-up, date or price yet. By design it prepares and recommends, and a person decides and acts.",
+    a: "Yes, inside DokyDoc, since 15 October 2026, and Deyora switches it on for each company. Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.",
   },
   {
     q: "Who is behind DokyDoc?",

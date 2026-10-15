@@ -1,4 +1,4 @@
-import { company, deyora, dokydocStatement, people } from "@/lib/site";
+import { company, deyora, dokydocStatement, people, productPage } from "@/lib/site";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section } from "@/components/ui";
 import { FounderAvatar, FounderLinks } from "@/components/Founder";
@@ -100,8 +100,8 @@ export default function About() {
             </p>
             <p>
               We started with software delivery, because it is where the gap between what was promised and what was
-              delivered is easiest to see, and DokyDoc checks it today. We are now designing DokyBrain, a brain for the
-              whole company, starting with manufacturing.
+              delivered is easiest to see, and DokyDoc checks it today. DokyBrain, the brain inside DokyDoc, brings the
+              same kind of check to orders, suppliers and money, starting with manufacturing.
             </p>
             <p>
               Whatever we build follows one rule: it prepares, and a person decides. Intelligence should make the people
@@ -181,11 +181,11 @@ export default function About() {
               Deyora Intelligence, and DokyDoc.
             </h2>
             <p className="lede mt-6">
-              Deyora Intelligence is the company. DokyDoc is our product, live at dokydoc.com, and DokyDoc is where
-              DokyBrain is being built.
+              Deyora Intelligence is the company. DokyDoc is our product, live at dokydoc.com, and DokyBrain is the
+              brain inside it.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
-              <ArrowLink href="/dokydoc">About DokyDoc</ArrowLink>
+              <ArrowLink href={productPage()}>About DokyDoc</ArrowLink>
               <ArrowLink href="/contact">Get in touch</ArrowLink>
             </div>
           </div>

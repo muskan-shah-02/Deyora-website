@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { company, DOKYDOC, dokydocLink } from "@/lib/site";
+import { company, DOKYDOC, dokydocLink, productPage } from "@/lib/site";
 import { EMAIL_RE, firstName, guessIdentity } from "@/lib/identity";
 import type { PersonaId } from "@/lib/personas";
 import { FounderAvatar } from "@/components/Founder";
@@ -30,12 +30,23 @@ type Topic = {
 
 export const TOPICS: Topic[] = [
   {
+    value: "demo",
+    label: "I'd like a demo",
+    ask: "Which would you like to see?",
+    needs: [
+      "DokyBrain on our demo manufacturer",
+      "DokyDoc on documents and code",
+      "Both",
+    ],
+    next: { label: "Log in to DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
+  },
+  {
     value: "dokydoc",
     label: "I pay for software",
     persona: "buyer",
     ask: "Where are you with it?",
     needs: ["About to sign off a delivery", "Something feels off", "Starting a new project", "Just exploring"],
-    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.register, dokydoc: true },
+    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
   },
   {
     value: "builder",
@@ -43,7 +54,7 @@ export const TOPICS: Topic[] = [
     persona: "builder",
     ask: "What would help most?",
     needs: ["Evidence for a client", "Find gaps before the client does", "Documents that match the code", "Just exploring"],
-    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.register, dokydoc: true },
+    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
   },
   {
     value: "manufacturing",
@@ -51,15 +62,15 @@ export const TOPICS: Topic[] = [
     persona: "maker",
     ask: "Where do things slip most?",
     needs: ["Orders and delivery dates", "Suppliers and purchase", "Dispatch and invoicing", "Payments and collections", "It all lives in Excel and WhatsApp"],
-    next: { label: "See what DokyBrain is designed to do", href: "/dokydoc#dokybrain" },
+    next: { label: "See what DokyBrain looks for", href: productPage("dokybrain") },
   },
   {
     value: "owner",
-    label: "I run a company",
+    label: "I run a company that takes orders",
     persona: "owner",
-    ask: "What takes most of your week?",
-    needs: ["Chasing updates", "Checking work I paid for", "Reconciling numbers", "Costs I cannot see clearly"],
-    next: { label: "Read what we are building, and why", href: "/about#vision" },
+    ask: "Where do things slip most?",
+    needs: ["Orders and delivery dates", "Suppliers", "Invoicing and payments", "Numbers that do not agree", "Chasing updates"],
+    next: { label: "See how it works", href: "/#how" },
   },
   {
     value: "investor",
@@ -84,7 +95,7 @@ export const TOPICS: Topic[] = [
   },
 ];
 
-const TOPIC_ALIASES: Record<string, string> = { partnership: "other", investors: "investor", security: "trust" };
+const TOPIC_ALIASES: Record<string, string> = { partnership: "other", investors: "investor", security: "trust", "book-a-demo": "demo" };
 const PERSONA_TOPIC: Record<PersonaId, string> = {
   owner: "owner",
   buyer: "dokydoc",

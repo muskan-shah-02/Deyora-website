@@ -3,9 +3,13 @@
  * /?for=manufacturing), and the site speaks to them. The choice stays in their
  * own browser; it reaches us only if they send us a message.
  *
- * Every line here must be true today (see docs/CLAIMS_REGISTER.md). Anything
- * about DokyBrain is labelled as in development.
+ * Every line here must be true today (see docs/CLAIMS_REGISTER.md). DokyBrain
+ * is live inside DokyDoc, switched on by Deyora for each company; on a
+ * company's own records it is coming, and the copy says so (lib/story.ts).
  */
+import { DOKYDOC, productPage } from "@/lib/site";
+import { DEMO_HREF } from "@/lib/story";
+
 
 export type PersonaId = "owner" | "buyer" | "builder" | "maker" | "investor";
 
@@ -26,19 +30,19 @@ export type Persona = {
 export const PERSONAS: Persona[] = [
   {
     id: "owner",
-    chip: "I run a company",
+    chip: "I run a company that takes orders",
     eyebrow: "For founders and owners",
-    headline: "Know what is slipping",
-    accent: "before it costs you.",
-    sub: "Deyora reads what your business already holds, compares what was promised with what happened, and brings you the few things that deserve your attention, with the evidence. It prepares. You decide.",
+    headline: "See which promises are slipping,",
+    accent: "with the evidence.",
+    sub: "Orders, delivery dates, payment terms and invoices sit in different places. DokyBrain, inside DokyDoc, puts them side by side and brings you the few things that need you, with the evidence. It prepares. You decide.",
     points: [
-      ["Today", "If you pay for software, DokyDoc checks what your team or agency built against what you agreed."],
-      ["In development", "DokyBrain, a brain for the whole company: orders, suppliers, customers and money, starting with manufacturing."],
+      ["What it looks for", "A supplier's dates that keep moving, orders shipped but not invoiced, a customer over their credit limit, two systems that disagree about one order."],
+      ["Today", "It runs on our demo company, with invented records. We show it on request. On your own records it is coming."],
       ["Always", "You see the evidence behind every finding, and the decisions stay with your people."],
     ],
-    primary: { label: "Talk to the founder", href: "/contact?topic=owner" },
-    secondary: { label: "See DokyDoc", href: "/dokydoc" },
-    illustration: "decision",
+    primary: { label: "Book a demo", href: DEMO_HREF },
+    secondary: { label: "How it works", href: "/#how" },
+    illustration: "commitments",
     topic: "owner",
   },
   {
@@ -53,8 +57,8 @@ export const PERSONAS: Persona[] = [
       ["When the vendor says done", "Ask for the evidence. Each finding points to the document and the code behind it."],
       ["What it costs", "Pay as you go, in rupees. The price is shown before anything runs."],
     ],
-    primary: { label: "Start on DokyDoc", href: "https://dokydoc.com/register", dokydoc: true },
-    secondary: { label: "How it works", href: "/dokydoc#how" },
+    primary: { label: "Start on DokyDoc", href: DOKYDOC.login, dokydoc: true },
+    secondary: { label: "How it works", href: productPage("how") },
     illustration: "decision",
     topic: "dokydoc",
   },
@@ -70,25 +74,25 @@ export const PERSONAS: Persona[] = [
       ["Code written with AI tools", "Fast code still has to match the spec. DokyDoc checks it against your documents, whoever wrote it."],
       ["Bring code from anywhere", "GitHub, GitLab, Bitbucket Cloud, a public link or a ZIP. Nothing to install."],
     ],
-    primary: { label: "Start on DokyDoc", href: "https://dokydoc.com/register", dokydoc: true },
-    secondary: { label: "What it does today", href: "/dokydoc#capabilities" },
+    primary: { label: "Start on DokyDoc", href: DOKYDOC.login, dokydoc: true },
+    secondary: { label: "What it does today", href: productPage("capabilities") },
     illustration: "decision",
     topic: "dokydoc",
   },
   {
     id: "maker",
     chip: "I run a manufacturing business",
-    eyebrow: "For manufacturers · DokyBrain, in development",
+    eyebrow: "For manufacturers · DokyBrain, inside DokyDoc",
     headline: "Every promise to a customer,",
     accent: "checked against the evidence.",
-    sub: "Orders, plants, suppliers, dispatch, invoices: the facts sit in a dozen places. DokyBrain is being designed to put them side by side and show the few commitments that deserve your attention this week. It is not built yet, and we are designing it with manufacturers.",
+    sub: "Orders, plants, suppliers, dispatch, invoices: the facts sit in a dozen places. DokyBrain puts them side by side and shows the few commitments that deserve your attention, each with its evidence. It runs today on our demo manufacturer, with invented records; on your own records it is coming.",
     points: [
-      ["What it is designed to show", "Commitments that have slipped or keep moving, counted against the whole: “6 of 47 open commitments”, never just “delivery is at risk”."],
-      ["By design", "It never sends, approves or changes anything in your systems. It prepares; your people decide."],
-      ["Where you come in", "Tell us how you track orders and suppliers today. It shapes what we build first."],
+      ["What it looks for", "An order due before its inputs are on record, a customer's PO that differs from your sales order, a supplier slipping, a payment at risk."],
+      ["Counted, never vague", "Every figure is a count, with what it is counted out of: “6 of 47 open commitments”, never just “delivery is at risk”."],
+      ["By design", "It changes nothing in your ERP. It prepares; your people decide."],
     ],
-    primary: { label: "Tell us how you work", href: "/contact?topic=manufacturing" },
-    secondary: { label: "About DokyBrain", href: "/dokydoc#dokybrain" },
+    primary: { label: "Book a demo", href: DEMO_HREF },
+    secondary: { label: "About DokyBrain", href: productPage("dokybrain") },
     illustration: "commitments",
     topic: "manufacturing",
   },
@@ -98,11 +102,11 @@ export const PERSONAS: Persona[] = [
     eyebrow: "For investors",
     headline: "Building the intelligence layer",
     accent: "for how companies run.",
-    sub: "Deyora starts where promises are easiest to check, in software delivery, with DokyDoc live today. DokyBrain extends the same evidence-first engine to the whole company, starting with manufacturing.",
+    sub: "Deyora started where promises are easiest to check, in software delivery, with DokyDoc. DokyBrain, the brain inside DokyDoc, extends the same evidence-first engine to orders, suppliers and money, starting with manufacturing.",
     points: [
       ["Live", "DokyDoc runs at dokydoc.com with self-serve sign-up and a prepaid wallet."],
-      ["Built carefully", "About 5,000 automated tests run before every release, and a release cannot ship if they fail."],
-      ["Next", "DokyBrain: designed, phased and being built inside DokyDoc."],
+      ["Built carefully", "About 9,000 automated tests run before every release, and a release cannot ship if they fail."],
+      ["Live inside DokyDoc", "DokyBrain: in production since 15 October 2026, switched on by Deyora for each company, and shown today on our demo manufacturer."],
     ],
     primary: { label: "Meet the founder", href: "/contact?topic=investor" },
     secondary: { label: "Read the vision", href: "/about#vision" },
