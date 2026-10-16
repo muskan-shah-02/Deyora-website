@@ -1,4 +1,4 @@
-import { DOKYDOC, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
+import { DEMO_UP, DOKYDOC, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
 import { CTA, STORY } from "@/lib/story";
 import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
@@ -291,9 +291,11 @@ export default function DokyDocPage() {
             </p>
             <p className="mt-6 text-[16px] leading-relaxed text-text-soft">
               It has been in production in DokyDoc since 15 October 2026, and Deyora switches it on for each company.
-              Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on
-              request. Reading your own company&rsquo;s ERP exports and documents into it is coming, and we will not put a
-              date on this page until we can keep it.
+              {DEMO_UP
+                ? " Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request."
+                : ""}{" "}
+              Reading your own company&rsquo;s ERP exports and documents into it is coming, and we will not put a date on
+              this page until we can keep it.
             </p>
             <div className="mt-8">
               <ButtonLink href={CTA.demo.href}>{CTA.demo.label}</ButtonLink>

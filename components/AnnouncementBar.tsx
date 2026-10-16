@@ -11,12 +11,12 @@ export default function AnnouncementBar() {
     <div className="bg-ink-950 text-ink-300">
       <p className="container-page flex min-h-9 flex-wrap items-center justify-center gap-x-2 py-2 text-center text-[13.5px]">
         <span className="inline-flex items-center gap-2 text-ink-200">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgb(var(--accent))]" />
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-soft shadow-[0_0_10px_rgb(var(--accent-soft))]" />
           <span className="sm:hidden">DokyDoc now checks orders and invoices</span>
           <span className="hidden sm:inline">DokyDoc now checks orders, invoices, payments and stock</span>
         </span>
         <span aria-hidden="true" className="hidden text-ink-500 sm:inline">·</span>
-        <Link href={CTA.demo.href} className="font-medium text-white underline decoration-accent decoration-2 underline-offset-4">
+        <Link href={CTA.demo.href} className="font-medium text-white underline decoration-accent-soft decoration-2 underline-offset-4">
           Book a demo <span aria-hidden="true">→</span>
         </Link>
       </p>

@@ -17,13 +17,36 @@ public page, in no metadata, sitemap, alt text or /llms.txt; the rows below use
 it only to point at the product code. DokyDoc's checks on orders, invoices,
 payments and stock are live (since 15 Oct 2026): they are off for a company
 until Deyora switches them on, and no company can load its own records yet, so
-the site says they run today on the demo company, shown on request, and lists a
-company's own records under **Coming**, with no date. Every link to the product
+the site lists a company's own records under **Coming**, with no date. **No line
+says a visitor can see the demo company until it is up on production** (a153;
+board task t204): those lines are behind `lib/demo.json` ("up": false), which is
+set to true only in the website push after t204 is done; "Book a demo" stays
+(the founder, 16 Oct 2026), because it books a time to talk. Every link to the product
 goes to https://dokydoc.com, its home page, never straight to /login, /register
 or /dashboard; links to DokyDoc's /terms, /privacy, /subprocessors and /security
 stay. Nothing that waits for v1.8's final push is on this site.
 
-## The story (`lib/story.ts`, `components/Story.tsx`; home page, /dokydoc, /llms.txt)
+## The home page: the company and its vision (`lib/home.ts`, `app/page.tsx`; a153)
+
+The planner on the founder's delegation (board answer a153): the home page is about Deyora and its vision; the
+product's detail is at dokydoc.com (and /dokydoc here until then). Vision sentences are aims, said as "we are
+building", never as something done; the only product named is DokyDoc.
+
+| Claim | Source |
+|---|---|
+| The vision line, option 1: "Every company, in every industry, runs with the clarity that today only the biggest can afford." (an aim, under the label "Our vision") | `lib/site.ts` `deyora.vision`; deyora-hq `team/DECISIONS.md` |
+| Option 2: "We are building intelligence for the people who run companies." | The About page's headline (`app/about/page.tsx`), approved wording |
+| Option 3: "We are building intelligence that shows the people in charge what needs attention." | The mission, shortened (`deyora.mission`: "…shows what needs attention, and prepares the next step, so the people in charge spend their time deciding, not chasing") |
+| "We are building intelligence that helps the people who run companies see what is hidden in their own records. It prepares. You decide." | An aim ("we are building"); "It prepares. You decide." is `deyora.promise` |
+| The dolphin: a drawing of this site's own, no claim | `components/Dolphin.tsx` |
+| "Our first product: DokyDoc" and its line (orders, invoices, payments and stock against each other, and code against its documents; only what doesn't match, with the record behind each one; you decide) | DokyDoc is live at dokydoc.com; the line is the story's (`STORY.line`, rows below) with documents against code (DokyDoc (Live), below) |
+| "Visit dokydoc.com" goes to https://dokydoc.com | The founder, 16 Oct 2026: every link to the product goes to its home page |
+| "A person decides": what we build prepares the work and shows its reasons; the decision stays with a person on your side | `deyora.promise`; DokyDoc's sign-off by a named person (DokyDoc (Live), below) |
+| "Every finding shows its record" | The trust row "Every item shows its record" (The story, below) |
+| "Measured, not promised": a DokyDoc check is switched on only after it finds the right answers on test records whose answers are kept hidden from it | The trust row "Every check is tested first" (The story, below): dokydoc `backend/app/brain/proven_checks.py` and the hidden exam B |
+| The team: the founder's quote; Divyansh Shah, Director; Arpit Agarwal, Shareholder | The founder's approved quote (unchanged from the home page of 16 Oct); `lib/site.ts` `people` (both agreed, a152) |
+
+## The story (`lib/story.ts`, `components/Story.tsx`; /dokydoc, /llms.txt)
 
 Board answer a147, task t155; deyora-hq `handoffs/2026-10-15_a147_story/STORY.md`. Plain words at the founder's
 request (16 Oct 2026). Sources are in dokydoc main `321fd50`.
@@ -57,7 +80,7 @@ request (16 Oct 2026). Sources are in dokydoc main `321fd50`.
 | Trust: it says "not checked" instead of guessing, and lists what it could not see | DokyDoc's report of what was not examined (`services/exposure_report.py`); DokyBrain's brief, "what the brain could not see" (`brief-copy.ts:30-31`); a report "cannot be judged" state (`brain/reports/condition.py`) |
 | Trust: it never writes back to your ERP; an automated test blocks any new kind of write into another system | `core/third_party_writes.py` (every write-verb call into another system classified; an unclassified one fails the build); `tests/integration/test_ib12_no_write_back.py` |
 | Trust: before a check is switched on it must find the right answers on test records whose answers are kept hidden from it; until it passes it stays locked | `core/proven_checks.py:1-30` (switched on only once both halves pass: its planted cases on dataset A, its precision floor on the sealed dataset B); `brain/eval/measures.py:226` ("hidden evaluation… answer key sealed until scoring"); the lock (`proven_checks.py:238-239`) |
-| Where your data is kept: DokyDoc's server in Helsinki, Finland, run by Hetzner; the processors Hetzner, Cloudflare, Google's Gemini API (paid tier), Zoho, Sentry and Razorpay, each on the published Sub-processor and Connector List; "Deyora does not train models across customers" | The Sub-processor and Connector List as published on 15 Oct 2026 (dokydoc.com/subprocessors; deyora-hq t157 D5), its table of six; the Privacy Policy 2.0 ("does not train models across customers", a pinned phrase) |
+| Where your data is kept: DokyDoc's server in Helsinki, Finland, run by Hetzner; "When DokyDoc analyses it, it is processed by the AI providers named on our Sub-processor and Connector List, with the other companies that process data for us" (a153: no AI model named on the page); "Deyora does not train models across customers" | The Sub-processor and Connector List as published on 15 Oct 2026 (dokydoc.com/subprocessors; deyora-hq t157 D5), its table of six; the Privacy Policy 2.0 ("does not train models across customers", a pinned phrase) |
 | PREPARED, NOT LIVE: "Free look at your last 3 months" (send 3 months of Excel or CSV exports; DokyDoc runs on them; free; nothing to install) | Renders only when `lib/offers.json` says `"freeLook": true`, set in the website push after a company's own records open in production (board task t220) and the founder approves the offer. Until then nothing shows it and the contact chat does not offer it |
 | /dokydoc redirects permanently (301) to dokydoc.com once its own home page is live | `lib/dokydoc-home.json` (`"live": false` until v1.8's final push); `next.config.js`; `lib/site.ts` `productPage` |
 

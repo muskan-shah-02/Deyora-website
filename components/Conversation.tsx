@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { company, DOKYDOC, dokydocLink, productPage } from "@/lib/site";
+import { company, DOKYDOC, dokydocLink, productPage, whenDemoUp } from "@/lib/site";
 import { FREE_LOOK } from "@/lib/story";
 import offers from "@/lib/offers.json";
 import { EMAIL_RE, firstName, guessIdentity } from "@/lib/identity";
@@ -36,7 +36,7 @@ export const TOPICS: Topic[] = [
     label: "I'd like a DokyDoc demo",
     ask: "Which would you like to see?",
     needs: [
-      "Orders, invoices and stock, on our demo company",
+      whenDemoUp("Orders, invoices and stock, on our demo company", "Orders, invoices and stock"),
       "DokyDoc on documents and code",
       "Both",
       // Prepared, not live (a149): shown only once lib/offers.json says "freeLook": true (t220).

@@ -7,7 +7,7 @@
  * (dokydoc main 321fd50); docs/CLAIMS_REGISTER.md, "The story", gives the source of each. A sentence that becomes
  * true only with v1.8's final push does not go here.
  */
-import { DOKYDOC } from "@/lib/site";
+import { DOKYDOC, DEMO_UP, whenDemoUp } from "@/lib/site";
 
 export const DEMO_HREF = "/contact?topic=demo";
 
@@ -28,8 +28,10 @@ export const STORY = {
   accent: "All in one list.",
   line:
     "DokyDoc checks your orders, invoices, payments and stock against each other. It shows you only what doesn't match, with the record behind each one. You decide what to do.",
-  today:
+  today: whenDemoUp(
     "Today you can see it on our demo company, or use it on your software and its documents. Using it on your own company's records is coming.",
+    "Today you can use it on your software and its documents. Using it on your own company's orders, invoices, payments and stock is coming.",
+  ),
   problem: [
     "Your business runs on promises: a delivery date, a price, a payment term.",
     "The facts sit in your ERP, in Excel, in emails and on WhatsApp. Nobody checks them against each other, so you find out late, when a customer complains or money is lost.",
@@ -47,7 +49,10 @@ export const STORY = {
   steps: [
     {
       t: "Bring your records",
-      d: "Your documents and code, today. Exports from your ERP, like orders, invoices and stock: on our demo company now, on your own company coming.",
+      d: whenDemoUp(
+        "Your documents and code, today. Exports from your ERP, like orders, invoices and stock: on our demo company now, on your own company coming.",
+        "Your documents and code, today. Exports from your ERP, like orders, invoices and stock: coming.",
+      ),
     },
     {
       t: "DokyDoc checks them",
@@ -63,7 +68,7 @@ export const STORY = {
       id: "business",
       t: "Businesses that take orders",
       note: "Any industry.",
-      status: "See it on our demo",
+      status: whenDemoUp("See it on our demo", "Coming"),
       problems: [
         "Late suppliers.",
         "Goods shipped but not billed.",
@@ -76,7 +81,7 @@ export const STORY = {
       id: "manufacturing",
       t: "Manufacturers",
       note: "Our deepest set of checks.",
-      status: "See it on our demo",
+      status: whenDemoUp("See it on our demo", "Coming"),
       problems: [
         "Customer POs that don't match your sales orders.",
         "Orders due before the materials are in.",
@@ -105,7 +110,9 @@ export const STORY = {
       "DokyDoc for orders, invoices, payments and stock",
       "Running since 15 October 2026. We switch it on for each company.",
     ],
-    ["Our demo company", "A sample manufacturer with made-up records. Book a demo and we will show you."],
+    ...(DEMO_UP
+      ? [["Our demo company", "A sample manufacturer with made-up records. Book a demo and we will show you."]]
+      : []),
   ] as [string, string][],
   coming: [
     "Using it on your own company's records.",
@@ -140,7 +147,7 @@ export const STORY = {
   ],
   data: {
     t: "Where your data is kept",
-    d: "On DokyDoc's server in Helsinki, Finland, run by Hetzner. The companies that process data for us are Hetzner, Cloudflare, Google's Gemini API (paid tier), Zoho, Sentry and Razorpay, each on our published Sub-processor and Connector List. Deyora does not train models across customers.",
+    d: "On DokyDoc's server in Helsinki, Finland, run by Hetzner. When DokyDoc analyses it, it is processed by the AI providers named on our Sub-processor and Connector List, with the other companies that process data for us. Deyora does not train models across customers.",
   },
 };
 

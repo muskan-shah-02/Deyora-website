@@ -4,13 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { productPage } from "@/lib/site";
+import { MANIFESTO_SHOWN } from "@/lib/manifesto";
 import { CTA } from "@/lib/story";
 import { DeyoraMark } from "@/components/ui";
 import DokyDocLink from "@/components/DokyDocLink";
 
+/** a155: the company's pages (the manifesto once the founder signs it), and the product. */
 const links = [
   { href: productPage(), label: "DokyDoc" },
-  { href: "/about#vision", label: "Vision" },
+  ...(MANIFESTO_SHOWN ? [{ href: "/manifesto", label: "Manifesto" }] : [{ href: "/about#vision", label: "Vision" }]),
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

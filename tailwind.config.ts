@@ -39,7 +39,7 @@ const config: Config = {
         live: { DEFAULT: "#0F7A55", bg: "#E1F3EA" },
         dev: { DEFAULT: "#8A5A00", bg: "#FBF0D9" },
         warn: { DEFAULT: "#A3361F", bg: "#FBE7E1" },
-        // a150: the one brand accent, set by data-accent on <html> (app/globals.css).
+        // a156: the one brand colour, Deyora blue, and its light tint for dark ground (app/globals.css).
         accent: {
           DEFAULT: "rgb(var(--accent) / <alpha-value>)",
           soft: "rgb(var(--accent-soft) / <alpha-value>)",

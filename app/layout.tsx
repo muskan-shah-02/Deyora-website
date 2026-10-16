@@ -12,11 +12,8 @@ import { SITE_URL, company, people } from "@/lib/site";
 
 /**
  * a150: one design system for deyoraintelligence.com and dokydoc.com: Geist Sans and Geist Mono, self-hosted by the
- * geist package (the same version DokyDoc uses), and one brand accent. The accent is "blue" or "marigold" (the two
- * options the founder chooses between); NEXT_PUBLIC_ACCENT picks one for a build, and the chosen one becomes the
- * default here.
+ * geist package (the same version DokyDoc uses), and one brand colour, Deyora blue (a156; app/globals.css).
  */
-const ACCENT = process.env.NEXT_PUBLIC_ACCENT === "marigold" ? "marigold" : "blue";
 
 const description =
   "Intelligence for the people who run companies. DokyDoc, live today, checks the software you paid for against what was agreed. It prepares. You decide.";
@@ -83,7 +80,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" data-accent={ACCENT} className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en-IN" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <a
           href="#main"

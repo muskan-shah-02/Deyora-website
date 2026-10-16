@@ -4,6 +4,7 @@
  */
 
 import dokydocHome from "./dokydoc-home.json";
+import demo from "./demo.json";
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://deyoraintelligence.com").replace(/\/$/, "");
 
@@ -21,6 +22,18 @@ export const DOKYDOC_HOME_LIVE: boolean = dokydocHome.live === true;
 export function productPage(section?: string): string {
   if (DOKYDOC_HOME_LIVE) return DOKYDOC_ORIGIN;
   return section ? `/dokydoc#${section}` : "/dokydoc";
+}
+
+/**
+ * Whether the demo company is up on DokyDoc's production server (deyora-hq board task t204). Until it is, no line
+ * on this site says a visitor can see the demo (a153): set "up" to true in lib/demo.json in the website push after
+ * t204 is done, never before. "Book a demo" stays either way (the founder, 16 Oct 2026): it books a time to talk.
+ */
+export const DEMO_UP: boolean = demo.up === true;
+
+/** One wording while the demo company is not up, another once it is. */
+export function whenDemoUp<T>(up: T, notUp: T): T {
+  return DEMO_UP ? up : notUp;
 }
 
 export const DOKYDOC = {

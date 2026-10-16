@@ -11,18 +11,15 @@
   --alarm: 255 93 93;
 }
 
-/* a150: the one brand accent. Option A, "Deyora blue", from the blue in the Deyora mark. */
-:root,
-:root[data-accent="blue"] {
-  --accent: 61 107 255;
-  --accent-soft: 157 180 255;
+/* a156 (the planner on the founder's direction, 16 Oct 2026): ONE main colour on both sites, Deyora blue, the
+   solid blue of the logo file (public/brand/deyora-mark-512.png, its most saturated pixels: rgb(6 63 161),
+   #063FA1). On dark ground, text, dots and thin lines use its light tint, the logo's own lighter blue, so they
+   pass WCAG AA (the solid blue on the dark panel is about 2:1; the tint about 9:1). White on the solid blue is
+   about 9:1. Red is a mismatch, green a match. */
+:root {
+  --accent: 6 63 161;
+  --accent-soft: 155 178 217;
   --accent-ink: 255 255 255;
-}
-/* Option B, "Marigold": warm, and easy to tell apart from the red of a disagreement. */
-:root[data-accent="marigold"] {
-  --accent: 245 166 35;
-  --accent-soft: 255 207 128;
-  --accent-ink: 26 18 6;
 }
 
 html {
@@ -43,6 +40,7 @@ body {
 /* Visible focus for keyboard users, everywhere. */
 :focus-visible {
   outline: 2px solid rgb(var(--accent));
+  box-shadow: 0 0 0 5px rgb(var(--accent-soft));
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -103,7 +101,7 @@ body {
     @apply inline-flex items-center gap-1.5 font-medium text-ink-900 underline decoration-accent decoration-2 underline-offset-4 hover:decoration-ink-900;
   }
   .on-dark .link-arrow {
-    @apply text-white hover:decoration-white;
+    @apply text-white decoration-accent-soft hover:decoration-white;
   }
 
   .card {
@@ -145,71 +143,86 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* a150: the motif behind the headline. Five records joined by soft lines; every four seconds one line turns red
-   where two records disagree, and an example card appears beside it. CSS only; a still frame when motion is reduced. */
-.motif-line {
-  stroke: rgb(var(--accent) / 0.45);
-  stroke-width: 1.5;
+/* a153: the dolphin on the home page (components/Dolphin.tsx). Its pulses grow from the beak over six seconds,
+   and each hidden shape lights up as a pulse reaches it, then fades. Transform and opacity only; a still frame when
+   motion is reduced (every shape lit, the pulses drawn); no blur on phones. */
+.dl-ring {
   fill: none;
-  filter: drop-shadow(0 0 6px rgb(var(--accent) / 0.55));
-}
-.motif-bad {
-  stroke: rgb(var(--alarm));
-  stroke-width: 2.5;
-  fill: none;
+  stroke: rgb(var(--accent-soft));
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  transform-box: view-box;
   opacity: 0;
-  filter: drop-shadow(0 0 8px rgb(var(--alarm) / 0.8));
-  animation: motif-scene 12s ease-in-out infinite;
+  animation: dl-grow 6s linear infinite, dl-fade 6s ease-out infinite;
 }
-.motif-card {
-  opacity: 0;
-  transform: translateY(6px);
-  animation: motif-card 12s ease-in-out infinite;
-}
-.motif-s2 {
-  animation-delay: 4s;
-}
-.motif-s3 {
-  animation-delay: 8s;
-}
-.motif-node {
-  fill: rgb(16 19 26 / 0.85);
-  stroke: rgb(var(--accent) / 0.6);
+.dl-ring-2 {
   stroke-width: 1.2;
+  animation-delay: 0.45s, 0.45s;
 }
-.motif-pulse {
-  animation: motif-pulse 4s ease-in-out infinite;
+.dl-hidden {
+  fill: none;
+  stroke: rgb(var(--accent-soft));
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.1;
+  animation: dl-reveal 6s ease-out infinite;
 }
-@keyframes motif-scene {
-  0%, 4% { opacity: 0; }
-  8%, 28% { opacity: 1; }
-  33%, 100% { opacity: 0; }
+.dl-swim {
+  transform-box: view-box;
+  transform-origin: 20% 60%;
+  animation: dl-swim 6s ease-in-out infinite;
 }
-@keyframes motif-card {
-  0%, 5% { opacity: 0; transform: translateY(6px); }
-  9%, 28% { opacity: 1; transform: none; }
-  33%, 100% { opacity: 0; transform: translateY(6px); }
+@keyframes dl-grow {
+  from { transform: scale(0.04); }
+  to { transform: scale(1); }
 }
-@keyframes motif-pulse {
+@keyframes dl-fade {
+  0% { opacity: 0; }
+  6% { opacity: 0.75; }
+  70% { opacity: 0.18; }
+  100% { opacity: 0; }
+}
+@keyframes dl-reveal {
+  0% { opacity: 0.95; }
+  45%, 100% { opacity: 0.1; }
+}
+@keyframes dl-swim {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(-1.2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dl-ring,
+  .dl-hidden,
+  .dl-swim {
+    animation: none !important;
+  }
+  .dl-ring {
+    opacity: 0.4;
+    transform: scale(0.42);
+  }
+  .dl-ring-2 {
+    opacity: 0.22;
+    transform: scale(0.78);
+  }
+  .dl-hidden {
+    opacity: 0.85;
+  }
+}
+
+/* a153: the small dokydoc.com preview on the home page's product card: its red line breathes, gently. */
+.ddp-bad {
+  animation: ddp-breathe 4s ease-in-out infinite;
+}
+@keyframes ddp-breathe {
   0%, 100% { opacity: 0.55; }
   50% { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .motif-bad,
-  .motif-card,
-  .motif-pulse {
+  .ddp-bad {
     animation: none !important;
-  }
-  .motif-s1 {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-/* Light on phones: no glow filters, and only the first scene moves. */
-@media (max-width: 640px) {
-  .motif-line,
-  .motif-bad {
-    filter: none;
+    opacity: 1;
   }
 }
 
