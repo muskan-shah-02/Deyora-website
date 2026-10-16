@@ -382,9 +382,6 @@ export default function DokyDocPage() {
             </ul>
             <div className="mt-auto flex flex-wrap gap-3 pt-9">
               <ButtonLink href="/contact?topic=dokydoc">Talk to us</ButtonLink>
-              <ButtonLink href={DOKYDOC.enterprise} variant="ghost">
-                Enterprise details
-              </ButtonLink>
             </div>
           </article>
         </div>

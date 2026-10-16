@@ -26,8 +26,7 @@ export function productPage(section?: string): string {
 export const DOKYDOC = {
   home: DOKYDOC_ORIGIN,
   // The founder, 16 Oct 2026: every link to the product goes to its home page, never straight to /login,
-  // /register or /dashboard, so those addresses are not kept here.
-  enterprise: `${DOKYDOC_ORIGIN}/enterprise`,
+  // /register or /dashboard, so those addresses are not kept here. Only the four below are linked directly.
   security: `${DOKYDOC_ORIGIN}/security`,
   terms: `${DOKYDOC_ORIGIN}/terms`,
   privacy: `${DOKYDOC_ORIGIN}/privacy`,
