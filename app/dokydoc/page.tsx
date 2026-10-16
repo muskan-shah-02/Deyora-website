@@ -341,7 +341,7 @@ export default function DokyDocPage() {
             <p className="mt-2 text-[16px] text-text-soft">A prepaid wallet in rupees, topped up through Razorpay.</p>
             <ul className="mt-7 space-y-3 text-[15.5px] leading-relaxed">
               {[
-                "Every feature included. No seats, no tiers.",
+                "Every feature included. No plans and no subscription.",
                 "The price of each paid operation is shown before it runs, and anything your balance cannot cover is refused up front.",
                 "Spend limits per person and per month.",
                 "A GST tax invoice for every top-up.",
