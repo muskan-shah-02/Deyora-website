@@ -2,9 +2,10 @@
  * The one story for deyoraintelligence.com and dokydoc.com (board answer a147, task t155;
  * deyora-hq handoffs/2026-10-15_a147_story/STORY.md). The home page, /dokydoc and /llms.txt read it from here.
  *
- * Every sentence is true in production today: DokyDoc as deployed on 15 October 2026 (dokydoc main 321fd50).
- * docs/CLAIMS_REGISTER.md, "The story", gives the source of each. A sentence that becomes true only with v1.8's
- * final push does not go here: it goes on dokydoc.com's own home page, which ships with that push.
+ * Plain words on purpose (the founder, 16 Oct 2026): short sentences, everyday words, the problems a business
+ * owner already has. Every sentence is still true in production today: DokyDoc as deployed on 15 October 2026
+ * (dokydoc main 321fd50); docs/CLAIMS_REGISTER.md, "The story", gives the source of each. A sentence that becomes
+ * true only with v1.8's final push does not go here.
  */
 import { DOKYDOC } from "@/lib/site";
 
@@ -12,96 +13,105 @@ export const DEMO_HREF = "/contact?topic=demo";
 
 /** The two calls to action, everywhere. */
 export const CTA = {
-  login: { label: "Log in to DokyDoc", href: DOKYDOC.login },
+  login: { label: "Log in", href: DOKYDOC.login },
   demo: { label: "Book a demo", href: DEMO_HREF },
 };
 
+export type Catch = { t: string; d: string; who: "Any business" | "Manufacturers" | "Software teams" };
+
 export const STORY = {
-  headline: "Every promise your company makes,",
-  accent: "checked against what its records show.",
+  eyebrow: "For any business that takes orders",
+  headline: "See what's going wrong in your business.",
+  accent: "All in one list.",
   line:
-    "Orders, delivery dates, contracts, specifications and payment terms sit in different places, and nobody sees when they drift apart. DokyDoc puts them side by side, shows you the few that need you, with the evidence, and leaves the decision to you.",
+    "DokyDoc checks your orders, invoices, payments and stock against each other. It shows you only what doesn't match, with the record behind each one. You decide what to do.",
+  today:
+    "Today you can see it on our demo company, or use it on your software and its documents. Using it on your own company's records is coming.",
   problem: [
-    "Every company that takes orders makes promises: a delivery date to a customer, a price, a specification, payment terms, a requirement in a contract.",
-    "The evidence of whether each one is being kept sits in different systems and documents: the ERP, spreadsheets, purchase orders, invoices, code. Nobody sees when they drift apart until a customer complains or money is lost.",
+    "Your business runs on promises: a delivery date, a price, a payment term.",
+    "The facts sit in your ERP, in Excel, in emails and on WhatsApp. Nobody checks them against each other, so you find out late, when a customer complains or money is lost.",
   ],
+  catches: [
+    { t: "A supplier keeps slipping", d: "The delivery date on a purchase order keeps moving later.", who: "Any business" },
+    { t: "Shipped, but not billed", d: "Goods went out, but no invoice was raised.", who: "Any business" },
+    { t: "Late payer over the limit", d: "A customer is late paying and is over their credit limit.", who: "Any business" },
+    { t: "Two systems, two answers", d: "Your records say different things about the same order or invoice.", who: "Any business" },
+    { t: "PO and sales order don't match", d: "The customer's PO and your sales order differ on quantity, price, date or address.", who: "Manufacturers" },
+    { t: "Materials not in place", d: "An order is due, but the materials it needs are not on record.", who: "Manufacturers" },
+    { t: "Stock running short", d: "New orders came in that your free stock could not cover.", who: "Manufacturers" },
+    { t: "Software that misses the spec", d: "A requirement nobody built, or code nobody asked for.", who: "Software teams" },
+  ] as Catch[],
   steps: [
     {
-      t: "DokyDoc reads the records you already have",
-      d: "Documents and code, for any company, today. Exports from an ERP (orders, deliveries, invoices, stock): on our demo company today; from your own company, coming.",
+      t: "Bring your records",
+      d: "Your documents and code, today. Exports from your ERP, like orders, invoices and stock: on our demo company now, on your own company coming.",
     },
     {
-      t: "DokyBrain connects them and raises what needs you",
-      d: "Only the few things that need a person, each with its evidence and with what it could not see.",
+      t: "DokyDoc checks them",
+      d: "It compares them with each other and lists only what doesn't add up.",
     },
     {
       t: "You decide",
-      d: "A person decides, never DokyDoc. DokyDoc keeps each decision with its finding through every re-scan.",
+      d: "Each item shows the record behind it. You decide what to do. DokyDoc changes nothing in your ERP.",
     },
   ],
   audiences: [
     {
       id: "business",
-      t: "Any company that takes orders",
-      note: "No industry pack needed.",
-      status: "Demo on request",
+      t: "Businesses that take orders",
+      note: "Any industry.",
+      status: "See it on our demo",
       problems: [
-        "A supplier whose promised dates keep moving later.",
-        "What was ordered, shipped, invoiced and paid does not agree.",
-        "A customer who owes you money and is over their credit limit.",
-        "Two of your systems saying different things about the same order.",
+        "Late suppliers.",
+        "Goods shipped but not billed.",
+        "Customers paying late and over their limit.",
+        "Records that don't agree.",
       ],
       cta: "demo" as const,
     },
     {
       id: "manufacturing",
       t: "Manufacturers",
-      note: "The deepest pack today.",
-      status: "Demo on request",
+      note: "Our deepest set of checks.",
+      status: "See it on our demo",
       problems: [
-        "A customer order due before the inputs it needs are on record.",
-        "A customer's PO that says something different from your sales order.",
-        "A supplier slipping on the lines you depend on.",
-        "A payment at risk: overdue and over the credit limit, or an order on block.",
+        "Customer POs that don't match your sales orders.",
+        "Orders due before the materials are in.",
+        "Stock that can't cover new orders.",
+        "Late suppliers and late payers.",
       ],
       cta: "demo" as const,
     },
     {
       id: "software",
       t: "Software teams",
-      note: "Documents against code, DokyDoc's first job.",
-      status: "Self-serve",
+      note: "DokyDoc's first job.",
+      status: "Use it today",
       problems: [
-        "A requirement nobody built.",
-        "Code that no requirement asked for.",
-        "What could not be checked, listed rather than passed as fine.",
-        "A sign-off by a named person on your side, never by DokyDoc.",
+        "Requirements nobody built.",
+        "Code nobody asked for.",
+        "What could not be checked, listed.",
+        "Sign-off by a person on your side.",
       ],
       cta: "login" as const,
     },
   ],
   live: [
+    ["DokyDoc for software", "Check your code against its documents. Sign up yourself at dokydoc.com."],
     [
-      "DokyDoc",
-      "At dokydoc.com, with self-serve sign-up: documents against code, AskyDoc and the Boardroom. You pay as you go from a prepaid wallet in rupees, and each price is shown before the work runs.",
+      "DokyBrain",
+      "The part of DokyDoc that checks orders, invoices, payments and stock. Running since 15 October 2026. We switch it on for each company.",
     ],
-    [
-      "DokyBrain, inside DokyDoc",
-      "In production since 15 October 2026: the attention list with its evidence, Brain Health, the weekly brief on screen, and AskyDoc answering from it. Ten checks have passed the tests we set before a check can be switched on. Deyora switches DokyBrain on for each company.",
-    ],
-    [
-      "The demo company",
-      "Prathvel Engineering, a manufacturer with invented records, where DokyBrain runs on a full set of exports. We show it on request.",
-    ],
+    ["Our demo company", "A sample manufacturer with made-up records. Book a demo and we will show you."],
   ] as [string, string][],
   coming: [
-    "DokyBrain on your own company's records: reading your ERP exports and documents into it.",
-    "Recording decisions and goals in DokyBrain, with what happened afterwards.",
-    "Accounting and CRM connections: Zoho Books, QuickBooks Online and HubSpot.",
-    "Briefs and notifications by email, and posting to Slack or Teams.",
-    "Forwarding email to DokyBrain.",
-    "Signed delivery reports, the public report check, and sharing a supplier's delivery record.",
-    "More checks, each once it passes its tests.",
+    "Using it on your own company's records.",
+    "Recording your decisions and goals, and what happened after.",
+    "Connecting Zoho Books, QuickBooks and HubSpot.",
+    "Alerts by email, Slack or Teams.",
+    "Signed reports you can send to a customer.",
+    "More checks.",
   ],
-  oneProduct: "DokyDoc is one product. DokyBrain is the brain inside it.",
+  pricing: "Pay only for what you use. Add money to a wallet in rupees, and see the price before anything runs. No plans and no seats.",
+  oneProduct: "DokyDoc is the product. DokyBrain is the part inside it that checks your orders, invoices, payments and stock.",
 };

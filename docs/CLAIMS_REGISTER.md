@@ -20,26 +20,32 @@ site: those sentences go on dokydoc.com's own home page, which ships with it.
 
 ## The story (`lib/story.ts`, `components/Story.tsx`; home page, /dokydoc, /llms.txt)
 
-Board answer a147, task t155; deyora-hq `handoffs/2026-10-15_a147_story/STORY.md`.
+Board answer a147, task t155; deyora-hq `handoffs/2026-10-15_a147_story/STORY.md`. Plain words at the founder's
+request (16 Oct 2026). Sources are in dokydoc main `321fd50`.
 
-| Claim | Source in dokydoc main `321fd50` |
+| Claim | Source |
 |---|---|
-| Headline and line: "Every promise your company makes, checked against what its records show"; DokyDoc puts orders, dates, contracts, specifications and payment terms side by side and shows the few that need you, with the evidence; the decision stays with you | What the product does in production: documents against code (rows below) and DokyBrain's checks (next rows), which run today on the demo company; a147 (the 11 Oct home page's line). Availability is stated beside it ("Live today, and coming") |
-| Step 1: documents and code, for any company, today | The connector list `frontend/content/legal/subprocessors-and-connectors.md:115-125` (code hosts, Jira and Confluence by pasted token; document uploads and web links :229-234) |
-| Step 1: ERP exports on the demo company today; from your own company, coming | `backend/app/brain/raw_log.py:167-182` (in production the raw log is refused while storage is local, `.env.production.example:266` `STORAGE_BACKEND=local`, and while a use is disclosure-pending, `register_fragments/p1_17a.py:47-53`); `core/raw_log_allowance.py` `DEMO_COMPANY` (the one allowance: the demo company, for `tabular_export:commitment-evidence` and its other seed uses) |
-| Step 2: DokyBrain raises the few things that need a person, each with its evidence and with what it could not see | The attention list, "What deserves your attention today, and every commitment behind it, each with its evidence" (`frontend/lib/commitments-copy.ts:39-40`); the brief, "what the brain could not see" (`frontend/lib/brief-copy.ts:30-31`) |
-| Step 3: a person decides; DokyDoc keeps each decision with its finding through every re-scan | The DokyDoc row "Needs your decision; decisions survive re-scans" (below). DokyBrain's own record of decisions and goals is closed in production (`register_fragments/p3_01.py:122-127`), so it is under Coming |
-| The problems for any company that takes orders: dates that keep moving, ordered/shipped/invoiced/paid not agreeing, a customer owing money over their credit limit, two systems disagreeing about one order | The general pack's checks `general.commitment_slippage`, `general.order_to_cash`, `general.obligation_at_risk` and `general.source_disagreement` (`core/proven_checks.py:211-222`; `brain/packs/general/detection.py:30-46`, `disagreement.py:11-25`); the general starter for a company in an industry no pack covers (`packs/general/starters.py:3-21, 52-71`) |
-| The problems for manufacturers: an order due before its inputs are on record, a customer's PO that differs from the sales order, a supplier slipping, a payment at risk | `mfg.commitment_coverage_gap`, `mfg.customer_po_vs_so`, `mfg.supplier_slippage`, `mfg.payment_at_risk` (`proven_checks.py:211-222`; `packs/manufacturing/detection.py:25-70`) |
-| The problems for software teams | The DokyDoc rows below: coverage matrix, reverse check, report of what was not examined, sign-off |
-| "Ten checks have passed the tests we set before a check can be switched on": manufacturing's seven and three for any company that takes orders | `core/proven_checks.py:211-222` (PROVEN: seven in the manufacturing exam waves, `general.source_disagreement` among them, and the general pack's three); a locked check "cannot be switched on" (`proven_checks.py:238-239`) |
-| DokyBrain in production since 15 October 2026 | Deploy run 38729273597 of `321fd50` succeeded at 20:38:52 IST (deyora-hq board, Log row 285) |
-| Deyora switches DokyBrain on for each company; a new sign-up does not get it | Every brain feature is `POLICY_OFF` (`core/feature_gate.py:149-218`); only the platform operator switches a feature on for a company (`services/tenant_feature_service.py:10-14, 84-91`); "DokyDoc switches it on for each company in turn" (`frontend/lib/brain-health-copy.ts:116-117`) |
-| The attention list, Brain Health, the weekly brief on screen and AskyDoc answering from DokyBrain | `/dashboard/commitments`, `/dashboard/brain-health`, `/dashboard/brief` (`brain_ledger`, `brain_health`), AskyDoc with `brain_askydoc` (`core/feature_gate.py:114-118`); the demo's `up` switches on `brain_health`, `brain_ledger` and `brain_askydoc` (`backend/scripts/demo.py:298`) |
-| The demo company, Prathvel Engineering, a manufacturer with invented records, where DokyBrain runs on a full set of exports; shown on request, not self-serve | `docs/founder_tasks_phase2/t203_demo_on_production.md:3-8, 52-88` (one login, granted by a platform operator); `services/demo_grant_service.py:10-25`. The site goes live only once the demo is up on production (t203) |
-| Coming: a company's own records in DokyBrain; DokyBrain's record of decisions and goals; Zoho Books, QuickBooks Online and HubSpot; brief and notification emails and Slack or Teams posting; forwarding email; signed delivery reports, the public report check and sharing a supplier's delivery record; more checks | Raw log as above; `p3_01.py:122-127`; the connector list ("Built, not available yet", Nango not set up, :125, :238); `register_fragments/p3_05.py:57-63`, `p3_13.py:55`; `p4_02.py:72`; `p2_10.py:67-72`, `p4_01.py:54-59`, `p4_04.py:22-28`; locked checks (`proven_checks.py:207-210`). No dates are given |
-| "Log in" goes to dokydoc.com/login, and the login page links to registration | `frontend/app/login/page.tsx:187-194` ("Don't have an account? Register your organization", to `/register`) |
-| "Book a demo" goes to /contact?topic=demo | `components/Conversation.tsx` (the "demo" topic); a demo is shown by the founder on request |
+| "See what's going wrong in your business. All in one list." DokyDoc checks orders, invoices, payments and stock against each other, shows only what doesn't match, with the record behind each one; you decide | What the product does in production: DokyBrain's checks (rows below), which run today on the demo company, and its one attention list ("What deserves your attention today, and every commitment behind it, each with its evidence", `frontend/lib/commitments-copy.ts:39-40`). Where it runs today is said right under the buttons ("Today you can see it on our demo company, or use it on your software and its documents. Using it on your own company's records is coming") |
+| "A supplier keeps slipping": the delivery date on a purchase order keeps moving later | `mfg.supplier_slippage`, `general.commitment_slippage` (a PO line's date moved later twice in 90 days; `brain/packs/manufacturing/detection.py:42-46`, `packs/general/detection.py:30-35`) |
+| "Shipped, but not billed" | `mfg.order_to_cash_gap`, `general.order_to_cash` (goods uninvoiced; `detection.py:39-41`, `general/detection.py:36-39`) |
+| "Late payer over the limit" | `mfg.payment_at_risk`, `general.obligation_at_risk` (overdue beyond a 30-day grace and over the credit limit; `detection.py:65-70`, `general/detection.py:40-46`) |
+| "Two systems, two answers" | `general.source_disagreement` (`packs/general/disagreement.py:11-25`) |
+| "PO and sales order don't match" (quantity, price, date or address) | `mfg.customer_po_vs_so` (`detection.py:51-64`) |
+| "Materials not in place": an order due before the materials it needs are on record | `mfg.commitment_coverage_gap` (`detection.py:25-38`; `detectors/templates/coverage.py:3-4`) |
+| "Stock running short": new orders above free stock | `mfg.demand_vs_inventory` (stock-out days; `detection.py:91-101`) |
+| "Software that misses the spec": a requirement nobody built, or code nobody asked for | The DokyDoc rows below (coverage matrix, reverse check) |
+| Each of these is a check DokyDoc runs; each finding shows the record behind it | All ten have passed their exams (`core/proven_checks.py:211-222`); the attention list as above |
+| Step 1: documents and code today; ERP exports on the demo company now, on your own company coming | The connector list `frontend/content/legal/subprocessors-and-connectors.md:115-125, 229-234`; `backend/app/brain/raw_log.py:167-182` (refused in production while storage is local, `.env.production.example:266`, and while the use is pending, `register_fragments/p1_17a.py:47-53`); `core/raw_log_allowance.py` `DEMO_COMPANY` |
+| Step 2: it compares them and lists only what doesn't add up | The checks and the attention list above |
+| Step 3: you decide; DokyDoc changes nothing in your ERP | `core/third_party_writes.py` (no write back to an ERP); §0 D11, D12 |
+| Who it is for: businesses that take orders (any industry), manufacturers (the deepest set of checks), software teams (DokyDoc's first job; use it today) | The general starter for an industry no pack covers (`packs/general/starters.py:3-21, 52-71`); the manufacturing pack (`packs/manufacturing/`); DokyDoc's self-serve sign-up (`frontend/app/register/page.tsx`) |
+| Live: DokyDoc for software, self-serve | DokyDoc rows below; `frontend/app/login/page.tsx:187-194` (the login page links to registration) |
+| Live: DokyBrain, running since 15 October 2026; "We switch it on for each company" | Deploy run 38729273597 of `321fd50`, 20:38:52 IST (deyora-hq board, Log row 285); every brain feature is `POLICY_OFF` and only the platform operator switches it on (`core/feature_gate.py:149-218`; `services/tenant_feature_service.py:10-14, 84-91`) |
+| Live: our demo company, a sample manufacturer with made-up records; we show it on request | `docs/founder_tasks_phase2/t203_demo_on_production.md:3-8, 52-88`; `services/demo_grant_service.py:10-25`. The site goes live only once the demo is up on production (t203) |
+| Coming: your own company's records; recording decisions and goals; Zoho Books, QuickBooks and HubSpot; alerts by email, Slack or Teams; signed reports you can send to a customer; more checks | Raw log as above; `register_fragments/p3_01.py:122-127`; the connector list ("Built, not available yet", :125, :238); `p3_05.py:57-63`, `p3_13.py:55`; `p2_10.py:67-72`, `p4_01.py:54-59`, `p4_04.py:22-28` (a signed report is a page the company prints and sends itself, `frontend/lib/verification-report-copy.ts` `NOTHING_SENT`); locked checks (`proven_checks.py:207-210`). No dates |
+| Price: pay only for what you use, a wallet in rupees, the price before anything runs, no plans and no seats | `frontend/app/billing/page.tsx:1474-1478` ("One product, no plans and no subscription… shows its price before it runs"); Decisions PRICING-1 and COMMERCE-1 (no seats) |
+| "Log in" goes to dokydoc.com/login; "Book a demo" goes to /contact?topic=demo | As above; `components/Conversation.tsx` (the "demo" topic) |
+| The hero card: "3 of 48 open orders need you", a late supplier, an order shipped and not billed, a late payer over the limit | An illustration in code with made-up names and numbers, captioned "Illustration · made-up example"; the count carries its denominator (Rule 6) |
 | /dokydoc redirects permanently (301) to dokydoc.com once its own home page is live | `lib/dokydoc-home.json` (`"live": false` until v1.8's final push); `next.config.js`; `lib/site.ts` `productPage` |
 
 ## Company
@@ -147,13 +153,13 @@ investor persona repeats the test-count claim above.
 
 ## Illustrations
 
-The "Needs your decision" card (home), the coverage report (DokyDoc), the
-commitments card (home, "I run a manufacturing business") and the snag-list
+The "Needs your decision" card, the coverage report (DokyDoc), the "Needs
+you today" card (the home page's and /dokydoc's hero) and the snag-list
 walk-through (DokyDoc) are drawn in code. Their names and numbers are
-invented, and each is captioned as an illustration. The commitments card is
-also labelled "DokyBrain", follows Rule 6 ("6 of 47 open
-commitments", never "at risk" as a status; `DOKYBRAIN_DESIGN.md` §6.5) and
-uses the `core.commitment_slippage` idea (§2.2). The walk-through uses the
+invented, and each is captioned as an illustration. The "Needs you today"
+card follows Rule 6 ("3 of 48 open orders", never "at risk" as a status;
+`DOKYBRAIN_DESIGN.md` §6.5), and its three items are three of the checks that
+passed their exams: supplier slippage, order to cash and payment at risk. The walk-through uses the
 product's own decision words (Agreed / Not a problem / Document should
 change: `frontend/app/dashboard/decisions/page.tsx` `ACTION_FILTERS`) and the
 report of what was not examined (`services/exposure_report.py`).

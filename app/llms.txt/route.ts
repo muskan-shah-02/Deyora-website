@@ -37,6 +37,10 @@ ${STORY.headline} ${STORY.accent}
 
 ${STORY.line}
 
+What it catches:
+
+${STORY.catches.map((c) => `- ${c.t} (${c.who}): ${c.d}`).join("\n")}
+
 How it works:
 
 ${STORY.steps.map((s, i) => `${i + 1}. ${s.t}. ${s.d}`).join("\n")}

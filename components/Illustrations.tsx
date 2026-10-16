@@ -126,47 +126,47 @@ type Commitment = { tag: string; tone: "warn" | "dev" | "neutral"; title: string
 
 const commitments: Commitment[] = [
   {
-    tag: "Moved twice",
-    tone: "warn",
-    title: "Order 4471, 1,200 metres, promised for Friday. Dispatch is not booked.",
-    evidence: "Order book · dispatch register",
-  },
-  {
     tag: "Supplier late",
-    tone: "dev",
-    title: "Yarn for two open orders is three days behind the purchase order.",
-    evidence: "Purchase orders · goods received",
+    tone: "warn",
+    title: "Yarn for 2 orders is 3 days behind the purchase order.",
+    evidence: "Purchase order · goods received",
   },
   {
-    tag: "Not examined",
-    tone: "neutral",
-    title: "8 of 47 commitments have no dispatch record to check against.",
-    evidence: "Plant 2 register not connected",
+    tag: "Not billed",
+    tone: "dev",
+    title: "Order 4471 was shipped on Monday. No invoice yet.",
+    evidence: "Dispatch register · invoices",
+  },
+  {
+    tag: "Late payer",
+    tone: "warn",
+    title: "Customer B is 41 days late and over their credit limit.",
+    evidence: "Invoices · credit limits",
   },
 ];
 
-/** The shape of DokyBrain's attention list, drawn in code: invented names and numbers, captioned as an illustration. */
+/** What DokyBrain's list looks like, drawn in code: made-up names and numbers, captioned as an illustration. */
 export function CommitmentsIllustration() {
   return (
     <figure className="relative">
       <div className="rounded-2xl border border-white/10 bg-paper-card p-5 text-text shadow-glow sm:p-6">
         <div className="flex items-center justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-label text-text-mute">Commitments · this week</p>
-          <p className="font-mono text-[11px] text-text-mute">DokyBrain</p>
+          <p className="font-mono text-[11px] uppercase tracking-label text-text-mute">Needs you today</p>
+          <p className="font-mono text-[11px] text-text-mute">DokyDoc</p>
         </div>
-        <p className="mt-2 font-serif text-[22px] leading-snug">6 of 47 open commitments have moved.</p>
+        <p className="mt-2 font-serif text-[22px] leading-snug">3 of 48 open orders need you.</p>
         <ul className="mt-5 space-y-3">
           {commitments.map((f) => (
             <li key={f.title} className="rounded-xl border border-paper-line bg-paper p-4">
               <span className={`inline-block rounded-full px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-label ${tagTone[f.tone]}`}>{f.tag}</span>
               <p className="mt-2 text-[15px] font-medium leading-snug">{f.title}</p>
-              <p className="mt-1 font-mono text-[12px] text-text-mute">Evidence: {f.evidence}</p>
+              <p className="mt-1 font-mono text-[12px] text-text-mute">From: {f.evidence}</p>
             </li>
           ))}
         </ul>
-        <p className="mt-4 border-t border-paper-line pt-3 text-[13px] text-text-mute">Prepared, not sent. Your people decide each one.</p>
+        <p className="mt-4 border-t border-paper-line pt-3 text-[13px] text-text-mute">Each one opens to the record behind it. You decide.</p>
       </div>
-      <figcaption className="illustration-tag mt-3 !text-ink-400">DokyBrain · illustration, invented example</figcaption>
+      <figcaption className="illustration-tag mt-3 !text-ink-400">Illustration · made-up example</figcaption>
     </figure>
   );
 }

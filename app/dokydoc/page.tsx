@@ -4,16 +4,16 @@ import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
 import { ArrowLink, ButtonLink, DokyDocMark, Eyebrow, Section, Status } from "@/components/ui";
 import { CommitmentsIllustration, CoverageIllustration } from "@/components/Illustrations";
-import { StoryAudiences, StorySteps, StoryToday } from "@/components/Story";
+import { StoryAudiences, StoryCatches, StorySteps, StoryToday } from "@/components/Story";
 import DokyDocLink from "@/components/DokyDocLink";
 import SnagListDemo from "@/components/SnagListDemo";
 import Conversation from "@/components/Conversation";
 
 const description =
-  "DokyDoc checks every promise your company makes against what its records show: documents against code today, and, with DokyBrain inside it, orders, deliveries, invoices and payments. You decide.";
+  "DokyDoc checks your orders, invoices, payments and stock against each other, and your software against its documents. It shows you only what doesn't match, with the record behind each one. You decide what to do.";
 
 export const metadata = pageMeta({
-  title: "DokyDoc · Every promise, checked against your records",
+  title: "DokyDoc · See what's going wrong in your business",
   description,
   path: "/dokydoc",
 });
@@ -81,8 +81,7 @@ export default function DokyDocPage() {
               </ButtonLink>
             </div>
             <p className="mt-5 text-[14px] text-text-mute">
-              New to DokyDoc? The login page has a link to register. Prepaid and pay-as-you-go; the price is shown before
-              anything runs.
+              {STORY.today} New to DokyDoc? The login page has a link to register.
             </p>
           </div>
           <div className="animate-rise [animation-delay:150ms]">
@@ -91,6 +90,7 @@ export default function DokyDocPage() {
         </div>
       </section>
 
+      <StoryCatches id="catches" />
       <StorySteps id="steps" />
       <StoryAudiences id="who-for" />
       <StoryToday id="today" />
