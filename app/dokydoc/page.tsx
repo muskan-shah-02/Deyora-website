@@ -76,9 +76,9 @@ export default function DokyDocPage() {
             <p className="lede mt-7 max-w-[36rem]">{STORY.line}</p>
             <div className="mt-10 flex flex-wrap gap-3">
               <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
-              <ButtonLink href={CTA.demo.href} variant="ghost">
-                {CTA.demo.label}
-              </ButtonLink>
+              <a href={CTA.demo.href} className="btn-accent">
+                {CTA.demo.label} <span aria-hidden="true">→</span>
+              </a>
             </div>
             <p className="mt-5 text-[14px] text-text-mute">
               {STORY.today} New to DokyDoc? The login page has a link to register.

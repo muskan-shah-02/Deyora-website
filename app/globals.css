@@ -4,6 +4,25 @@
 
 :root {
   color-scheme: light;
+  /* a150: Geist, self-hosted by the geist package. */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  /* The red line where two records disagree, on both options. */
+  --alarm: 255 93 93;
+}
+
+/* a150: the one brand accent. Option A, "Deyora blue", from the blue in the Deyora mark. */
+:root,
+:root[data-accent="blue"] {
+  --accent: 61 107 255;
+  --accent-soft: 157 180 255;
+  --accent-ink: 255 255 255;
+}
+/* Option B, "Marigold": warm, and easy to tell apart from the red of a disagreement. */
+:root[data-accent="marigold"] {
+  --accent: 245 166 35;
+  --accent-soft: 255 207 128;
+  --accent-ink: 26 18 6;
 }
 
 html {
@@ -17,13 +36,13 @@ body {
 }
 
 ::selection {
-  background: #c9d6ff;
+  background: rgb(var(--accent) / 0.3);
   color: #10131a;
 }
 
 /* Visible focus for keyboard users, everywhere. */
 :focus-visible {
-  outline: 2px solid #2f5bff;
+  outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -41,8 +60,7 @@ body {
   }
 
   .h-display {
-    @apply font-serif font-normal tracking-[-0.02em] text-text;
-    font-variation-settings: "opsz" 144, "SOFT" 30;
+    @apply font-sans font-bold tracking-[-0.04em] text-text;
     line-height: 1.02;
   }
   .on-dark .h-display {
@@ -50,8 +68,7 @@ body {
   }
 
   .h-section {
-    @apply font-serif text-[34px] leading-[1.08] tracking-[-0.015em] sm:text-[44px];
-    font-variation-settings: "opsz" 120, "SOFT" 30;
+    @apply font-sans text-[32px] font-bold leading-[1.08] tracking-[-0.03em] sm:text-[44px];
   }
 
   .lede {
@@ -65,7 +82,12 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[15px] font-medium transition-colors duration-200;
   }
   .btn-primary {
-    @apply btn bg-ink-900 text-white hover:bg-brand-700;
+    @apply btn bg-ink-900 text-white hover:bg-ink-700;
+  }
+  /* The main action, everywhere: filled in the accent. */
+  .btn-accent {
+    @apply btn bg-accent font-semibold text-accent-ink hover:brightness-110;
+    box-shadow: 0 8px 28px -10px rgb(var(--accent) / 0.7);
   }
   .on-dark .btn-primary {
     @apply bg-white text-ink-950 hover:bg-brand-100;
@@ -78,10 +100,10 @@ body {
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 font-medium text-brand-700 underline-offset-4 hover:underline;
+    @apply inline-flex items-center gap-1.5 font-medium text-ink-900 underline decoration-accent decoration-2 underline-offset-4 hover:decoration-ink-900;
   }
   .on-dark .link-arrow {
-    @apply text-brand-300;
+    @apply text-white hover:decoration-white;
   }
 
   .card {
@@ -114,6 +136,80 @@ body {
 @keyframes trace-move {
   to {
     stroke-dashoffset: -40;
+  }
+}
+
+/* a150: the display style keeps its old class name; titles are Geist, semibold. */
+.font-serif {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* a150: the motif behind the headline. Five records joined by soft lines; every four seconds one line turns red
+   where two records disagree, and an example card appears beside it. CSS only; a still frame when motion is reduced. */
+.motif-line {
+  stroke: rgb(var(--accent) / 0.45);
+  stroke-width: 1.5;
+  fill: none;
+  filter: drop-shadow(0 0 6px rgb(var(--accent) / 0.55));
+}
+.motif-bad {
+  stroke: rgb(var(--alarm));
+  stroke-width: 2.5;
+  fill: none;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px rgb(var(--alarm) / 0.8));
+  animation: motif-scene 12s ease-in-out infinite;
+}
+.motif-card {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: motif-card 12s ease-in-out infinite;
+}
+.motif-s2 {
+  animation-delay: 4s;
+}
+.motif-s3 {
+  animation-delay: 8s;
+}
+.motif-node {
+  fill: rgb(16 19 26 / 0.85);
+  stroke: rgb(var(--accent) / 0.6);
+  stroke-width: 1.2;
+}
+.motif-pulse {
+  animation: motif-pulse 4s ease-in-out infinite;
+}
+@keyframes motif-scene {
+  0%, 4% { opacity: 0; }
+  8%, 28% { opacity: 1; }
+  33%, 100% { opacity: 0; }
+}
+@keyframes motif-card {
+  0%, 5% { opacity: 0; transform: translateY(6px); }
+  9%, 28% { opacity: 1; transform: none; }
+  33%, 100% { opacity: 0; transform: translateY(6px); }
+}
+@keyframes motif-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motif-bad,
+  .motif-card,
+  .motif-pulse {
+    animation: none !important;
+  }
+  .motif-s1 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+/* Light on phones: no glow filters, and only the first scene moves. */
+@media (max-width: 640px) {
+  .motif-line,
+  .motif-bad {
+    filter: none;
   }
 }
 

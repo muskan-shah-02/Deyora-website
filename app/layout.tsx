@@ -1,16 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import RevealObserver from "@/components/RevealObserver";
 import { ForParam, VisitorProvider } from "@/components/Visitor";
 import { Suspense } from "react";
 import { SITE_URL, company, people } from "@/lib/site";
 
-const serif = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], variable: "--font-serif", display: "swap" });
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
+/**
+ * a150: one design system for deyoraintelligence.com and dokydoc.com: Geist Sans and Geist Mono, self-hosted by the
+ * geist package (the same version DokyDoc uses), and one brand accent. The accent is "blue" or "marigold" (the two
+ * options the founder chooses between); NEXT_PUBLIC_ACCENT picks one for a build, and the chosen one becomes the
+ * default here.
+ */
+const ACCENT = process.env.NEXT_PUBLIC_ACCENT === "marigold" ? "marigold" : "blue";
 
 const description =
   "Intelligence for the people who run companies. DokyDoc, live today, checks the software you paid for against what was agreed. It prepares. You decide.";
@@ -77,7 +83,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en-IN" data-accent={ACCENT} className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <a
           href="#main"
@@ -89,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <ForParam />
           </Suspense>
+          <AnnouncementBar />
           <Nav />
           <main id="main">{children}</main>
           <Footer />

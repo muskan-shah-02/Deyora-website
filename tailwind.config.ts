@@ -39,9 +39,17 @@ const config: Config = {
         live: { DEFAULT: "#0F7A55", bg: "#E1F3EA" },
         dev: { DEFAULT: "#8A5A00", bg: "#FBF0D9" },
         warn: { DEFAULT: "#A3361F", bg: "#FBE7E1" },
+        // a150: the one brand accent, set by data-accent on <html> (app/globals.css).
+        accent: {
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          soft: "rgb(var(--accent-soft) / <alpha-value>)",
+          ink: "rgb(var(--accent-ink) / <alpha-value>)",
+        },
+        alarm: "rgb(var(--alarm) / <alpha-value>)",
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        // a150: one modern sans for everything; "serif" is kept as the name of the display style.
+        serif: ["var(--font-sans)", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
@@ -50,7 +58,7 @@ const config: Config = {
       boxShadow: {
         card: "0 1px 2px rgba(16,19,26,0.04), 0 8px 24px -12px rgba(16,19,26,0.12)",
         lift: "0 2px 4px rgba(16,19,26,0.05), 0 24px 48px -24px rgba(16,19,26,0.25)",
-        glow: "0 0 0 1px rgba(255,255,255,0.06), 0 30px 80px -30px rgba(47,91,255,0.45)",
+        glow: "0 0 0 1px rgba(255,255,255,0.06), 0 30px 80px -30px rgb(var(--accent) / 0.45)",
       },
       keyframes: {
         rise: { "0%": { opacity: "0", transform: "translateY(14px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },

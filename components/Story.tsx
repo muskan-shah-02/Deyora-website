@@ -137,7 +137,7 @@ export function StoryToday({ id = "today" }: { id?: string }) {
         </div>
       </div>
       <div className="mt-12 flex flex-wrap gap-3" data-reveal>
-        <Link href={CTA.demo.href} className="btn-primary">
+        <Link href={CTA.demo.href} className="btn-accent">
           {CTA.demo.label} <span aria-hidden="true">→</span>
         </Link>
         <DokyDocLink href={CTA.login.href} variant="ghost">
@@ -208,7 +208,7 @@ export function FreeLook({ id = "free-look" }: { id?: string }) {
           </h2>
           <p className="lede mt-5">{FREE_LOOK.d}</p>
         </div>
-        <Link href={FREE_LOOK.cta.href} className="btn-primary w-fit">
+        <Link href={FREE_LOOK.cta.href} className="btn-accent w-fit">
           {FREE_LOOK.cta.label} <span aria-hidden="true">→</span>
         </Link>
       </div>
