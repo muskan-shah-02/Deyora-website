@@ -24,6 +24,14 @@ export default function HomeHero() {
             {STORY.headline} <em className="text-brand-300">{STORY.accent}</em>
           </h1>
           <p className="lede mt-6 max-w-[34rem]">{STORY.line}</p>
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-ink-200">
+            {STORY.points.map((x) => (
+              <li key={x} className="flex items-center gap-2">
+                <span aria-hidden="true" className="text-brand-300">✓</span>
+                {x}
+              </li>
+            ))}
+          </ul>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href={CTA.demo.href} className="btn-primary">
               {CTA.demo.label} <span aria-hidden="true">→</span>

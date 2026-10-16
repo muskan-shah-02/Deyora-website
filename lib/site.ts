@@ -33,6 +33,7 @@ export const DOKYDOC = {
   security: `${DOKYDOC_ORIGIN}/security`,
   terms: `${DOKYDOC_ORIGIN}/terms`,
   privacy: `${DOKYDOC_ORIGIN}/privacy`,
+  subprocessors: `${DOKYDOC_ORIGIN}/subprocessors`,
 };
 
 /**

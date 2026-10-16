@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { company, DOKYDOC, dokydocLink, productPage } from "@/lib/site";
+import { FREE_LOOK } from "@/lib/story";
+import offers from "@/lib/offers.json";
 import { EMAIL_RE, firstName, guessIdentity } from "@/lib/identity";
 import type { PersonaId } from "@/lib/personas";
 import { FounderAvatar } from "@/components/Founder";
@@ -37,6 +39,8 @@ export const TOPICS: Topic[] = [
       "DokyBrain on our demo manufacturer",
       "DokyDoc on documents and code",
       "Both",
+      // Prepared, not live (a149): shown only once lib/offers.json says "freeLook": true (t220).
+      ...(offers.freeLook === true ? [FREE_LOOK.need] : []),
     ],
     next: { label: "Log in to DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
   },

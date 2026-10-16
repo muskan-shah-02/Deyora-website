@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/meta";
 import { Eyebrow, Section } from "@/components/ui";
 import HomeHero from "@/components/HomeHero";
 import Conversation from "@/components/Conversation";
-import { StoryAudiences, StoryCatches, StoryPricing, StorySteps, StoryToday } from "@/components/Story";
+import { FreeLook, StoryAudiences, StoryCatches, StoryPricing, StorySteps, StoryToday, StoryTrust } from "@/components/Story";
 import { FounderAvatar, FounderLinks } from "@/components/Founder";
 
 export const metadata = pageMeta({
@@ -43,7 +43,9 @@ export default function Home() {
       <StoryCatches />
       <StorySteps />
       <StoryAudiences />
+      <StoryTrust />
       <StoryToday />
+      <FreeLook />
       <StoryPricing />
 
       {/* ── Facts ────────────────────────────────────────────── */}

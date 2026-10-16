@@ -113,5 +113,42 @@ export const STORY = {
     "More checks.",
   ],
   pricing: "Pay only for what you use. Add money to a wallet in rupees, and see the price before anything runs. No plans and no seats.",
-  oneProduct: "DokyDoc is the product. DokyBrain is the part inside it that checks your orders, invoices, payments and stock.",
+  oneProduct:
+    "DokyDoc is the product. DokyBrain is the company brain inside DokyDoc: it checks your orders, invoices, payments and stock against each other.",
+  /** Three short points under the headline, each true for any visitor today. */
+  points: ["Nothing to install", "Changes nothing in your ERP", "Pay only for what you use"],
+  trust: [
+    {
+      t: "Every item shows its record",
+      d: "Open any item and you see the order, invoice or document it came from.",
+    },
+    {
+      t: "It says \"not checked\" instead of guessing",
+      d: "When DokyDoc cannot check something, it tells you, and lists what it could not see.",
+    },
+    {
+      t: "It never changes your ERP",
+      d: "DokyDoc reads your records. It never writes back to your ERP, and an automated test blocks any new kind of write into another system.",
+    },
+    {
+      t: "Every check is tested first",
+      d: "Before a check is switched on, it must find the right answers on test records whose answers are kept hidden from it. Until it passes, it stays locked.",
+    },
+  ],
+  data: {
+    t: "Where your data is kept",
+    d: "On DokyDoc's server in Helsinki, Finland, run by Hetzner. The companies that process data for us are Hetzner, Cloudflare, Google's Gemini API (paid tier), Zoho, Sentry and Razorpay, each on our published Sub-processor and Connector List. Deyora does not train models across customers.",
+  },
+};
+
+/**
+ * Prepared, not live (board answer a149): the free look at a company's last three months. It goes live only
+ * when a company's own records open in production (board task t220) and the founder approves the offer:
+ * set "freeLook" to true in lib/offers.json then. Until then nothing renders it.
+ */
+export const FREE_LOOK = {
+  t: "Free look at your last 3 months",
+  d: "Send us the Excel or CSV exports of your last 3 months: sales orders, deliveries, invoices and purchase orders. We run DokyBrain on them and show you what it finds. Free, and nothing to install.",
+  cta: { label: "Ask for a free look", href: "/contact?topic=demo" },
+  need: "A free look at our last 3 months",
 };

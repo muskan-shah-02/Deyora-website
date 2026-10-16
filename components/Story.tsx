@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { CTA, STORY } from "@/lib/story";
+import { CTA, FREE_LOOK, STORY } from "@/lib/story";
+import { DOKYDOC } from "@/lib/site";
+import offers from "@/lib/offers.json";
 import { ArrowLink, Eyebrow, Section, Status } from "@/components/ui";
 import DokyDocLink from "@/components/DokyDocLink";
 
@@ -157,6 +159,58 @@ export function StoryPricing({ id = "price" }: { id?: string }) {
           </h2>
         </div>
         <p className="lede self-end">{STORY.pricing}</p>
+      </div>
+    </Section>
+  );
+}
+
+export function StoryTrust({ id = "trust" }: { id?: string }) {
+  return (
+    <Section id={id} labelledBy={`${id}-title`}>
+      <div className="max-w-3xl" data-reveal>
+        <Eyebrow>Why you can trust it</Eyebrow>
+        <h2 id={`${id}-title`} className="h-section mt-5">
+          It shows its work.
+        </h2>
+      </div>
+      <ul className="mt-12 grid gap-4 sm:grid-cols-2">
+        {STORY.trust.map((x) => (
+          <li key={x.t} data-reveal className="card p-7">
+            <p className="font-serif text-[22px] leading-snug">{x.t}</p>
+            <p className="mt-2 text-[16px] leading-relaxed text-text-soft">{x.d}</p>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal className="mt-4 rounded-2xl border border-paper-line bg-paper-deep p-7">
+        <p className="font-serif text-[22px] leading-snug">{STORY.data.t}</p>
+        <p className="mt-2 max-w-3xl text-[16px] leading-relaxed text-text-soft">{STORY.data.d}</p>
+        <p className="mt-4">
+          <a href={DOKYDOC.subprocessors} className="link-arrow" target="_blank" rel="noopener noreferrer">
+            Read the Sub-processor and Connector List <span aria-hidden="true">↗</span>
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </p>
+      </div>
+    </Section>
+  );
+}
+
+/** Prepared, not live (a149): renders only once lib/offers.json says "freeLook": true (board task t220). */
+export function FreeLook({ id = "free-look" }: { id?: string }) {
+  if (offers.freeLook !== true) return null;
+  return (
+    <Section id={id} className="bg-brand-50" labelledBy={`${id}-title`}>
+      <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end" data-reveal>
+        <div className="max-w-3xl">
+          <Eyebrow>Free</Eyebrow>
+          <h2 id={`${id}-title`} className="h-section mt-5">
+            {FREE_LOOK.t}
+          </h2>
+          <p className="lede mt-5">{FREE_LOOK.d}</p>
+        </div>
+        <Link href={FREE_LOOK.cta.href} className="btn-primary w-fit">
+          {FREE_LOOK.cta.label} <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </Section>
   );
