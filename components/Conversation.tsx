@@ -30,6 +30,16 @@ type Topic = {
   next?: { label: string; href: string; dokydoc?: boolean };
 };
 
+/** a155: the industries dokydoc.com's chooser names, as they read in the form; ?industry= picks one. */
+const CASE_INDUSTRY: Record<string, string> = {
+  manufacturing: "Manufacturing",
+  software: "Software or SaaS",
+  retail: "Retail and distribution",
+  pharma: "Pharma",
+  bfsi: "Banking, finance or insurance",
+  other: "Something else",
+};
+
 export const TOPICS: Topic[] = [
   {
     value: "demo",
@@ -90,6 +100,14 @@ export const TOPICS: Topic[] = [
     ask: "Which ones? We share them under NDA.",
     needs: ["Security architecture", "Data retention and deletion", "Sub-processors", "How the AI handles data", "All of them"],
     next: { label: "Read DokyDoc's public security page", href: DOKYDOC.security },
+  },
+  {
+    // a155: dokydoc.com's "Tell us your case" (Banking & finance, Other, and any industry), with ?industry= pre-filled.
+    value: "case",
+    label: "Tell us your case",
+    ask: "What does your business do?",
+    needs: Object.values(CASE_INDUSTRY),
+    next: { label: "See DokyDoc while you wait", href: DOKYDOC.home, dokydoc: true },
   },
   {
     value: "other",
@@ -158,7 +176,9 @@ function ConversationInner({ initialTopic }: { initialTopic?: string }) {
 
   // Start from what we already know: a ?topic= link, the page, or who they said
   // they are. Once the visitor has tapped anything, their answer stands.
-  const fromUrl = useSearchParams().get("topic");
+  const params = useSearchParams();
+  const fromUrl = params.get("topic");
+  const industry = params.get("industry");
   const personaId = visitor.persona?.id;
   useEffect(() => {
     if (!visitor.ready || userActed.current) return;
@@ -166,8 +186,14 @@ function ConversationInner({ initialTopic }: { initialTopic?: string }) {
       .map((t) => (t ? TOPIC_ALIASES[t] || t : null))
       .find((t) => t && TOPICS.some((x) => x.value === t));
     setTopicId(wanted || null);
-    setNeed(fromUrl === "partnership" ? "A partnership" : null);
-  }, [visitor.ready, fromUrl, personaId]); // eslint-disable-line react-hooks/exhaustive-deps
+    setNeed(
+      fromUrl === "partnership"
+        ? "A partnership"
+        : fromUrl === "case" && industry && CASE_INDUSTRY[industry]
+          ? CASE_INDUSTRY[industry]
+          : null,
+    );
+  }, [visitor.ready, fromUrl, industry, personaId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Returning visitors who told us their name before see it filled in.
   useEffect(() => {
