@@ -22,7 +22,7 @@ const LINES: { from: string; to: string; d: string }[] = [
   { from: "order", to: "invoice", d: "M135 105 C 360 25, 840 25, 1065 105" },
   { from: "invoice", to: "payment", d: "M1065 105 C 1180 210, 1190 350, 1115 470" },
   { from: "payment", to: "po", d: "M1115 470 C 1110 570, 1080 650, 1010 690" },
-  { from: "po", to: "stock", d: "M1010 690 C 760 770, 300 760, 85 470" },
+  { from: "po", to: "stock", d: "M1010 690 C 820 800, 220 800, 85 470" },
   { from: "stock", to: "order", d: "M85 470 C 15 350, 25 210, 135 105" },
 ];
 
@@ -46,9 +46,9 @@ function Bubble({ n }: { n: Node }) {
   );
 }
 
-function SceneCard({ cls, text, x, y, w = 340 }: { cls: string; text: string; x: number; y: number; w?: number }) {
+function SceneCard({ cls, text, x, y, w = 340, h = 64 }: { cls: string; text: string; x: number; y: number; w?: number; h?: number }) {
   return (
-    <foreignObject x={x} y={y} width={w} height={64} className={`motif-card ${cls}`}>
+    <foreignObject x={x} y={y} width={w} height={h} className={`motif-card ${cls}`}>
       <div className="flex h-full items-center">
         <div className="rounded-xl border border-white/15 bg-ink-950/90 px-3.5 py-2 shadow-lift backdrop-blur">
           <p className="font-mono text-[10px] uppercase tracking-label text-alarm">Example</p>
@@ -116,7 +116,7 @@ export function HeroMotifCompact() {
           </g>
         );
       })}
-      <SceneCard cls="motif-s1" text="Order 4471 shipped. No invoice yet." x={60} y={70} w={240} />
+      <SceneCard cls="motif-s1" text="Order 4471 shipped. No invoice yet." x={60} y={62} w={240} h={84} />
     </svg>
   );
 }

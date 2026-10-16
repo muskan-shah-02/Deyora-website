@@ -112,7 +112,7 @@ export const STORY = {
     "Signed reports you can send to a customer.",
     "More checks.",
   ],
-  pricing: "Pay only for what you use. Add money to a wallet in rupees, and see the price before anything runs. No plans and no seats.",
+  pricing: "Pay only for what you use. Add money to a wallet in rupees, and see the price before anything runs. No plans and no subscription.",
   oneProduct:
     "DokyDoc is the product. DokyBrain is the company brain inside DokyDoc: it checks your orders, invoices, payments and stock against each other.",
   /** Three short points under the headline, each true for any visitor today. */
