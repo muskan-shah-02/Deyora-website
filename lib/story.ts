@@ -11,9 +11,12 @@ import { DOKYDOC } from "@/lib/site";
 
 export const DEMO_HREF = "/contact?topic=demo";
 
-/** The two calls to action, everywhere. */
+/**
+ * The two calls to action, everywhere (the founder, 16 Oct 2026): "Get started" sends people to DokyDoc's own home
+ * page, https://dokydoc.com, never straight to its sign-in or registration; "Book a demo" stays on this site.
+ */
 export const CTA = {
-  login: { label: "Log in", href: DOKYDOC.login },
+  start: { label: "Get started", href: DOKYDOC.home },
   demo: { label: "Book a demo", href: DEMO_HREF },
 };
 
@@ -93,14 +96,14 @@ export const STORY = {
         "What could not be checked, listed.",
         "Sign-off by a person on your side.",
       ],
-      cta: "login" as const,
+      cta: "start" as const,
     },
   ],
   live: [
     ["DokyDoc for software", "Check your code against its documents. Sign up yourself at dokydoc.com."],
     [
-      "DokyBrain",
-      "The part of DokyDoc that checks orders, invoices, payments and stock. Running since 15 October 2026. We switch it on for each company.",
+      "DokyDoc for orders, invoices, payments and stock",
+      "Running since 15 October 2026. We switch it on for each company.",
     ],
     ["Our demo company", "A sample manufacturer with made-up records. Book a demo and we will show you."],
   ] as [string, string][],
@@ -114,7 +117,7 @@ export const STORY = {
   ],
   pricing: "Pay only for what you use. Add money to a wallet in rupees, and see the price before anything runs. No plans and no subscription.",
   oneProduct:
-    "DokyDoc is the product. DokyBrain is the company brain inside DokyDoc: it checks your orders, invoices, payments and stock against each other.",
+    "DokyDoc is the company brain for your business: it checks your orders, invoices, payments and stock against each other.",
   /** Three short points under the headline, each true for any visitor today. */
   points: ["Nothing to install", "Changes nothing in your ERP", "Pay only for what you use"],
   trust: [
@@ -148,7 +151,7 @@ export const STORY = {
  */
 export const FREE_LOOK = {
   t: "Free look at your last 3 months",
-  d: "Send us the Excel or CSV exports of your last 3 months: sales orders, deliveries, invoices and purchase orders. We run DokyBrain on them and show you what it finds. Free, and nothing to install.",
+  d: "Send us the Excel or CSV exports of your last 3 months: sales orders, deliveries, invoices and purchase orders. We run DokyDoc on them and show you what it finds. Free, and nothing to install.",
   cta: { label: "Ask for a free look", href: "/contact?topic=demo" },
   need: "A free look at our last 3 months",
 };

@@ -120,8 +120,8 @@ export const FAQ: { q: string; a: string }[] = [
     a: "None independent yet: there has been no penetration test by an outside firm, and we hold no ISO 27001 or SOC 2 certification. Two-factor sign-in and company-wide login are not available yet. Our security documents are shared under NDA; ask through the contact page.",
   },
   {
-    q: "Is DokyBrain available?",
-    a: "Yes, inside DokyDoc, since 15 October 2026, and Deyora switches it on for each company. Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.",
+    q: "Does DokyDoc check orders, invoices and payments?",
+    a: "Yes, since 15 October 2026, and Deyora switches it on for each company. Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.",
   },
   {
     q: "Who is behind DokyDoc?",

@@ -6,7 +6,7 @@ import { FounderAvatar, FounderLinks } from "@/components/Founder";
 
 export const metadata = pageMeta({
   title: "Contact",
-  description: "Talk to the founder of Deyora Intelligence about DokyDoc, DokyBrain or our security documents. Two taps and an email.",
+  description: "Talk to the founder of Deyora Intelligence about DokyDoc, a demo or our security documents. Two taps and an email.",
   path: "/contact",
 });
 

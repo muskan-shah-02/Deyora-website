@@ -75,7 +75,7 @@ export default function DokyDocPage() {
             </h1>
             <p className="lede mt-7 max-w-[36rem]">{STORY.line}</p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <DokyDocLink href={CTA.start.href}>{CTA.start.label}</DokyDocLink>
               <a href={CTA.demo.href} className="btn-accent">
                 {CTA.demo.label} <span aria-hidden="true">→</span>
               </a>
@@ -111,7 +111,7 @@ export default function DokyDocPage() {
               not check, with the evidence. A named person on your side signs off. DokyDoc never signs for you.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <DokyDocLink href={CTA.start.href}>{CTA.start.label}</DokyDocLink>
               <ButtonLink href="#walkthrough" variant="ghost">
                 Try the walk-through
               </ButtonLink>
@@ -273,24 +273,24 @@ export default function DokyDocPage() {
         </div>
       </Section>
 
-      {/* ── DokyBrain ────────────────────────────────────────── */}
-      <Section id="dokybrain" labelledBy="brain-title">
+      {/* ── Orders, invoices, payments and stock ─────────────── */}
+      <Section id="orders" labelledBy="brain-title">
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
           <div data-reveal>
             <div className="flex flex-wrap items-center gap-3">
-              <Eyebrow>Inside DokyDoc</Eyebrow>
-              <Status tone="live">Live inside DokyDoc</Status>
+              <Eyebrow>Orders, invoices, payments and stock</Eyebrow>
+              <Status tone="live">Live in DokyDoc</Status>
             </div>
             <h2 id="brain-title" className="h-section mt-5">
-              DokyBrain: the brain inside DokyDoc.
+              DokyDoc for orders, invoices, payments and stock.
             </h2>
             <p className="lede mt-6">
-              DokyBrain connects what a company promised with what its records show, across orders, deliveries, invoices,
+              DokyDoc connects what a company promised with what its records show, across orders, deliveries, invoices,
               payments and suppliers, and raises the few things that deserve a person&rsquo;s attention, each with its
               evidence and with what it could not see.
             </p>
             <p className="mt-6 text-[16px] leading-relaxed text-text-soft">
-              It has been in production inside DokyDoc since 15 October 2026, and Deyora switches it on for each company.
+              It has been in production in DokyDoc since 15 October 2026, and Deyora switches it on for each company.
               Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on
               request. Reading your own company&rsquo;s ERP exports and documents into it is coming, and we will not put a
               date on this page until we can keep it.
@@ -315,7 +315,7 @@ export default function DokyDocPage() {
               ],
               [
                 "Brain Health and the weekly brief",
-                "Brain Health shows whether you can trust what DokyBrain says today. The weekly brief shows on screen what changed, what crossed the line and what it could not see.",
+                "Brain Health shows whether you can trust what DokyDoc says today. The weekly brief shows on screen what changed, what crossed the line and what it could not see.",
               ],
             ].map(([t, d]) => (
               <li key={t} data-reveal className="card p-7">
@@ -362,7 +362,7 @@ export default function DokyDocPage() {
               ))}
             </ul>
             <div className="mt-auto pt-9">
-              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <DokyDocLink href={CTA.start.href}>{CTA.start.label}</DokyDocLink>
             </div>
           </article>
           <article data-reveal className="on-dark flex flex-col rounded-2xl bg-ink-900 p-8 text-ink-200 shadow-lift sm:p-10">
@@ -474,7 +474,7 @@ export default function DokyDocPage() {
               look at anything of yours.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <DokyDocLink href={CTA.login.href}>{CTA.login.label}</DokyDocLink>
+              <DokyDocLink href={CTA.start.href}>{CTA.start.label}</DokyDocLink>
               <ButtonLink href={CTA.demo.href} variant="ghost">
                 {CTA.demo.label}
               </ButtonLink>

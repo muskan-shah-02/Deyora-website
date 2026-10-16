@@ -33,16 +33,16 @@ type Topic = {
 export const TOPICS: Topic[] = [
   {
     value: "demo",
-    label: "I'd like a demo",
+    label: "I'd like a DokyDoc demo",
     ask: "Which would you like to see?",
     needs: [
-      "DokyBrain on our demo manufacturer",
+      "Orders, invoices and stock, on our demo company",
       "DokyDoc on documents and code",
       "Both",
       // Prepared, not live (a149): shown only once lib/offers.json says "freeLook": true (t220).
       ...(offers.freeLook === true ? [FREE_LOOK.need] : []),
     ],
-    next: { label: "Log in to DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
+    next: { label: "See DokyDoc while you wait", href: DOKYDOC.home, dokydoc: true },
   },
   {
     value: "dokydoc",
@@ -50,7 +50,7 @@ export const TOPICS: Topic[] = [
     persona: "buyer",
     ask: "Where are you with it?",
     needs: ["About to sign off a delivery", "Something feels off", "Starting a new project", "Just exploring"],
-    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
+    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.home, dokydoc: true },
   },
   {
     value: "builder",
@@ -58,7 +58,7 @@ export const TOPICS: Topic[] = [
     persona: "builder",
     ask: "What would help most?",
     needs: ["Evidence for a client", "Find gaps before the client does", "Documents that match the code", "Just exploring"],
-    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.login, dokydoc: true },
+    next: { label: "Start on DokyDoc while you wait", href: DOKYDOC.home, dokydoc: true },
   },
   {
     value: "manufacturing",
@@ -66,7 +66,7 @@ export const TOPICS: Topic[] = [
     persona: "maker",
     ask: "Where do things slip most?",
     needs: ["Orders and delivery dates", "Suppliers and purchase", "Dispatch and invoicing", "Payments and collections", "It all lives in Excel and WhatsApp"],
-    next: { label: "See what DokyBrain looks for", href: productPage("dokybrain") },
+    next: { label: "See what DokyDoc looks for", href: productPage("orders") },
   },
   {
     value: "owner",

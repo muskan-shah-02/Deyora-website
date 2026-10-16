@@ -89,9 +89,9 @@ export function StoryAudiences({ id = "who" }: { id?: string }) {
               ))}
             </ul>
             <div className="mt-auto pt-7">
-              {a.cta === "login" ? (
-                <DokyDocLink href={CTA.login.href} variant="arrow">
-                  {CTA.login.label}
+              {a.cta === "start" ? (
+                <DokyDocLink href={CTA.start.href} variant="arrow">
+                  {CTA.start.label}
                 </DokyDocLink>
               ) : (
                 <ArrowLink href={CTA.demo.href}>{CTA.demo.label}</ArrowLink>
@@ -137,12 +137,12 @@ export function StoryToday({ id = "today" }: { id?: string }) {
         </div>
       </div>
       <div className="mt-12 flex flex-wrap gap-3" data-reveal>
-        <Link href={CTA.demo.href} className="btn-accent">
+        <DokyDocLink href={CTA.start.href} className="btn-accent">
+          {CTA.start.label}
+        </DokyDocLink>
+        <Link href={CTA.demo.href} className="btn-ghost">
           {CTA.demo.label} <span aria-hidden="true">→</span>
         </Link>
-        <DokyDocLink href={CTA.login.href} variant="ghost">
-          {CTA.login.label}
-        </DokyDocLink>
       </div>
     </Section>
   );

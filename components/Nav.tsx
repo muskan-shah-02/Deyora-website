@@ -63,18 +63,18 @@ export default function Nav() {
         </ul>
 
         <div className="hidden items-center gap-1.5 md:flex">
-          <DokyDocLink href={CTA.login.href} className="rounded-full px-3.5 py-2 text-[14.5px] text-ink-200 hover:text-white">
-            Log in
-          </DokyDocLink>
-          <Link href={CTA.demo.href} className="btn-accent !py-2.5">
+          <Link href={CTA.demo.href} className="rounded-full px-3.5 py-2 text-[14.5px] text-ink-200 hover:text-white">
             {CTA.demo.label}
           </Link>
+          <DokyDocLink href={CTA.start.href} className="btn-accent !py-2.5">
+            {CTA.start.label}
+          </DokyDocLink>
         </div>
 
         <div className="flex items-center gap-1.5 md:hidden">
-          <Link href={CTA.demo.href} className="btn-accent !px-4 !py-2 !text-[14px]">
-            {CTA.demo.label}
-          </Link>
+          <DokyDocLink href={CTA.start.href} className="btn-accent !px-4 !py-2 !text-[14px]">
+            {CTA.start.label}
+          </DokyDocLink>
           <button
             ref={buttonRef}
             type="button"
@@ -109,9 +109,9 @@ export default function Nav() {
             </li>
           ))}
           <li>
-            <DokyDocLink href={CTA.login.href} className="block py-3 text-[17px] text-ink-200 hover:text-white">
-              Log in to DokyDoc
-            </DokyDocLink>
+            <Link href={CTA.demo.href} className="block py-3 text-[17px] text-ink-200 hover:text-white">
+              {CTA.demo.label}
+            </Link>
           </li>
         </ul>
       </div>

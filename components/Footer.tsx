@@ -23,8 +23,8 @@ export default function Footer() {
           links={[
             { href: productPage(), label: "DokyDoc" },
             { href: productPage("faq"), label: "DokyDoc: straight answers" },
-            { href: productPage("dokybrain"), label: "DokyBrain, inside DokyDoc" },
-            { href: dokydocLink(DOKYDOC.login), label: "Log in to DokyDoc", external: true },
+            { href: productPage("orders"), label: "DokyDoc for orders and invoices" },
+            { href: dokydocLink(DOKYDOC.home), label: "dokydoc.com", external: true },
             { href: CTA.demo.href, label: CTA.demo.label },
             { href: DOKYDOC.security, label: "DokyDoc security", external: true },
           ]}

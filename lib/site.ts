@@ -25,10 +25,8 @@ export function productPage(section?: string): string {
 
 export const DOKYDOC = {
   home: DOKYDOC_ORIGIN,
-  register: `${DOKYDOC_ORIGIN}/register`,
-  /** The app itself; it sends anyone not signed in to the sign-in page. */
-  app: `${DOKYDOC_ORIGIN}/dashboard`,
-  login: `${DOKYDOC_ORIGIN}/login`,
+  // The founder, 16 Oct 2026: every link to the product goes to its home page, never straight to /login,
+  // /register or /dashboard, so those addresses are not kept here.
   enterprise: `${DOKYDOC_ORIGIN}/enterprise`,
   security: `${DOKYDOC_ORIGIN}/security`,
   terms: `${DOKYDOC_ORIGIN}/terms`,

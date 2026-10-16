@@ -11,12 +11,17 @@ When a fact changes, change the page and this register in the same commit. A
 claim with no row here does not go on the site.
 
 **Status labels.** Everything shown as **Live** is in production on
-dokydoc.com. DokyBrain is **Live inside DokyDoc** (since 15 Oct 2026): every
-DokyBrain feature is off for a company until Deyora switches it on, and no
-company can load its own records into it yet, so the site says it runs today on
-the demo company, shown on request, and lists a company's own records under
-**Coming**, with no date. Nothing that waits for v1.8's final push is on this
-site: those sentences go on dokydoc.com's own home page, which ships with it.
+dokydoc.com. **The product's name on public pages is DokyDoc only** (the
+founder, 16 Oct 2026): the internal name of its brain, DokyBrain, appears on no
+public page, in no metadata, sitemap, alt text or /llms.txt; the rows below use
+it only to point at the product code. DokyDoc's checks on orders, invoices,
+payments and stock are live (since 15 Oct 2026): they are off for a company
+until Deyora switches them on, and no company can load its own records yet, so
+the site says they run today on the demo company, shown on request, and lists a
+company's own records under **Coming**, with no date. Every link to the product
+goes to https://dokydoc.com, its home page, never straight to /login, /register
+or /dashboard; links to DokyDoc's /terms, /privacy, /subprocessors and /security
+stay. Nothing that waits for v1.8's final push is on this site.
 
 ## The story (`lib/story.ts`, `components/Story.tsx`; home page, /dokydoc, /llms.txt)
 
@@ -40,20 +45,20 @@ request (16 Oct 2026). Sources are in dokydoc main `321fd50`.
 | Step 3: you decide; DokyDoc changes nothing in your ERP | `core/third_party_writes.py` (no write back to an ERP); §0 D11, D12 |
 | Who it is for: businesses that take orders (any industry), manufacturers (the deepest set of checks), software teams (DokyDoc's first job; use it today) | The general starter for an industry no pack covers (`packs/general/starters.py:3-21, 52-71`); the manufacturing pack (`packs/manufacturing/`); DokyDoc's self-serve sign-up (`frontend/app/register/page.tsx`) |
 | Live: DokyDoc for software, self-serve | DokyDoc rows below; `frontend/app/login/page.tsx:187-194` (the login page links to registration) |
-| Live: DokyBrain, running since 15 October 2026; "We switch it on for each company" | Deploy run 38729273597 of `321fd50`, 20:38:52 IST (deyora-hq board, Log row 285); every brain feature is `POLICY_OFF` and only the platform operator switches it on (`core/feature_gate.py:149-218`; `services/tenant_feature_service.py:10-14, 84-91`) |
+| Live: "DokyDoc for orders, invoices, payments and stock", running since 15 October 2026; "We switch it on for each company" | Deploy run 38729273597 of `321fd50`, 20:38:52 IST (deyora-hq board, Log row 285); every brain feature is `POLICY_OFF` and only the platform operator switches it on (`core/feature_gate.py:149-218`; `services/tenant_feature_service.py:10-14, 84-91`) |
 | Live: our demo company, a sample manufacturer with made-up records; we show it on request | `docs/founder_tasks_phase2/t203_demo_on_production.md:3-8, 52-88`; `services/demo_grant_service.py:10-25`. The site goes live only once the demo is up on production (t203) |
 | Coming: your own company's records; recording decisions and goals; Zoho Books, QuickBooks and HubSpot; alerts by email, Slack or Teams; signed reports you can send to a customer; more checks | Raw log as above; `register_fragments/p3_01.py:122-127`; the connector list ("Built, not available yet", :125, :238); `p3_05.py:57-63`, `p3_13.py:55`; `p2_10.py:67-72`, `p4_01.py:54-59`, `p4_04.py:22-28` (a signed report is a page the company prints and sends itself, `frontend/lib/verification-report-copy.ts` `NOTHING_SENT`); locked checks (`proven_checks.py:207-210`). No dates |
 | Price: pay only for what you use, a wallet in rupees, the price before anything runs, no plans and no subscription | `frontend/app/billing/page.tsx:1474-1478` ("One product, no plans and no subscription… shows its price before it runs"). Not "no seats": a company has a user cap (`models/tenant.py` `max_users`, 10 by default; `licensed_seats` for a contract), and the product's copy guard says seats are enforced (`tests/test_false1_copy_is_a_contract.py:7, 48`) |
-| "Log in" goes to dokydoc.com/login; "Book a demo" goes to /contact?topic=demo | As above; `components/Conversation.tsx` (the "demo" topic) |
+| "Get started" goes to https://dokydoc.com (the product's home page); "Book a demo" goes to /contact?topic=demo, the topic "I'd like a DokyDoc demo"; the announcement bar, "DokyDoc now checks orders, invoices, payments and stock · Book a demo" | The founder's decision of 16 Oct 2026; `components/Conversation.tsx` (the "demo" topic); the announcement is true as the story's rows say |
 | The hero card: "3 of 48 open orders need you", a late supplier, an order shipped and not billed, a late payer over the limit | An illustration in code with made-up names and numbers, captioned "Illustration · made-up example"; the count carries its denominator (Rule 6) |
 | Under the headline: "Nothing to install" · "Changes nothing in your ERP" · "Pay only for what you use" (a149: each true for any visitor today) | DokyDoc is a web app at dokydoc.com, and code comes in by a pasted token, a public link or a ZIP (the DokyDoc rows); `core/third_party_writes.py` (no write back to an ERP); the wallet (`frontend/app/billing/page.tsx:1474-1478`). "Works with your Excel exports" is not used here: until a company's own records open in production (t220) it holds only on the demo company, so it waits in the free-look offer |
-| "DokyBrain is the company brain inside DokyDoc: it checks your orders, invoices, payments and stock against each other" (once, below the first screen) | a149's wording; the checks rows above |
+| "DokyDoc is the company brain for your business: it checks your orders, invoices, payments and stock against each other" (once, below the first screen) | a149's line, renamed by the founder's decision of 16 Oct 2026; the checks rows above |
 | Trust: every item shows its record (the order, invoice or document it came from) | The attention list, "each with its evidence" (`commitments-copy.ts:39-40`); each line cites its export rows (`brain/packs/manufacturing/reports.py`, `ReportLine.examined`) |
 | Trust: it says "not checked" instead of guessing, and lists what it could not see | DokyDoc's report of what was not examined (`services/exposure_report.py`); DokyBrain's brief, "what the brain could not see" (`brief-copy.ts:30-31`); a report "cannot be judged" state (`brain/reports/condition.py`) |
 | Trust: it never writes back to your ERP; an automated test blocks any new kind of write into another system | `core/third_party_writes.py` (every write-verb call into another system classified; an unclassified one fails the build); `tests/integration/test_ib12_no_write_back.py` |
 | Trust: before a check is switched on it must find the right answers on test records whose answers are kept hidden from it; until it passes it stays locked | `core/proven_checks.py:1-30` (switched on only once both halves pass: its planted cases on dataset A, its precision floor on the sealed dataset B); `brain/eval/measures.py:226` ("hidden evaluation… answer key sealed until scoring"); the lock (`proven_checks.py:238-239`) |
 | Where your data is kept: DokyDoc's server in Helsinki, Finland, run by Hetzner; the processors Hetzner, Cloudflare, Google's Gemini API (paid tier), Zoho, Sentry and Razorpay, each on the published Sub-processor and Connector List; "Deyora does not train models across customers" | The Sub-processor and Connector List as published on 15 Oct 2026 (dokydoc.com/subprocessors; deyora-hq t157 D5), its table of six; the Privacy Policy 2.0 ("does not train models across customers", a pinned phrase) |
-| PREPARED, NOT LIVE: "Free look at your last 3 months" (send 3 months of Excel or CSV exports; DokyBrain runs on them; free; nothing to install) | Renders only when `lib/offers.json` says `"freeLook": true`, set in the website push after a company's own records open in production (board task t220) and the founder approves the offer. Until then nothing shows it and the contact chat does not offer it |
+| PREPARED, NOT LIVE: "Free look at your last 3 months" (send 3 months of Excel or CSV exports; DokyDoc runs on them; free; nothing to install) | Renders only when `lib/offers.json` says `"freeLook": true`, set in the website push after a company's own records open in production (board task t220) and the founder approves the offer. Until then nothing shows it and the contact chat does not offer it |
 | /dokydoc redirects permanently (301) to dokydoc.com once its own home page is live | `lib/dokydoc-home.json` (`"live": false` until v1.8's final push); `next.config.js`; `lib/site.ts` `productPage` |
 
 ## Company
@@ -138,25 +143,25 @@ Each answer repeats claims already registered above, except these:
 | No published accuracy figure, because none has been measured on real customer projects | AI-03 "Gaps" |
 | Accounting and CRM connections built but not switched on | `api/endpoints/connectors.py:335-347`; CO-01 §9 |
 
-## DokyBrain (Live inside DokyDoc)
+## DokyDoc for orders, invoices, payments and stock (/dokydoc#orders)
 
-The rows of "The story" above hold. These add the rest of /dokydoc#dokybrain.
+The rows of "The story" above hold. These add the rest of /dokydoc#orders. (In the code this part of DokyDoc is called DokyBrain; no public page says so.)
 
 | Claim | Source |
 |---|---|
-| The brain inside DokyDoc, not a separate product; no separate sign-up | `dokydoc/docs/DOKYBRAIN_DESIGN.md` §0 D1, D2; it runs in DokyDoc's app, behind DokyDoc's sign-in |
+| Part of DokyDoc, not a separate product; no separate sign-up | `dokydoc/docs/DOKYBRAIN_DESIGN.md` §0 D1, D2; it runs in DokyDoc's app, behind DokyDoc's sign-in |
 | It raises findings and prepares options; it changes nothing in your ERP; a person decides and acts | `brain/prepared.py`; `core/third_party_writes.py` (no write back to an ERP); §0 D11, D12. The site does not say "never sends", because DokyDoc's merged pull-request comment is on by default (DokyDoc rows) |
 | Every figure is a count, with what it is counted out of ("6 of 47 open commitments") | Brain Health, "Every figure is a count, with what it is counted out of" (`frontend/lib/brain-health-copy.ts:113-114`); design Rule 6 |
-| Brain Health shows whether you can trust what DokyBrain says today; the weekly brief shows on screen what changed, what crossed the line and what it could not see | `frontend/lib/brain-health-copy.ts:113-114`; `frontend/lib/brief-copy.ts:30-31` |
+| Brain Health shows whether you can trust what DokyDoc says today; the weekly brief shows on screen what changed, what crossed the line and what it could not see | `frontend/lib/brain-health-copy.ts:113-114`; `frontend/lib/brief-copy.ts:30-31` |
 | Reading a company's own ERP exports and documents into it is coming, with no date | The story's rows above |
 
 ## Personas (`lib/personas.ts`)
 
 The home page speaks to whoever the visitor says they are. Every line in the
 five personas uses only claims already in this register: DokyDoc's checks,
-the reverse check, code hosts and pay-as-you-go wallet (Live), and DokyBrain
+the reverse check, code hosts and pay-as-you-go wallet (Live), and the checks on orders and invoices
 (Live inside DokyDoc, on the demo company today, on a company's own records
-coming: the story's rows). "Start on DokyDoc" goes to dokydoc.com/login. The
+coming: the story's rows). "Start on DokyDoc" goes to https://dokydoc.com. The
 investor persona repeats the test-count claim above.
 
 ## Illustrations

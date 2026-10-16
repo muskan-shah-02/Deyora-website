@@ -145,7 +145,7 @@ const commitments: Commitment[] = [
   },
 ];
 
-/** What DokyBrain's list looks like, drawn in code: made-up names and numbers, captioned as an illustration. */
+/** What DokyDoc's list of orders that need you looks like, drawn in code: made-up names and numbers, captioned as an illustration. */
 export function CommitmentsIllustration() {
   return (
     <figure className="relative">

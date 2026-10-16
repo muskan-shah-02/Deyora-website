@@ -37,12 +37,12 @@ export default function HomeHero() {
             ))}
           </ul>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <Link href={CTA.demo.href} className="btn-accent !px-6 !py-3.5 !text-[16px]">
+            <DokyDocLink href={CTA.start.href} className="btn-accent !px-6 !py-3.5 !text-[16px]">
+              {CTA.start.label}
+            </DokyDocLink>
+            <Link href={CTA.demo.href} className="btn btn-ghost !px-6 !py-3.5 !text-[16px]">
               {CTA.demo.label} <span aria-hidden="true">→</span>
             </Link>
-            <DokyDocLink href={CTA.login.href} variant="ghost" className="btn btn-ghost !px-6 !py-3.5 !text-[16px]">
-              {CTA.login.label}
-            </DokyDocLink>
           </div>
           <p className="mx-auto mt-6 max-w-[34rem] text-[14px] leading-relaxed text-ink-400">{STORY.today}</p>
           <HeroMotifCompact />
