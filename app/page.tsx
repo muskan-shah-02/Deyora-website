@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { company, DOKYDOC, people } from "@/lib/site";
 import { CTA } from "@/lib/story";
-import { BRAND_LINE, HOME, VISION } from "@/lib/home";
+import { BRAND_LINE, HERO_LINES, HOME } from "@/lib/home";
 import { MANIFESTO, MANIFESTO_SHOWN } from "@/lib/manifesto";
 import { pageMeta } from "@/lib/meta";
 import { Eyebrow, Section } from "@/components/ui";
@@ -44,11 +44,12 @@ export default function Home() {
             <h1 id="hero-title" className="h-display mt-6 text-[46px] sm:text-[68px] lg:text-[80px]">
               {BRAND_LINE}
             </h1>
-            <p className="mx-auto mt-6 max-w-[42rem] text-pretty text-[19px] leading-[1.5] text-ink-200 sm:text-[23px]">
-              {VISION.label ? (
-                <span className="mb-2 block font-mono text-[12px] uppercase tracking-label text-accent-soft">{VISION.label}</span>
-              ) : null}
-              {VISION.line}
+            <p className="mx-auto mt-6 max-w-[42rem] text-pretty text-[21px] font-medium leading-[1.4] sm:text-[26px]">
+              <span className="block text-ink-200">{HERO_LINES.before}</span>
+              <span className="block text-accent-soft">{HERO_LINES.after}</span>
+            </p>
+            <p className="mx-auto mt-5 max-w-[38rem] text-pretty text-[17px] leading-[1.55] text-ink-300 sm:text-[19px]">
+              {HERO_LINES.line}
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <a href="#product" className="btn-accent !px-6 !py-3.5 !text-[16px]">

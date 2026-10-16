@@ -10,24 +10,14 @@ import { deyora } from "@/lib/site";
 export const BRAND_LINE = "See what's hidden.";
 
 /**
- * The vision line under the brand line: three options taken from the approved wording on /about#vision
- * (deyora-hq team/DECISIONS.md), for the founder to pick one in the review. NEXT_PUBLIC_VISION picks one for a
- * build ("1", "2" or "3"); option 1 is the default, and HQ's recommendation. Once the founder picks, the other
- * two go.
+ * The two lines and the sentence under the brand line: the founder's choice of 16 Oct 2026 (board answer a155's
+ * review, Q41), replacing the three vision options. The vision itself stays on /about#vision.
  */
-export const VISION_OPTIONS = [
-  { id: "1", from: "The vision, word for word", label: "Our vision", line: deyora.vision },
-  { id: "2", from: "The About page's headline, word for word", label: null, line: "We are building intelligence for the people who run companies." },
-  {
-    id: "3",
-    from: "The mission, shortened",
-    label: null,
-    line: "We are building intelligence that shows the people in charge what needs attention, so they spend their time deciding, not chasing.",
-  },
-] as const;
-
-export const VISION =
-  VISION_OPTIONS.find((v) => v.id === process.env.NEXT_PUBLIC_VISION) ?? VISION_OPTIONS[0];
+export const HERO_LINES = {
+  before: "Your company's knowledge: scattered.",
+  after: "Your company brain: connected.",
+  line: "We bring together what your company knows, connect it to what it does, and show you what needs attention.",
+};
 
 export const HOME = {
   /** The drawing's description for a screen reader. */

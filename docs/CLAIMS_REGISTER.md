@@ -34,7 +34,7 @@ building", never as something done; the only product named is DokyDoc.
 
 | Claim | Source |
 |---|---|
-| The vision line, option 1: "Every company, in every industry, runs with the clarity that today only the biggest can afford." (an aim, under the label "Our vision") | `lib/site.ts` `deyora.vision`; deyora-hq `team/DECISIONS.md` |
+| Under the brand line: "Your company's knowledge: scattered." / "Your company brain: connected." / "We bring together what your company knows, connect it to what it does, and show you what needs attention." | The founder's wording, 16 Oct 2026 (a155 review, Q41). True today: DokyDoc reads a company's documents and code and the demo companies' records, checks them against each other and shows what doesn't match; a company's own records are listed as coming on /dokydoc |
 | Option 2: "We are building intelligence for the people who run companies." | The About page's headline (`app/about/page.tsx`), approved wording |
 | Option 3: "We are building intelligence that shows the people in charge what needs attention." | The mission, shortened (`deyora.mission`: "…shows what needs attention, and prepares the next step, so the people in charge spend their time deciding, not chasing") |
 | "We are building intelligence that helps the people who run companies see what is hidden in their own records. It prepares. You decide." | An aim ("we are building"); "It prepares. You decide." is `deyora.promise` |
