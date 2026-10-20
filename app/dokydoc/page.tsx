@@ -1,4 +1,4 @@
-import { DEMO_UP, DOKYDOC, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
+import { DEMO_UP, DOKYDOC, LEDGER, SITE_URL, dokydocStatement, untilDokyDocV2 } from "@/lib/site";
 import { CTA, STORY } from "@/lib/story";
 import { CAPABILITIES, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
 import { pageMeta } from "@/lib/meta";
@@ -290,7 +290,7 @@ export default function DokyDocPage() {
               evidence and with what it could not see.
             </p>
             <p className="mt-6 text-[16px] leading-relaxed text-text-soft">
-              It has been in production in DokyDoc since 15 October 2026, and Deyora switches it on for each company.
+              It has been in production in DokyDoc since 15 October 2026, {LEDGER.clause}.
               {DEMO_UP
                 ? " Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request."
                 : ""}{" "}

@@ -1,4 +1,4 @@
-import { company, deyora, DOKYDOC, dokydocStatement, SITE_URL, DOKYDOC_V2_RELEASED, people, productPage } from "@/lib/site";
+import { company, deyora, DOKYDOC, LEDGER, dokydocStatement, SITE_URL, DOKYDOC_V2_RELEASED, people, productPage } from "@/lib/site";
 import { STORY } from "@/lib/story";
 import { HOME } from "@/lib/home";
 import { CAPABILITIES, FACTS_UPDATED, FAQ, LIMITS, SECURITY } from "@/lib/dokydoc";
@@ -89,7 +89,7 @@ ${FAQ.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 ## Corrections to older descriptions of us
 
 - We have published no figures on rework cost, savings or speed. Numbers like that attributed to Deyora are not ours.
-- We have one product, DokyDoc (live). Its checks on orders, invoices, payments and stock have been in production since 15 October 2026 and are switched on by Deyora for each company. We have announced no other product lines.
+- We have one product, DokyDoc (live). Its checks on orders, invoices, payments and stock have been in production since 15 October 2026 and are ${LEDGER.participle}. We have announced no other product lines.
 ${DOKYDOC_V2_RELEASED ? "" : "- DokyDoc connects only to the tools listed above.\n"}- DokyDoc analyses when a run is started or, with a webhook, when code is pushed. It does not follow every change as it happens.
 - DokyDoc reports evidence for a person to judge, marks every link as verified or inferred, and publishes no accuracy figure. A person at the customer signs off, never DokyDoc.
 

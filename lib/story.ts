@@ -7,7 +7,7 @@
  * (dokydoc main 321fd50); docs/CLAIMS_REGISTER.md, "The story", gives the source of each. A sentence that becomes
  * true only with v1.8's final push does not go here.
  */
-import { DOKYDOC, DEMO_UP, whenDemoUp } from "@/lib/site";
+import { DOKYDOC, DEMO_UP, LEDGER, whenDemoUp } from "@/lib/site";
 
 export const DEMO_HREF = "/contact?topic=demo";
 
@@ -108,7 +108,7 @@ export const STORY = {
     ["DokyDoc for software", "Check your code against its documents. Sign up yourself at dokydoc.com."],
     [
       "DokyDoc for orders, invoices, payments and stock",
-      "Running since 15 October 2026. We switch it on for each company.",
+      `Running since 15 October 2026. ${LEDGER.sentence}`,
     ],
     ...(DEMO_UP
       ? [["Our demo company", "A sample manufacturer with made-up records. Book a demo and we will show you."]]

@@ -4,10 +4,10 @@
  * own browser; it reaches us only if they send us a message.
  *
  * Every line here must be true today (see docs/CLAIMS_REGISTER.md). DokyDoc's checks on orders and invoices
- * is live inside DokyDoc, switched on by Deyora for each company; on a
+ * is live inside DokyDoc, switched on as `LEDGER` (lib/site.ts) says; on a
  * company's own records it is coming, and the copy says so (lib/story.ts).
  */
-import { DOKYDOC, productPage } from "@/lib/site";
+import { DOKYDOC, LEDGER, productPage } from "@/lib/site";
 import { DEMO_HREF } from "@/lib/story";
 
 
@@ -106,7 +106,7 @@ export const PERSONAS: Persona[] = [
     points: [
       ["Live", "DokyDoc runs at dokydoc.com with self-serve sign-up and a prepaid wallet."],
       ["Built carefully", "About 9,000 automated tests run before every release, and a release cannot ship if they fail."],
-      ["Live in DokyDoc", "Checks on orders, invoices and payments: in production since 15 October 2026, switched on by Deyora for each company, and shown today on our demo manufacturer."],
+      ["Live in DokyDoc", `Checks on orders, invoices and payments: in production since 15 October 2026, ${LEDGER.participle}, and shown today on our demo manufacturer.`],
     ],
     primary: { label: "Meet the founder", href: "/contact?topic=investor" },
     secondary: { label: "Read the vision", href: "/about#vision" },

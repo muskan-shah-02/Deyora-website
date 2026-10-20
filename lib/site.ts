@@ -18,6 +18,24 @@ const DOKYDOC_ORIGIN = "https://dokydoc.com";
  */
 export const DOKYDOC_HOME_LIVE: boolean = dokydocHome.live === true;
 
+/**
+ * Who switches on DokyDoc's checks on orders, invoices, payments and stock. Until v1.8's final push, Deyora switches
+ * them on for each company. From that push, on the founder's "ledger yes" of 20 Oct 2026, they are on for every company
+ * when it signs up. The website says so from the same day's website push, the one that sets lib/dokydoc-home.json to
+ * "live": true, so the wording follows that switch.
+ */
+export const LEDGER = DOKYDOC_HOME_LIVE
+  ? {
+      clause: "and it is switched on for every company when it signs up",
+      participle: "switched on for every company when it signs up",
+      sentence: "It is switched on for every company when it signs up.",
+    }
+  : {
+      clause: "and Deyora switches it on for each company",
+      participle: "switched on by Deyora for each company",
+      sentence: "We switch it on for each company.",
+    };
+
 /** Where this site sends people for the product: /dokydoc (with a section) until dokydoc.com's home page is live. */
 export function productPage(section?: string): string {
   if (DOKYDOC_HOME_LIVE) return DOKYDOC_ORIGIN;

@@ -7,7 +7,7 @@
  * this file like any page.
  */
 
-import { company, DOKYDOC_V2_RELEASE_DAY, untilDokyDocV2, whenDemoUp } from "@/lib/site";
+import { company, DOKYDOC_V2_RELEASE_DAY, LEDGER, untilDokyDocV2, whenDemoUp } from "@/lib/site";
 
 /**
  * Shown in /llms.txt. Change it whenever anything below changes. The lines marked with untilDokyDocV2 change on the
@@ -122,8 +122,8 @@ export const FAQ: { q: string; a: string }[] = [
   {
     q: "Does DokyDoc check orders, invoices and payments?",
     a: whenDemoUp(
-      "Yes, since 15 October 2026, and Deyora switches it on for each company. Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.",
-      "Yes, since 15 October 2026, and Deyora switches it on for each company. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.",
+      `Yes, since 15 October 2026, ${LEDGER.clause}. Today it runs on our demo manufacturer, Prathvel Engineering, with invented records, and we show it on request. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.`,
+      `Yes, since 15 October 2026, ${LEDGER.clause}. Reading your own company's ERP exports and documents into it is coming. It has no separate sign-up: it is part of DokyDoc. By design it prepares and recommends, and a person decides and acts.`,
     ),
   },
   {
