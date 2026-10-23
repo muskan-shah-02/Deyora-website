@@ -7,7 +7,7 @@ import { PersonAvatar } from "@/components/People";
 export const metadata = pageMeta({
   title: "About, vision and mission",
   description:
-    "Deyora Intelligence is an Indian company building intelligence for the people who run companies. Our vision, our mission, the founder, and the company behind DokyDoc.",
+    "Deyora Intelligence, an Indian company building intelligence for the people who run companies: our vision, mission and team, and the company behind DokyDoc.",
   path: "/about",
 });
 

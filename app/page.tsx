@@ -19,7 +19,7 @@ import { PersonAvatar } from "@/components/People";
  */
 export const metadata = pageMeta({
   description:
-    "Deyora Intelligence is building intelligence for the people who run companies, to help them see what is hidden in their own records. Our first product is DokyDoc.",
+    "Deyora Intelligence is building intelligence that shows the people who run companies what is hidden in their own records. Our first product: DokyDoc.",
   path: "/",
 });
 
