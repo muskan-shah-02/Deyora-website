@@ -4,7 +4,7 @@ import { MANIFESTO, MANIFESTO_SHOWN } from "@/lib/manifesto";
 import { pageMeta } from "@/lib/meta";
 import { Eyebrow, Section } from "@/components/ui";
 import { FounderAvatar } from "@/components/Founder";
-import { DolphinScene } from "@/components/Dolphin";
+import { WhaleScene } from "@/components/Whale";
 
 /**
  * a155: the manifesto, in the founder's voice (lib/manifesto.ts). A draft until the founder edits and signs it:
@@ -31,7 +31,7 @@ export default function Manifesto() {
             </h1>
           </div>
           <div className="pointer-events-none relative px-2 pb-8 sm:px-6">
-            <DolphinScene />
+            <WhaleScene />
           </div>
         </div>
       </section>

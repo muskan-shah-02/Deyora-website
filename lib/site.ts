@@ -62,6 +62,9 @@ export const DOKYDOC = {
   terms: `${DOKYDOC_ORIGIN}/terms`,
   privacy: `${DOKYDOC_ORIGIN}/privacy`,
   subprocessors: `${DOKYDOC_ORIGIN}/subprocessors`,
+  // dokydoc.com's own public pages (t155), linked from the footer once its home page is live.
+  questions: `${DOKYDOC_ORIGIN}/trust#questions`,
+  orderToCash: `${DOKYDOC_ORIGIN}/order-to-cash`,
 };
 
 /**

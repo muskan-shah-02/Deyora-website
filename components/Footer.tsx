@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { company, DOKYDOC, dokydocLink, productPage } from "@/lib/site";
+import { company, DOKYDOC, DOKYDOC_HOME_LIVE, dokydocLink, productPage } from "@/lib/site";
 import { CTA } from "@/lib/story";
 import { DeyoraMark } from "@/components/ui";
 import { ForgetMe } from "@/components/Visitor";
@@ -21,10 +21,19 @@ export default function Footer() {
         <FooterCol
           title="Products"
           links={[
-            { href: productPage(), label: "DokyDoc" },
-            { href: productPage("faq"), label: "DokyDoc: straight answers" },
-            { href: productPage("orders"), label: "DokyDoc for orders and invoices" },
-            { href: dokydocLink(DOKYDOC.home), label: "dokydoc.com", external: true },
+            // Once dokydoc.com's home page is live, each link goes to its own page there, not all to the home page.
+            ...(DOKYDOC_HOME_LIVE
+              ? [
+                  { href: dokydocLink(DOKYDOC.home), label: "DokyDoc", external: true },
+                  { href: DOKYDOC.questions, label: "DokyDoc: straight answers", external: true },
+                  { href: DOKYDOC.orderToCash, label: "DokyDoc for orders and invoices", external: true },
+                ]
+              : [
+                  { href: productPage(), label: "DokyDoc" },
+                  { href: productPage("faq"), label: "DokyDoc: straight answers" },
+                  { href: productPage("orders"), label: "DokyDoc for orders and invoices" },
+                  { href: dokydocLink(DOKYDOC.home), label: "dokydoc.com", external: true },
+                ]),
             { href: CTA.demo.href, label: CTA.demo.label },
             { href: DOKYDOC.security, label: "DokyDoc security", external: true },
           ]}
@@ -89,15 +98,15 @@ function FooterCol({ title, links }: { title: string; links: { href: string; lab
   return (
     <div>
       <h2 className="eyebrow !text-ink-400">{title}</h2>
-      <ul className="mt-4 space-y-2.5 text-[15px]">
+      <ul className="mt-3 space-y-1 text-[15px]">
         {links.map((l) => (
           <li key={l.href + l.label}>
             {l.external ? (
-              <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-ink-300 hover:text-white">
+              <a href={l.href} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 text-ink-300 hover:text-white">
                 {l.label} <span aria-hidden="true">↗</span>
               </a>
             ) : (
-              <Link href={l.href} className="text-ink-300 hover:text-white">
+              <Link href={l.href} className="inline-block py-1.5 text-ink-300 hover:text-white">
                 {l.label}
               </Link>
             )}

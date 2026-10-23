@@ -5,7 +5,7 @@ import { BRAND_LINE, HERO_LINES, HOME } from "@/lib/home";
 import { MANIFESTO, MANIFESTO_SHOWN } from "@/lib/manifesto";
 import { pageMeta } from "@/lib/meta";
 import { Eyebrow, Section } from "@/components/ui";
-import { DolphinScene, DolphinSceneCompact } from "@/components/Dolphin";
+import { WhaleScene, WhaleSceneCompact } from "@/components/Whale";
 import DokyDocPreview from "@/components/DokyDocPreview";
 import DokyDocLink from "@/components/DokyDocLink";
 import Conversation from "@/components/Conversation";
@@ -13,7 +13,7 @@ import { FounderAvatar, FounderLinks } from "@/components/Founder";
 import { PersonAvatar } from "@/components/People";
 
 /**
- * a153: the company's home page. Deyora's vision first, with the dolphin; then our first product, DokyDoc, as one
+ * a153: the company's home page. Deyora's vision first, with the whale; then our first product, DokyDoc, as one
  * card that sends people to dokydoc.com; then what we believe, the team and how to reach us. The product's detail
  * (manufacturing included) is at dokydoc.com, and /dokydoc here until dokydoc.com's home page is live.
  */
@@ -26,7 +26,7 @@ export const metadata = pageMeta({
 export default function Home() {
   return (
     <>
-      {/* ── Vision, with the dolphin ─────────────────────────── */}
+      {/* ── Vision, with the whale ─────────────────────────── */}
       <section aria-labelledby="hero-title" className="px-3 pt-4 sm:px-5">
         <div className="on-dark relative mx-auto max-w-[1360px] overflow-hidden rounded-[28px] bg-ink-950 text-ink-200 sm:rounded-[36px]">
           <div
@@ -36,7 +36,7 @@ export default function Home() {
           />
           <div aria-hidden="true" className="grain absolute inset-0 opacity-50" />
           <div className="relative z-10 mx-auto max-w-[880px] px-5 pt-6 text-center sm:px-10 sm:pt-16">
-            <DolphinSceneCompact />
+            <WhaleSceneCompact />
             <p className="mt-2 inline-flex sm:mt-0 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-[13px] text-ink-200">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-soft" />
               {HOME.pill}
@@ -61,7 +61,7 @@ export default function Home() {
             </div>
           </div>
           <div className="pointer-events-none relative px-2 pb-10 sm:-mt-4 sm:px-6 sm:pb-8">
-            <DolphinScene />
+            <WhaleScene />
           </div>
         </div>
       </section>

@@ -38,7 +38,7 @@ building", never as something done; the only product named is DokyDoc.
 | Option 2: "We are building intelligence for the people who run companies." | The About page's headline (`app/about/page.tsx`), approved wording |
 | Option 3: "We are building intelligence that shows the people in charge what needs attention." | The mission, shortened (`deyora.mission`: "…shows what needs attention, and prepares the next step, so the people in charge spend their time deciding, not chasing") |
 | "We are building intelligence that helps the people who run companies see what is hidden in their own records. It prepares. You decide." | An aim ("we are building"); "It prepares. You decide." is `deyora.promise` |
-| The dolphin: a drawing of this site's own, no claim | `components/Dolphin.tsx` |
+| The whale: a drawing of this site's own, no claim | `components/Whale.tsx` |
 | "Our first product: DokyDoc" and its line (orders, invoices, payments and stock against each other, and code against its documents; only what doesn't match, with the record behind each one; you decide) | DokyDoc is live at dokydoc.com; the line is the story's (`STORY.line`, rows below) with documents against code (DokyDoc (Live), below) |
 | "Visit dokydoc.com" goes to https://dokydoc.com | The founder, 16 Oct 2026: every link to the product goes to its home page |
 | "A person decides": what we build prepares the work and shows its reasons; the decision stays with a person on your side | `deyora.promise`; DokyDoc's sign-off by a named person (DokyDoc (Live), below) |

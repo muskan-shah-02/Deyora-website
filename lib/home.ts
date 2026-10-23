@@ -6,7 +6,7 @@
  */
 import { deyora } from "@/lib/site";
 
-/** a155: the brand line, the home page's headline, with the dolphin. */
+/** a155: the brand line, the home page's headline, with the whale. */
 export const BRAND_LINE = "See what's hidden.";
 
 /**
@@ -21,8 +21,8 @@ export const HERO_LINES = {
 
 export const HOME = {
   /** The drawing's description for a screen reader. */
-  dolphin:
-    "A drawing: a dolphin sends out pulses of sound that ripple through dark water, and as each pulse passes, hidden shapes light up: a document, a box, a coin and a calendar.",
+  whale:
+    "A drawing: a whale sends out pulses of sound that ripple through dark water, and as each pulse passes, hidden shapes light up: a document, a box, a coin and a calendar.",
   pill: "Deyora Intelligence",
   toProduct: "Our first product",
   product: {
